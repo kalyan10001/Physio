@@ -1,0 +1,23 @@
+[
+  {
+      "id": 1,
+      "name": "Alice Johnson",
+      "review": "Overall experience was good ...staff is very cooperative and helpful...The physiotherapy treatment is very good...higly recommended",
+      "rating": 5,
+      "image": "https://via.placeholder.com/60"
+    },
+    {
+      "id": 2,
+      "name": "Bob Smith",
+      "review": "Amazing experience, and the team is very supportive!",
+      "rating": 2,
+      "image": "https://via.placeholder.com/60"
+    },
+    {
+      "id": 3,
+      "name": "Carol Lee",
+      "review": "The benefits are unbelievable. I’m very happy.",
+      "rating": 3,
+      "image": "https://via.placeholder.com/60"
+    }
+]
