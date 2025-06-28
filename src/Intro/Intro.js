@@ -8,7 +8,7 @@ export default function Intro (){
 
     useEffect(()=>{
         setTimeout(() => {
-            navigation.navigate('Login')
+            navigation.navigate('Auth')
         },3000);
     })
   return (

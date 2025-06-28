@@ -20,6 +20,11 @@ import HomeNav from './Home/HomeNav.js';
 import BookingDoneScreen from './Booking/BookingDoneScreen.js';
 import BookingFailScreen from './Booking/BookingFailScreen.js';
 import VideoCall from './VideoCall/VideoCall.js';
+import Auth from './Intro/Auth.js';
+import SignUp from './Signup/Signup.js';
+import PhoneOtp from './Signup/PhoneOtp.js';
+import EmailOtp from './Signup/EmailOtp.js';
+import VerifyOtp from './Signup/VerifyOtp.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -28,7 +33,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Intro">
-        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        {/* <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Signup" component={SignUpScreen} options={{ headerShown: false }} />
         <Stack.Screen name="SignupDetails" component={SignUpDetails} options={{ headerShown: false }} />
         <Stack.Screen name="Intro" component={Intro} options={{ headerShown: false }} />
@@ -46,7 +51,15 @@ export default function App() {
         <Stack.Screen name="HomeNav" component={HomeNav} options={{ headerShown: false }} />
         <Stack.Screen name="BookingDone" component={BookingDoneScreen} options={{ headerShown: false }} />
         <Stack.Screen name="BookingFail" component={BookingFailScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="VideoCall" component={VideoCall} options={{ headerShown: false }} />
+        <Stack.Screen name="VideoCall" component={VideoCall} options={{ headerShown: false }} /> */}
+
+        <Stack.Screen name="Intro" component={Intro} options={{ headerShown: false }} />
+        <Stack.Screen name="Auth" component={Auth} options={{ headerShown: false }} />        
+        <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />        
+        <Stack.Screen name="EmailOtp" component={EmailOtp} options={{ headerShown: false }} />
+        <Stack.Screen name="PhoneOtp" component={PhoneOtp} options={{ headerShown: false }} />
+        <Stack.Screen name="VerifyOtp" component={VerifyOtp} options={{ headerShown: false }} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

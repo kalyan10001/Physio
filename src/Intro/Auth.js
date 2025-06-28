@@ -13,7 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width } = Dimensions.get('window');
 
-export default function SignUp() {
+export default function Auth() {
   const navigation = useNavigation();
 
   return (
@@ -41,14 +41,14 @@ export default function SignUp() {
         />
 
         {/* Buttons */}
-        <TouchableOpacity style={styles.signInBtnOutline} onPress={()=>navigation.navigate('PhoneOtp')}>
-          <Text style={styles.signInText}>Continue With Phone</Text>
+        <TouchableOpacity style={styles.signInBtnOutline}>
+          <Text style={styles.signInText}>Sign In</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.signUpBtnFilled}
-          onPress={() => navigation.navigate('EmailOtp')}>
-          <Text style={styles.signUpText}>Continue With Email</Text>
+          onPress={() => navigation.navigate('SignUp')}>
+          <Text style={styles.signUpText}>Sign Up</Text>
         </TouchableOpacity>
 
         {/* Footer Text */}
