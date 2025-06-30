@@ -25,6 +25,7 @@ import SignUp from './Signup/Signup.js';
 import PhoneOtp from './Signup/PhoneOtp.js';
 import EmailOtp from './Signup/EmailOtp.js';
 import VerifyOtp from './Signup/VerifyOtp.js';
+import Services from './Services/Services.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -32,7 +33,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Intro">
+      <Stack.Navigator initialRouteName="Services">
         {/* <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Signup" component={SignUpScreen} options={{ headerShown: false }} />
         <Stack.Screen name="SignupDetails" component={SignUpDetails} options={{ headerShown: false }} />
@@ -59,6 +60,7 @@ export default function App() {
         <Stack.Screen name="EmailOtp" component={EmailOtp} options={{ headerShown: false }} />
         <Stack.Screen name="PhoneOtp" component={PhoneOtp} options={{ headerShown: false }} />
         <Stack.Screen name="VerifyOtp" component={VerifyOtp} options={{ headerShown: false }} />
+        <Stack.Screen name="Services" component={Services} options={{ headerShown: false }} />
 
       </Stack.Navigator>
     </NavigationContainer>
