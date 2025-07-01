@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
   View,
@@ -59,6 +60,7 @@ const TimeSlots = () => {
   };
 
   const timeSlots = timeSlotData[selectedDate];
+  const navigation=useNavigation();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -66,7 +68,7 @@ const TimeSlots = () => {
 
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity style={styles.backButton}>
+          <TouchableOpacity style={styles.backButton} onPress={()=>navigation.goBack()}>
             <Ionicons name="arrow-back" size={22} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerText}>Dr Sreemoyee Maitra</Text>
@@ -125,7 +127,7 @@ const TimeSlots = () => {
       </ScrollView>
 
       {/* Continue Button */}
-      <TouchableOpacity style={styles.continueBtn}>
+      <TouchableOpacity style={styles.continueBtn} onPress={()=>navigation.navigate('Booking')}>
         <Text style={styles.continueText}>Select & Continue @ ₹900</Text>
       </TouchableOpacity>
     </SafeAreaView>

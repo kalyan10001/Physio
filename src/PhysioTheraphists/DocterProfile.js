@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -6,8 +6,17 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
+  Animated,
+  FlatList,
+  Dimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+const { width } = Dimensions.get('window');
+const ITEM_WIDTH = width * 0.75;
+const SPACING = 10;
 
 const doctor = {
   name: "Dr. Sreemoyee Maitra",
@@ -31,16 +40,57 @@ const doctor = {
 const tabLabels = ["Clinic Visit", "Video Consult", "Home Consult"];
 const categories = ["Skin Disease Treatment", "Psoriasis", "Hair Loss"];
 
+const testimonials = {
+  "Skin Disease Treatment": [
+    {
+      text: "It is a long established fact that a reader will be distracted by the readable content...",
+      author: "Sramantika Sen",
+      date: "Kolkata - 8th March, 2025 - Verified",
+      image: require('../assets/images/services/doc1.png'),
+    },
+    {
+      text: "Doctor helped me recover quickly. Highly recommended.",
+      author: "Rahul Das",
+      date: "Hyderabad - 2nd Feb, 2025 - Verified",
+      image: require('../assets/images/services/doc2.png'),
+    },
+  ],
+  Psoriasis: [
+    {
+      text: "Very good treatment. I had relief in 2 weeks.",
+      author: "Anjali Singh",
+      date: "Delhi - 5th Jan, 2025 - Verified",
+      image: require('../assets/images/services/doc3.png'),
+    },
+  ],
+  "Hair Loss": [
+    {
+      text: "My hair fall reduced after the consultation. Great results!",
+      author: "Rohit Sharma",
+      date: "Mumbai - 14th Feb, 2025 - Verified",
+      image: require('../assets/images/services/doc1.png'),
+    },
+  ],
+};
+
 export default function DoctorProfile() {
   const [activeTab, setActiveTab] = useState("Clinic Visit");
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const scrollX = useRef(new Animated.Value(0)).current;
+  const navigation = useNavigation();
+
+  const data = testimonials[selectedCategory];
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Image
-          source={require('../assets/images/services/team.jpg')}
-          style={styles.coverImage}
-        />
+        <View style={styles.backBtnWrapper}>
+          <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={22} color="#000" />
+          </TouchableOpacity>
+        </View>
+
+        <Image source={require('../assets/images/services/team.jpg')} style={styles.coverImage} />
 
         <View style={styles.profileImageContainer}>
           <Image source={doctor.profilePic} style={styles.profileImage} />
@@ -57,27 +107,23 @@ export default function DoctorProfile() {
         </View>
 
         <View style={styles.body}>
-          <TouchableOpacity style={styles.viewProfileBtn}>
+          <TouchableOpacity
+            style={styles.viewProfileBtn}
+            onPress={() => navigation.navigate()}
+          >
             <Text style={styles.viewProfileText}>View Profile</Text>
           </TouchableOpacity>
 
-          {/* Combined Box with Tabs and Slots */}
           <View style={styles.consultBox}>
             <View style={styles.tabContainer}>
               {tabLabels.map((label) => (
                 <TouchableOpacity
                   key={label}
                   onPress={() => setActiveTab(label)}
-                  style={[
-                    styles.tabBtn,
-                    activeTab === label && styles.activeTab,
-                  ]}
+                  style={[styles.tabBtn, activeTab === label && styles.activeTab]}
                 >
                   <Text
-                    style={[
-                      styles.tabText,
-                      activeTab === label && styles.activeTabText,
-                    ]}
+                    style={[styles.tabText, activeTab === label && styles.activeTabText]}
                   >
                     {label}
                   </Text>
@@ -87,20 +133,16 @@ export default function DoctorProfile() {
 
             <View style={styles.feeSection}>
               <View style={styles.feeRow}>
-                <Text style={styles.consultationText}>
-                  {activeTab} Consultation
-                </Text>
+                <Text style={styles.consultationText}>{activeTab} Consultation</Text>
                 <Text style={styles.feesText}>₹{doctor.fees} / Visit</Text>
               </View>
               <Text style={styles.followupText}>7 Days Free Follow-up</Text>
 
               <View style={styles.slotRow}>
                 {doctor.slots[activeTab].map((time, index) => (
-                  <Text key={index} style={styles.slot}>
-                    {time}
-                  </Text>
+                  <Text key={index} style={styles.slot}>{time}</Text>
                 ))}
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('TimeSlots')}>
                   <Text style={styles.viewAll}>View all</Text>
                 </TouchableOpacity>
               </View>
@@ -109,7 +151,6 @@ export default function DoctorProfile() {
 
           <Text style={styles.slotNote}>{doctor.slotNote}</Text>
 
-          {/* Patient Stories */}
           <Text style={styles.sectionTitle}>Patients Stories</Text>
           <View style={styles.recommendBox}>
             <Text style={styles.recommendText}>
@@ -117,32 +158,80 @@ export default function DoctorProfile() {
             </Text>
           </View>
 
-          {/* Categories */}
           <View style={styles.chipContainer}>
             {categories.map((cat, index) => (
-              <Text key={index} style={styles.chip}>
-                {cat}
-              </Text>
+              <TouchableOpacity key={index} onPress={() => setSelectedCategory(cat)}>
+                <Text
+                  style={[styles.chip, selectedCategory === cat && {
+                    backgroundColor: '#007bff',
+                    color: '#ffffff',
+                  }]}
+                >
+                  {cat}
+                </Text>
+              </TouchableOpacity>
             ))}
           </View>
 
-          {/* Reviews */}
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.reviewScroll}>
-            {[1, 2, 3].map((_, index) => (
-              <View key={index} style={styles.reviewCard}>
-                <Text style={styles.reviewText}>
-                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout...
-                </Text>
-                <Text style={styles.reviewFooter}>Smartkart | 12th Sep, 2021</Text>
-              </View>
-            ))}
-          </ScrollView>
+          <Animated.FlatList
+            data={data}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            snapToInterval={ITEM_WIDTH + SPACING * 2}
+            decelerationRate="fast"
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+              { useNativeDriver: true }
+            )}
+            contentContainerStyle={{
+              paddingHorizontal: (width - ITEM_WIDTH) / 2,
+            }}
+            keyExtractor={(_, index) => `${selectedCategory}-${index}`}
+            renderItem={({ item, index }) => {
+              const inputRange = [
+                (index - 1) * (ITEM_WIDTH + SPACING * 2),
+                index * (ITEM_WIDTH + SPACING * 2),
+                (index + 1) * (ITEM_WIDTH + SPACING * 2),
+              ];
 
-          {/* About */}
+              const scale = scrollX.interpolate({
+                inputRange,
+                outputRange: [0.8, 1, 0.8],
+                extrapolate: 'clamp',
+              });
+
+              const rotateY = scrollX.interpolate({
+                inputRange,
+                outputRange: ['20deg', '0deg', '-20deg'],
+                extrapolate: 'clamp',
+              });
+
+              const opacity = scrollX.interpolate({
+                inputRange,
+                outputRange: [0.4, 1, 0.4],
+                extrapolate: 'clamp',
+              });
+
+              return (
+                <Animated.View
+                  style={[styles.reviewCardSlide, { transform: [{ scale }, { rotateY }], opacity }]}
+                >
+                  <Image source={item.image} style={styles.reviewImage} />
+                  <Text style={styles.reviewSlideText}>{item.text}</Text>
+                  <Text style={styles.reviewSlideAuthor}>{item.author}</Text>
+                  <Text style={styles.reviewSlideDate}>{item.date}</Text>
+                </Animated.View>
+              );
+            }}
+          />
+
           <Text style={styles.about}>{doctor.about}</Text>
 
-          {/* Consult Now Button */}
-          <TouchableOpacity style={styles.consultBtn}>
+          <TouchableOpacity
+            style={styles.consultBtn}
+            onPress={() => navigation.navigate('Booking')}
+          >
             <Text style={styles.consultText}>Consult Now @ ₹{doctor.fees}</Text>
           </TouchableOpacity>
         </View>
@@ -153,6 +242,18 @@ export default function DoctorProfile() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#ffffff' },
+  backBtnWrapper: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    zIndex: 99,
+  },
+  backButton: {
+    backgroundColor: '#ffffff',
+    padding: 8,
+    borderRadius: 20,
+    elevation: 4,
+  },
   coverImage: {
     width: '100%',
     height: 200,
@@ -243,7 +344,6 @@ const styles = StyleSheet.create({
   activeTabText: {
     color: '#ffffff',
   },
-  feeSection: {},
   feeRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -307,32 +407,46 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 10,
     marginTop: 12,
+    alignItems: 'center',
   },
   chip: {
     backgroundColor: '#eeeeee',
     fontSize: 12,
+    height: 40,
     paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingVertical: 10,
     borderRadius: 20,
+    color: '#000',
   },
-  reviewScroll: {
-    marginTop: 16,
+  reviewCardSlide: {
+    width: ITEM_WIDTH,
+    backgroundColor: '#007bff',
+    borderRadius: 16,
+    padding: 20,
+    marginTop: 20,
+    height: 300,
+    alignItems: 'center',
   },
-  reviewCard: {
-    width: 240,
-    backgroundColor: '#00aaff',
-    padding: 16,
-    borderRadius: 12,
-    marginRight: 12,
+  reviewImage: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    marginBottom: 12,
   },
-  reviewText: {
+  reviewSlideText: {
+    fontSize: 14,
+    color: '#fff',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  reviewSlideAuthor: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  reviewSlideDate: {
     fontSize: 12,
-    color: 'white',
-  },
-  reviewFooter: {
-    fontSize: 10,
-    color: 'white',
-    marginTop: 10,
+    color: '#e0f0ff',
   },
   about: {
     fontSize: 12,

@@ -11,116 +11,115 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
-const BookingConfirmation = () => (
-  <SafeAreaView style={styles.container}>
-    <ScrollView contentContainerStyle={styles.content}>
+const BookingConfirmation = () => {
+  const navigation = useNavigation();
 
-      {/* Header with Image Background, Tick, and Text */}
-      <View style={styles.imageHeaderBox}>
-        <Image
-          source={require('../assets/images/services/doc1.png')}
-          style={styles.headerImage}
-        />
-        <View style={styles.headerOverlay}>
-          <Text style={styles.greenTick}>✅</Text>
-          <Text style={styles.greenHeaderText}>You have successfully booked your appointment</Text>
-        </View>
-        <TouchableOpacity style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color="#fff" />
-        </TouchableOpacity>
-      </View>
-
-      {/* Download Appointment Card */}
-      <LinearGradient
-        colors={['rgba(9, 93, 126, 1)', 'rgba(48, 195, 234, 1)']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={styles.downloadCardBox}
-      >
-        <View style={styles.downloadLeft}>
-          <Text style={styles.downloadTitle}>Download Appointment Card</Text>
-          <Text style={styles.downloadNote}>This card is needed on appointment day</Text>
-        </View>
-        <TouchableOpacity style={styles.downloadButton}>
-          <Text style={styles.downloadButtonText}>Download</Text>
-        </TouchableOpacity>
-      </LinearGradient>
-
-      {/* Appointment Details */}
-      <View style={styles.detailBox}>
-        <Text style={styles.sectionTitle}>Appointment Details</Text>
-        {[['Date', '25th March, 2025'],
-          ['Time', '05:30 PM'],
-          ['Doctor Name', 'Dr. Sreemoyee Maitra (PT)'],
-          ['Destination', 'Clinic'],
-          ['Booking Status', 'Confirmed'],
-          ['Booking ID', 'AHA7685'],
-        ].map(([label, value], i) => (
-          <View key={i} style={styles.detailRow}>
-            <Text style={styles.label}>{label}</Text>
-            <Text style={styles.value}>{value}</Text>
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.content}>
+        <View style={styles.imageHeaderBox}>
+          <Image
+            source={require('../assets/images/services/doc1.png')}
+            style={styles.headerImage}
+          />
+          <View style={styles.headerOverlay}>
+            <Text style={styles.greenTick}>✅</Text>
+            <Text style={styles.greenHeaderText}>You have successfully booked your appointment</Text>
           </View>
-        ))}
-        <View style={styles.separator} />
-        <View style={styles.detailRow}>
-          <Text style={styles.label}>Fees</Text>
-          <Text style={[styles.value, styles.fees]}>₹700.00</Text>
+          <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={24} color="#fff" />
+          </TouchableOpacity>
         </View>
-      </View>
 
-      {/* Note with OTP Info */}
-      <View style={styles.noteBox}>
-        <View style={styles.iconWrapper}>
-          <View style={styles.iconCircle}>
-            <Ionicons name="mail" size={22} color="#fff" />
+        <LinearGradient
+          colors={['rgba(9, 93, 126, 1)', 'rgba(48, 195, 234, 1)']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.downloadCardBox}
+        >
+          <View style={styles.downloadLeft}>
+            <Text style={styles.downloadTitle}>Download Appointment Card</Text>
+            <Text style={styles.downloadNote}>This card is needed on appointment day</Text>
+          </View>
+          <TouchableOpacity style={styles.downloadButton}>
+            <Text style={styles.downloadButtonText}>Download</Text>
+          </TouchableOpacity>
+        </LinearGradient>
+
+        <View style={styles.detailBox}>
+          <Text style={styles.sectionTitle}>Appointment Details</Text>
+          {[['Date', '25th March, 2025'],
+            ['Time', '05:30 PM'],
+            ['Doctor Name', 'Dr. Sreemoyee Maitra (PT)'],
+            ['Destination', 'Clinic'],
+            ['Booking Status', 'Confirmed'],
+            ['Booking ID', 'AHA7685'],
+          ].map(([label, value], i) => (
+            <View key={i} style={styles.detailRow}>
+              <Text style={styles.label}>{label}</Text>
+              <Text style={styles.value}>{value}</Text>
+            </View>
+          ))}
+          <View style={styles.separator} />
+          <View style={styles.detailRow}>
+            <Text style={styles.label}>Fees</Text>
+            <Text style={[styles.value, styles.fees]}>₹700.00</Text>
           </View>
         </View>
-        <View style={styles.noteContent}>
-          <Text style={styles.noteText}>
-            Dear <Text style={styles.boldText}>[Patient’s Name]</Text>, your appointment with{' '}
-            <Text style={styles.boldText}>Dr. Sreemoyee Maitra</Text> has been successfully booked on{' '}
-            <Text style={styles.boldText}>25th March 2025 at 05:30 PM</Text>.
-            {'\n\n'}An OTP will be sent 10 minutes before your scheduled appointment.
-            {'\n'}Please arrive <Text style={styles.boldText}>10 minutes early</Text> for smooth check-in.
-            {'\n'}Thank you!
-          </Text>
+
+        <View style={styles.noteBox}>
+          <View style={styles.iconWrapper}>
+            <View style={styles.iconCircle}>
+              <Ionicons name="mail" size={22} color="#fff" />
+            </View>
+          </View>
+          <View style={styles.noteContent}>
+            <Text style={styles.noteText}>
+              Dear <Text style={styles.boldText}>[Patient’s Name]</Text>, your appointment with{' '}
+              <Text style={styles.boldText}>Dr. Sreemoyee Maitra</Text> has been successfully booked on{' '}
+              <Text style={styles.boldText}>25th March 2025 at 05:30 PM</Text>.
+              {'\n\n'}An OTP will be sent 10 minutes before your scheduled appointment.
+              {'\n'}Please arrive <Text style={styles.boldText}>10 minutes early</Text> for smooth check-in.
+              {'\n'}Thank you!
+            </Text>
+          </View>
         </View>
-      </View>
 
-      {/* Terms & Conditions */}
-      <View style={styles.termsBox}>
-        <Text style={styles.sectionTitle}>Terms & Conditions - Appointment Booking</Text>
-        {[ 
-          '1. Appointment Timings: Please arrive at least 10 minutes before your scheduled time.',
-          '2. Rescheduling/Cancellation: Minimum 24 hours in advance. Late cancellations may incur fees.',
-          '3. Late Arrival: If you’re more than 15 mins late, your appointment may be rescheduled.',
-          '4. Video Calls: All info and treatment suggestions will be online. Charges may apply.',
-          '5. Follow-Up Policy: 7 days free follow-up if needed.',
-          '6. Medical Records: Carry all relevant previous records or prescriptions.',
-          '7. Emergency Cases: Visit nearby hospitals or emergency centers directly.'
-        ].map((item, index) => (
-          <Text key={index} style={styles.termsText}><Text style={styles.bold}>{item.split(':')[0]}:</Text>{item.split(':')[1]}</Text>
-        ))}
-      </View>
+        <View style={styles.termsBox}>
+          <Text style={styles.sectionTitle}>Terms & Conditions - Appointment Booking</Text>
+          {[
+            '1. Appointment Timings: Please arrive at least 10 minutes before your scheduled time.',
+            '2. Rescheduling/Cancellation: Minimum 24 hours in advance. Late cancellations may incur fees.',
+            '3. Late Arrival: If you’re more than 15 mins late, your appointment may be rescheduled.',
+            '4. Video Calls: All info and treatment suggestions will be online. Charges may apply.',
+            '5. Follow-Up Policy: 7 days free follow-up if needed.',
+            '6. Medical Records: Carry all relevant previous records or prescriptions.',
+            '7. Emergency Cases: Visit nearby hospitals or emergency centers directly.',
+          ].map((item, index) => (
+            <Text key={index} style={styles.termsText}>
+              <Text style={styles.bold}>{item.split(':')[0]}:</Text>
+              {item.split(':')[1]}
+            </Text>
+          ))}
+        </View>
 
-      {/* Back to Home Button */}
-      <TouchableOpacity style={styles.homeButton}>
-        <Text style={styles.homeButtonText}>Back to Home</Text>
-      </TouchableOpacity>
-
-    </ScrollView>
-  </SafeAreaView>
-);
+        <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.homeButtonText}>Back to Home</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
 export default BookingConfirmation;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f7f9fb' },
   content: { padding: 16, paddingBottom: 32 },
-
   imageHeaderBox: {
     width: '100%',
     height: 180,
@@ -161,7 +160,6 @@ const styles = StyleSheet.create({
     padding: 6,
     borderRadius: 20,
   },
-
   downloadCardBox: {
     flexDirection: 'row',
     padding: 14,
@@ -186,7 +184,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 13,
   },
-
   detailBox: {
     backgroundColor: '#fff',
     padding: 16,
@@ -214,7 +211,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
     marginVertical: 10,
   },
-
   noteBox: {
     backgroundColor: '#fff',
     padding: 14,
@@ -254,7 +250,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#000',
   },
-
   termsBox: {
     backgroundColor: '#fff',
     borderRadius: 10,
@@ -273,7 +268,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#222',
   },
-
   homeButton: {
     backgroundColor: 'rgba(9, 93, 126, 1)',
     paddingVertical: 14,

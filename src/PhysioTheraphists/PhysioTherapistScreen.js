@@ -12,6 +12,7 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 
 const doctors = [
   {
@@ -70,7 +71,9 @@ const DoctorCard = ({ doctor }) => {
       <View style={styles.cardHeader}>
         <Image source={doctor.image} style={styles.profileImage} />
         <View style={{ flex: 1 }}>
-          <Text style={styles.name}>{doctor.name} <Text style={styles.pt}>(PT)</Text></Text>
+          <Text style={styles.name}>
+            {doctor.name} <Text style={styles.pt}>(PT)</Text>
+          </Text>
           <Text style={styles.specialty}>Neuro Physiotherapist</Text>
           <Text style={styles.experience}>{doctor.experience}</Text>
         </View>
@@ -102,15 +105,25 @@ const DoctorCard = ({ doctor }) => {
 };
 
 const PhysiotherapistScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#fff" barStyle="dark-content" />
-
+      
+      {/* Header with Image and Back Button */}
       <View style={styles.headerImageContainer}>
         <Image
           source={require('../assets/images/services/team.jpg')}
           style={styles.headerImage}
         />
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="arrow-back" size={24} color="#000" />
+        </TouchableOpacity>
+
         <View style={styles.searchBar}>
           <TextInput
             placeholder="Search for Physiotherapist"
@@ -160,11 +173,22 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     overflow: 'hidden',
     backgroundColor: '#ddd',
+    position: 'relative',
   },
   headerImage: {
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    zIndex: 10,
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    padding: 6,
+    elevation: 4,
   },
   searchBar: {
     position: 'absolute',
@@ -197,7 +221,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 8,
-    borderWidth:0.3,
+    borderWidth: 0.3,
     alignItems: 'center',
   },
   filterText: {
@@ -238,7 +262,7 @@ const styles = StyleSheet.create({
   },
   experience: {
     fontSize: 12,
-    fontWeight:'400',
+    fontWeight: '400',
     color: '#666',
   },
   ratingBox: {

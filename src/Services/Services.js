@@ -1,10 +1,20 @@
 import React from 'react';
-import { View, Text, TextInput, ImageBackground, ScrollView, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  Image,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
@@ -25,14 +35,24 @@ const specialties = [
 ];
 
 export default function Services() {
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.container}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 100 }}
+      >
         <ImageBackground
           source={require('../assets/images/services/team.jpg')}
           style={styles.headerImage}
           imageStyle={{ borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }}
         >
+          <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={22} color="#000" />
+          </TouchableOpacity>
+
           <TextInput
             style={styles.searchBarOverlay}
             placeholder="Search for Physiotherapist"
@@ -47,10 +67,10 @@ export default function Services() {
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.doctorScroll}>
           {doctors.map((doc, index) => (
-            <View key={index} style={styles.doctorItem}>
+            <TouchableOpacity key={index} style={styles.doctorItem} onPress={() => {navigation.navigate('DocterProfile')}}>
               <Image source={doc.image} style={styles.doctorImage} />
               <Text style={styles.doctorName}>{doc.name}</Text>
-            </View>
+            </TouchableOpacity>
           ))}
         </ScrollView>
 
@@ -65,16 +85,14 @@ export default function Services() {
         </View>
 
         {specialties.map((item, index) => (
-          <View key={index} style={styles.specialityCard}>
+          <TouchableOpacity key={index} style={styles.specialityCard} onPress={() => {navigation.navigate('PhysioTherapist')}}>
             <Image source={item.image} style={styles.specialityImage} />
             <View style={styles.specialityInfo}>
               <Text style={styles.specialityTitle}>{item.title}</Text>
               <Text style={styles.specialityDesc}>{item.desc}</Text>
             </View>
-            <TouchableOpacity style={styles.arrowBtn}>
-              <MaterialIcons name="keyboard-arrow-right" size={24} color="#007bff" />
-            </TouchableOpacity>
-          </View>
+            <MaterialIcons name="keyboard-arrow-right" size={24} color="#007bff" style={styles.arrowBtn} />
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </SafeAreaView>
@@ -93,6 +111,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingBottom: 20
   },
+  backButton: {
+    position: 'absolute',
+    top: 15,
+    left: 15,
+    backgroundColor: '#ffffffcc',
+    padding: 6,
+    borderRadius: 20,
+    zIndex: 2
+  },
   searchBarOverlay: {
     backgroundColor: '#fff',
     borderRadius: 12,
@@ -110,14 +137,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 16,
     marginTop: 20,
-    marginBottom:0
+    marginBottom: 0
   },
   iconTextRow2: {
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 16,
     marginTop: 20,
-    marginBottom:20
+    marginBottom: 20
   },
   sectionIcon: {
     marginRight: 8
@@ -156,7 +183,7 @@ const styles = StyleSheet.create({
   },
   otherSpecialities: {
     fontSize: 20,
-    fontWeight: '600',
+    fontWeight: '600'
   },
   specialityCard: {
     flexDirection: 'row',
@@ -164,8 +191,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginHorizontal: 16,
     marginBottom: 16,
-    borderColor:'black',
-    borderWidth:0.2,
+    borderColor: 'black',
+    borderWidth: 0.2,
     overflow: 'hidden',
     alignItems: 'center'
   },
