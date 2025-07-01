@@ -5,8 +5,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView,
+  Dimensions,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+const { width } = Dimensions.get('window');
 
 const TimeSlots = () => {
   const [selectedDate, setSelectedDate] = useState('25');
@@ -21,7 +25,6 @@ const TimeSlots = () => {
     { day: 'FRI', date: '28', month: 'JUN' },
   ];
 
-  // Different time slots for each date
   const timeSlotData = {
     '23': {
       Morning: ['08:30 AM', '09:00 AM'],
@@ -63,20 +66,20 @@ const TimeSlots = () => {
 
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity style={styles.backBtn}>
-            <Text style={styles.backArrow}>←</Text>
+          <TouchableOpacity style={styles.backButton}>
+            <Ionicons name="arrow-back" size={22} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerText}>Dr Sreemoyee Maitra</Text>
         </View>
 
         {/* Date Tabs */}
-        <View style={styles.dateTabs}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.dateTabs}>
           {dates.map((d, index) => (
             <TouchableOpacity
               key={index}
               onPress={() => {
                 setSelectedDate(d.date);
-                setSelectedTime(null); // reset selected time
+                setSelectedTime(null);
               }}
               style={[
                 styles.dateBox,
@@ -88,9 +91,9 @@ const TimeSlots = () => {
               <Text style={[styles.month, selectedDate === d.date && styles.activeText]}>{d.month}</Text>
             </TouchableOpacity>
           ))}
-        </View>
+        </ScrollView>
 
-        {/* Slots Container */}
+        {/* Time Slots */}
         <View style={styles.slotContainer}>
           {Object.entries(timeSlots).map(([period, slots]) => (
             <View key={period} style={styles.periodBlock}>
@@ -102,13 +105,13 @@ const TimeSlots = () => {
                     onPress={() => setSelectedTime(slot)}
                     style={[
                       styles.timeSlot,
-                      selectedTime === slot ? styles.activeSlot : {},
+                      selectedTime === slot && styles.activeSlot,
                     ]}
                   >
                     <Text
                       style={[
                         styles.slotText,
-                        selectedTime === slot ? styles.activeSlotText : {},
+                        selectedTime === slot && styles.activeSlotText,
                       ]}
                     >
                       {slot}
@@ -145,44 +148,44 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 10,
   },
-  backBtn: {
-    marginRight: 10,
-  },
-  backArrow: {
-    fontSize: 22,
+  backButton: {
+    marginRight: 12,
+    backgroundColor: '#f0f0f0',
+    padding: 8,
+    borderRadius: 25,
   },
   headerText: {
-    fontSize: 17,
-    fontWeight: '600',
+    fontSize: 18,
+    fontWeight: '700',
   },
 
   dateTabs: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     marginBottom: 20,
   },
   dateBox: {
     alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 10,
-    borderRadius: 6,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    borderRadius: 14,
+    backgroundColor: '#f2f2f2',
+    marginRight: 10,
+    width: 90,
   },
   activeDateBox: {
     backgroundColor: '#007aff',
-    borderRadius: 6,
   },
   day: {
-    fontSize: 11,
-    color: '#999',
+    fontSize: 13,
+    color: '#666',
   },
   date: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 18,
+    fontWeight: '700',
     color: '#222',
   },
   month: {
-    fontSize: 11,
-    color: '#999',
+    fontSize: 13,
+    color: '#666',
   },
   activeText: {
     color: '#fff',
@@ -190,18 +193,19 @@ const styles = StyleSheet.create({
 
   slotContainer: {
     backgroundColor: '#f9f9f9',
-    borderRadius: 12,
+    borderRadius: 14,
     padding: 16,
     marginBottom: 20,
-    elevation: 2,
+    elevation: 1,
   },
   periodBlock: {
-    marginBottom: 14,
+    marginBottom: 16,
   },
   periodTitle: {
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: 15,
+    fontWeight: '700',
     marginBottom: 10,
+    color: '#333',
   },
   slotRow: {
     flexDirection: 'row',
@@ -211,10 +215,11 @@ const styles = StyleSheet.create({
   timeSlot: {
     borderWidth: 1,
     borderColor: '#ccc',
-    paddingVertical: 6,
-    paddingHorizontal: 14,
-    borderRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    borderRadius: 25,
     margin: 5,
+    backgroundColor: '#fff',
   },
   activeSlot: {
     backgroundColor: '#007aff',
@@ -222,9 +227,12 @@ const styles = StyleSheet.create({
   },
   slotText: {
     fontSize: 13,
+    fontWeight: '500',
+    color: '#333',
   },
   activeSlotText: {
     color: '#fff',
+    fontWeight: '600',
   },
 
   continueBtn: {
