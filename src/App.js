@@ -12,7 +12,6 @@ import PhysioScreen from './PhysioTheraphists/PhysioScreen.js';
 import DoctorProfileScreen from './PhysioTheraphists/DocterProfileScreen.js';
 import MyHealthScreen from './PhysioTheraphists/MyHealthScreen.js';
 import EditFieldScreen from './PhysioTheraphists/EditFieldScreen.js';
-import ConsultationScreen from './Booking/ConsultationScreen.js';
 import ViewSlotsScreen from './Booking/ViewSlotsScreen.js';
 import BottomTabs from './Home/CustomBottomTabs.js';
 import LoginDetails from './Login/LoginDetails.js';
@@ -26,6 +25,11 @@ import PhoneOtp from './Signup/PhoneOtp.js';
 import EmailOtp from './Signup/EmailOtp.js';
 import VerifyOtp from './Signup/VerifyOtp.js';
 import Services from './Services/Services.js';
+import PhysiotherapistScreen from './PhysioTheraphists/PhysioTherapistScreen.js';
+import DocterProfile from './PhysioTheraphists/DocterProfile.js';
+import ConsultationScreen from './PhysioTheraphists/ConsultationScreen.js';
+import BookingConfirmation from './PhysioTheraphists/BookingConfirmation.js';
+import TimeSlots from './PhysioTheraphists/TimeSlots.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -33,7 +37,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Services">
+      <Stack.Navigator initialRouteName="Booking">
         {/* <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Signup" component={SignUpScreen} options={{ headerShown: false }} />
         <Stack.Screen name="SignupDetails" component={SignUpDetails} options={{ headerShown: false }} />
@@ -61,6 +65,11 @@ export default function App() {
         <Stack.Screen name="PhoneOtp" component={PhoneOtp} options={{ headerShown: false }} />
         <Stack.Screen name="VerifyOtp" component={VerifyOtp} options={{ headerShown: false }} />
         <Stack.Screen name="Services" component={Services} options={{ headerShown: false }} />
+        <Stack.Screen name="PhysioTherapist" component={PhysiotherapistScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="DocterProfile" component={DocterProfile} options={{ headerShown: false }} />
+        <Stack.Screen name="Consultation" component={ConsultationScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Booking" component={BookingConfirmation} options={{ headerShown: false }} />
+        <Stack.Screen name="TimeSlots" component={TimeSlots} options={{ headerShown: false }} />
 
       </Stack.Navigator>
     </NavigationContainer>

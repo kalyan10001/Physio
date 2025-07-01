@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useRef, useEffect, useState } from 'react';
 import {
   View,
@@ -12,6 +13,7 @@ import {
 } from 'react-native';
 
 export default function VerifyOtp() {
+  const navigation=useNavigation();
   const inputRefs = useRef([]);
   const [otp, setOtp] = useState(['', '', '', '']);
 
@@ -39,7 +41,7 @@ export default function VerifyOtp() {
     const fullOtp = otp.join('');
     if (fullOtp.length !== 4) return alert('Please enter the full OTP');
     console.log('OTP Submitted:', fullOtp);
-    // navigation.navigate('NextScreen');
+    navigation.navigate('Services');
   };
 
   return (

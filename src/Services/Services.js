@@ -29,7 +29,7 @@ export default function Services() {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <ImageBackground
-          source={require('../assets/images/services/Header.png')}
+          source={require('../assets/images/services/team.jpg')}
           style={styles.headerImage}
           imageStyle={{ borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }}
         >
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   headerImage: {
     width: width,
-    height: 255,
+    height: 250,
     justifyContent: 'flex-end',
     paddingHorizontal: 16,
     paddingBottom: 20
