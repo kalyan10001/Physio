@@ -41,7 +41,7 @@ export default function VerifyOtp() {
     const fullOtp = otp.join('');
     if (fullOtp.length !== 4) return alert('Please enter the full OTP');
     console.log('OTP Submitted:', fullOtp);
-    navigation.navigate('Services');
+    navigation.navigate('BottomTabs');
   };
 
   return (

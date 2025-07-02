@@ -66,6 +66,8 @@ const doctors = [
 ];
 
 const DoctorCard = ({ doctor }) => {
+    const navigation = useNavigation();
+
   return (
     <View style={styles.card}>
       <View style={styles.cardHeader}>
@@ -90,13 +92,13 @@ const DoctorCard = ({ doctor }) => {
           else if (tag === 'Home') icon = 'home';
 
           return (
-            <View key={index} style={styles.tagBox}>
+            <TouchableOpacity key={index} style={styles.tagBox} onPress={()=>navigation.navigate('Consultation')}>
               <MaterialIcons name={icon} size={18} color="#007B83" style={{ marginRight: 6 }} />
               <View>
                 <Text style={styles.tagTextTop}>{tag}</Text>
                 <Text style={styles.tagTextBottom}>Consultation</Text>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         })}
       </View>

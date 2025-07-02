@@ -7,15 +7,44 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
+  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import RazorpayCheckout from 'react-native-razorpay';
 
 const { width } = Dimensions.get('window');
 
 const ConsultationScreen = () => {
   const navigation = useNavigation();
+
+  const handlePayment = () => {
+      const options = {
+        description: 'Video Consultation',
+        image: 'https://your-logo-url.com/logo.png',
+        currency: 'INR',
+        key: 'rzp_live_tKRzM5VWw31iZv', 
+        amount: '100',
+        name: 'GetPhysio',
+        prefill: {
+          email: 'venkatakalyan1000@gmail.com',
+          contact: '8497937244',
+          name: 'Test User'
+        },
+        theme: { color: '#30C3EA' }
+      };
+  
+      RazorpayCheckout.open(options)
+        .then(data => {
+          Alert.alert('Payment Successful', `Payment ID: ${data.razorpay_payment_id}`);
+          navigation.navigate('Booking')
+        })
+        .catch(error => {
+          Alert.alert(`Payment Failed`, `${error.description} | Code: ${error.code}`);
+          navigation.navigate('BookingFail')
+        });
+    };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -138,7 +167,7 @@ const ConsultationScreen = () => {
         </View>
 
         {/* Pay Button */}
-        <TouchableOpacity style={styles.payButton}>
+        <TouchableOpacity style={styles.payButton} onPress={handlePayment}>
           <Text style={styles.payButtonText}>Continue & Pay</Text>
         </TouchableOpacity>
       </ScrollView>
