@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
   slotRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 25,
+    gap: 21,
     alignItems: 'center',
     justifyContent:'center'
   },
