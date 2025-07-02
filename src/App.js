@@ -1,3 +1,6 @@
+import 'react-native-reanimated';
+
+
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -5,13 +8,12 @@ import Login from './Login/Login.js';
 import SignUpScreen from './Signup/Signup.js';
 import SignUpDetails from './Signup/SignupDetails.js';
 import Intro from './Intro/Intro.js';
-import PhysioTheraphist from './PhysioTheraphists/PhysioTheraphist.js';
-import PhysioTheraphistProfile from './PhysioTheraphists/PhysioTheraphistProfile.js';
 import HomeScreen from './Home/HomeScreen.js';
-import PhysioScreen from './PhysioTheraphists/PhysioScreen.js';
-import DoctorProfileScreen from './PhysioTheraphists/DocterProfileScreen.js';
 import MyHealthScreen from './PhysioTheraphists/MyHealthScreen.js';
-import EditFieldScreen from './PhysioTheraphists/EditFieldScreen.js';
+import HealthScoreScreen from './PhysioTheraphists/HealthScoreScreen.js';
+import EditProfileScreen from './PhysioTheraphists/EditProfileScreen.js';
+import MyBookingsScreen from './PhysioTheraphists/MyBookingsScreen.js';
+import MyReportsScreen from './PhysioTheraphists/MyReportsScreen.js';
 import ViewSlotsScreen from './Booking/ViewSlotsScreen.js';
 import BottomTabs from './Home/CustomBottomTabs.js';
 import LoginDetails from './Login/LoginDetails.js';
@@ -38,25 +40,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Intro">
-        {/* <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-        <Stack.Screen name="Signup" component={SignUpScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="SignupDetails" component={SignUpDetails} options={{ headerShown: false }} />
-        <Stack.Screen name="Intro" component={Intro} options={{ headerShown: false }} />
-        <Stack.Screen name="PhysioTheraphists" component={PhysioTheraphist} options={{ headerShown: false }} />
-        <Stack.Screen name="PhysioTheraphistProfile" component={PhysioTheraphistProfile} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="PhysioScreen" component={PhysioScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ headerShown: false }} />
-        <Stack.Screen name="DocterProfile" component={DoctorProfileScreen} options={{ headerShown: false }} />
         <Stack.Screen name="MyHealth" component={MyHealthScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="EditField" component={EditFieldScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Consultation" component={ConsultationScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="ViewSlots" component={ViewSlotsScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="LoginDetails" component={LoginDetails} options={{ headerShown: false }} />
-        <Stack.Screen name="HomeNav" component={HomeNav} options={{ headerShown: false }} />
-        <Stack.Screen name="BookingDone" component={BookingDoneScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="BookingFail" component={BookingFailScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="VideoCall" component={VideoCall} options={{ headerShown: false }} /> */}
+        <Stack.Screen name="HealthScore" component={HealthScoreScreen} options={{ headerShown: false }} />
         <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ headerShown: false }} />
         <Stack.Screen name="BookingFail" component={BookingFailScreen} options={{ headerShown: false }} />
         <Stack.Screen name="DocProfile" component={DoctorProfileScreen} options={{ headerShown: false }} />
@@ -70,8 +56,11 @@ export default function App() {
         <Stack.Screen name="Services" component={Services} options={{ headerShown: false }} />
         <Stack.Screen name="PhysioTherapist" component={PhysiotherapistScreen} options={{ headerShown: false }} />
         <Stack.Screen name="DocterProfile" component={DocterProfile} options={{ headerShown: false }} />
+         <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Consultation" component={ConsultationScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Booking" component={BookingConfirmation} options={{ headerShown: false }} />
+        <Stack.Screen name="MyBooking" component={MyBookingsScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="MyReport" component={MyReportsScreen} options={{ headerShown: false }} />
         <Stack.Screen name="TimeSlots" component={TimeSlots} options={{ headerShown: false }} />
 
       </Stack.Navigator>
