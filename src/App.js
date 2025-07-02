@@ -39,7 +39,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="BottomTabs">
+      <Stack.Navigator initialRouteName="Intro">
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="MyHealth" component={MyHealthScreen} options={{ headerShown: false }} />
         <Stack.Screen name="HealthScore" component={HealthScoreScreen} options={{ headerShown: false }} />

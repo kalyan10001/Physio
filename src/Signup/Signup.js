@@ -47,7 +47,7 @@ export default function SignUp() {
 
         <TouchableOpacity
           style={styles.signUpBtnFilled}
-          onPress={() => navigation.navigate('EmailOtp')}>
+          onPress={() => navigation.navigate('EmailOtp') }>
           <Text style={styles.signUpText}>Continue With Email</Text>
         </TouchableOpacity>
 

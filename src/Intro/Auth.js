@@ -41,7 +41,7 @@ export default function Auth() {
         />
 
         {/* Buttons */}
-        <TouchableOpacity style={styles.signInBtnOutline}>
+        <TouchableOpacity style={styles.signInBtnOutline} onPress={()=>navigation.navigate('PhoneOtp')}>
           <Text style={styles.signInText}>Sign In</Text>
         </TouchableOpacity>
 

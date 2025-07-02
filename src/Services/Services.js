@@ -49,9 +49,9 @@ export default function Services() {
           style={styles.headerImage}
           imageStyle={{ borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }}
         >
-          <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          {/* <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
             <Ionicons name="arrow-back" size={22} color="#000" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TextInput
             style={styles.searchBarOverlay}

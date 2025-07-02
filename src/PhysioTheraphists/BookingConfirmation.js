@@ -107,7 +107,7 @@ const BookingConfirmation = () => {
           ))}
         </View>
 
-        <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate('BottomTabs')}>
           <Text style={styles.homeButtonText}>Back to Home</Text>
         </TouchableOpacity>
       </ScrollView>

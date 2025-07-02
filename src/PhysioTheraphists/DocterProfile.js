@@ -230,7 +230,7 @@ export default function DoctorProfile() {
 
           <TouchableOpacity
             style={styles.consultBtn}
-            onPress={() => navigation.navigate('Booking')}
+            onPress={() => navigation.navigate('Consultation')}
           >
             <Text style={styles.consultText}>Consult Now @ ₹{doctor.fees}</Text>
           </TouchableOpacity>
@@ -293,11 +293,11 @@ const styles = StyleSheet.create({
   },
   likesRow: {
     flexDirection: 'row',
-    gap: 10,
-    marginTop: 6,
+    gap: 40,
+    marginTop: 8,
   },
   likes: {
-    fontSize: 12,
+    fontSize: 14,
     color: '#333',
   },
   body: {
@@ -305,9 +305,9 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   viewProfileBtn: {
-    backgroundColor: '#000000',
-    paddingVertical: 10,
-    borderRadius: 6,
+    backgroundColor: 'blue',
+    paddingVertical: 12,
+    borderRadius: 8,
   },
   viewProfileText: {
     color: '#ffffff',
@@ -319,12 +319,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e0e0e0',
     borderRadius: 10,
-    padding: 12,
+    padding: 16,
   },
   tabContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 12,
+    marginBottom: 14,
     backgroundColor: '#f3f3f3',
     borderRadius: 8,
     overflow: 'hidden',
@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tabText: {
-    fontSize: 12,
+    fontSize: 14,
     color: '#000',
   },
   activeTab: {
@@ -347,27 +347,28 @@ const styles = StyleSheet.create({
   feeRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 4,
+    marginBottom: 6,
   },
   consultationText: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '500',
   },
   feesText: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#007bff',
     fontWeight: 'bold',
   },
   followupText: {
-    fontSize: 12,
+    fontSize: 13,
     color: 'gray',
-    marginBottom: 10,
+    marginBottom: 14,
   },
   slotRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 10,
+    gap: 21,
     alignItems: 'center',
+    justifyContent:'center'
   },
   slot: {
     fontSize: 12,
@@ -375,10 +376,14 @@ const styles = StyleSheet.create({
     borderColor: '#cccccc',
     paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 20,
+    height:50,
+    paddingTop:15,
+    borderRadius: 13,
+    justifyContent:'center',
+    alignItems:'center'
   },
   viewAll: {
-    fontSize: 12,
+    fontSize: 14,
     color: '#007bff',
     fontWeight: '500',
   },

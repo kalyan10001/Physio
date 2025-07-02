@@ -127,7 +127,7 @@ const TimeSlots = () => {
       </ScrollView>
 
       {/* Continue Button */}
-      <TouchableOpacity style={styles.continueBtn} onPress={()=>navigation.navigate('Booking')}>
+      <TouchableOpacity style={styles.continueBtn} onPress={()=>navigation.navigate('Consultation')}>
         <Text style={styles.continueText}>Select & Continue @ ₹900</Text>
       </TouchableOpacity>
     </SafeAreaView>
