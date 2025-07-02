@@ -31,7 +31,7 @@ const MyHealthScoreScreen = ({navigation}) => {
       {/* Back Button */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Image source={require("../assets/images/healthtipsscreen/rightarrow.png")} style={{height:50,width:50}} />
+          <Image source={require("../assets/images/myhealthscreen/arrow-left.png")} style={{height:25,width:25}} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>My Health Score</Text>
       </View>
@@ -88,22 +88,27 @@ export default MyHealthScoreScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
     backgroundColor: '#fff',
   },
   header: {
+    width: '75%',
     paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginBottom: 12,
     marginTop: 8,
   },
   backButton: {
+    backgroundColor: 'rgba(76, 76, 76, 1)',
+    padding: 10,
     marginRight: 12,
+    borderRadius: '100%',
   },
   headerTitle: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontFamily: 'Montserrat-Regular',
+    fontSize: 19,
+    fontWeight: 600,
     color: '#000',
   },
   scoreCard: {
@@ -111,16 +116,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     borderRadius: 10,
     alignItems: 'center',
-    paddingVertical: 24,
+    paddingVertical: 10,
   },
   scoreLabel: {
+    fontFamily: 'Montserrat-Regular',
     color: '#fff',
-    fontSize: 16,
-    marginBottom: 8,
+    fontSize: 13,
+    fontWeight: 600,
   },
   scoreValue: {
     color: '#fff',
-    fontSize: 36,
+    fontSize: 45,
     fontWeight: 'bold',
   },
   scoreDescriptionBox: {
@@ -133,8 +139,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#E6F4EA',
   },
   scoreDescription: {
-    fontSize: 14,
-    color: '#333',
+    fontFamily:"Montserrat-Regular",
+    fontSize: 13,
+    fontWeight: 500,
+    color: 'rgba(0, 122, 41, 1)',
     lineHeight: 20,
   },
   healthTipsSection: {
@@ -152,6 +160,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   healthTipsTitle: {
+    fontFamily: 'Montserrat-Regular',
     fontSize: 18,
     color: '#fff',
     fontWeight: '600',
@@ -184,8 +193,9 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   bottomButtonContainer: {
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     padding: 16,
-    backgroundColor: '#fff',
   },
   testAgainButton: {
     backgroundColor: '#0075B6',
@@ -194,9 +204,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   testAgainText: {
+    fontFamily: 'Montserrat-Regular',
     color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 15,
+    fontWeight: 600,
   },
    sectionTitle: {
     marginLeft: 16,
@@ -205,7 +216,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   sectionHeader:{
-    marginTop: 150,
+    marginTop: 100,
     flexDirection:'row',
     padding: 10,
     justifyContent:'space-between',
@@ -235,7 +246,7 @@ const styles = StyleSheet.create({
   },
    healthTipContent:{
    backgroundColor: '#0A7BA5',
-   padding: 10,
+   paddingHorizontal: 10,
   },
   healthTipHeading:{
     fontFamily: 'Montserrat-Regular',
@@ -253,7 +264,7 @@ const styles = StyleSheet.create({
     gap: 5,
     width: 250,
     backgroundColor: '#0A7BA5',
-    padding: 10,
+    paddingHorizontal: 10,
     borderRadius: 10,
   },
   tipImage:{

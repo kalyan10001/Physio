@@ -1,6 +1,6 @@
 {
   "name": "getphysio",
-  "version": "0.0.1",                                                                                                               
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@100mslive/react-native-hms": "^1.11.0",
+    "@react-native-community/datetimepicker": "^8.4.2",
     "@react-native-picker/picker": "^2.11.0",
     "@react-navigation/bottom-tabs": "^7.3.15",
     "@react-navigation/native": "^7.1.10",
@@ -19,12 +20,8 @@
     "react": "19.0.0",
     "react-native": "0.79.3",
     "react-native-geolocation-service": "^5.3.1",
-<<<<<<< HEAD
     "react-native-gesture-handler": "^2.26.0",
-=======
-    "react-native-gesture-handler": "^2.25.0",
     "react-native-linear-gradient": "^2.8.3",
->>>>>>> b4fa93f0451f500bddd64b85e6a91c271ba69e63
     "react-native-razorpay": "^2.3.0",
     "react-native-reanimated": "^3.18.0",
     "react-native-safe-area-context": "^5.4.1",
@@ -32,7 +29,7 @@
     "react-native-snap-carousel": "^3.9.1",
     "react-native-swipe-gestures": "^1.0.5",
     "react-native-vector-icons": "^10.2.0",
-    "react-native-webview": "^13.15.0"      
+    "react-native-webview": "^13.15.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

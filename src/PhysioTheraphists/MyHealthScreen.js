@@ -23,8 +23,9 @@ const MyHealthScreen = ({navigation}) => {
             <Text style={styles.name}>Venkate Kalyan</Text>
             <Text style={styles.phone}>+91 8497937244</Text>
             <Text style={styles.email}>venkatakalyan1000@gmail.com</Text>
-            <TouchableOpacity>
-              <Text style={styles.editProfile}>Edit Profile ▸</Text>
+            <TouchableOpacity style={styles.edit} onPress={() => navigation.navigate("EditProfile")}>
+              <Text style={styles.editProfile}>Edit Profile</Text>
+              <Image source={require("../assets/images/myhealthscreen/expandleft.png")} style={{height: 5,width: 5}} />
             </TouchableOpacity>
           </View>
         </View>
@@ -39,10 +40,10 @@ const MyHealthScreen = ({navigation}) => {
             <Image source={require("../assets/images/myhealthscreen/Desk_alt_light.png")} style={styles.statValue} />
             <Text style={styles.statLabel}>My Conversation</Text>
           </View>
-          <View style={styles.statBox}>
+          <TouchableOpacity style={styles.statBox} onPress={() => navigation.navigate("MyBooking")}>
               <Image source={require("../assets/images/myhealthscreen/Alarmclock_light.png")} style={styles.statValue} />
             <Text style={styles.statLabel}>My Bookings</Text>
-          </View>
+          </TouchableOpacity>
         </View>
 
         {/* Menu Items */}
@@ -57,7 +58,7 @@ const MyHealthScreen = ({navigation}) => {
             { imageUrl: require("../assets/images/myhealthscreen/call.png") ,label: 'Need Help?' },
             { imageUrl: require("../assets/images/myhealthscreen/File_dock_search_light.png") ,label: 'Policies' },
           ].map((item, idx) => (
-            <TouchableOpacity key={idx} style={styles.menuItem}>
+            <TouchableOpacity key={idx} style={styles.menuItem} onPress={() => item.label === 'Health Analysis Report' ? navigation.navigate('MyReport') : navigation.navigate('MyHealth')}>
               <View style={{ flexDirection: 'row', alignItems: 'center',gap: 10 }}>
                 <Image source={item.imageUrl} style={{height: 10,width: 10}} />
                 <Text style={styles.menuText}>{item.label}</Text>
@@ -121,49 +122,72 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   name: {
+    fontFamily: 'Montserrat-Regular',
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: 600,
     color: '#fff',
   },
   phone: {
+    fontFamily:'Montserrat-Regular',
     color: '#fff',
-    fontSize: 14,
+    fontWeight: 400,
+    fontSize: 13,
   },
   email: {
+    fontFamily:'Montserrat-Regular',
     color: '#fff',
-    fontSize: 14,
+    fontWeight: 400,
+    fontSize: 13,
     marginBottom: 4,
   },
+  edit:{
+    flexDirection:'row',
+    alignItems:'center',
+    gap: 5,
+  },
   editProfile: {
-    color: '#dff9fb',
+    fontFamily:'Montserrat-Regular',
+    color: 'rgba(79, 209, 197, 1)',
     fontSize: 12,
-    textDecorationLine: 'underline',
+    fontWeight: 600,
   },
   statsRow: {
     flexDirection: 'row',
     gap: 10,
     justifyContent: 'center',
-    paddingVertical: 15,
+    paddingHorizontal: 10,
+    paddingBottom: 5,
     backgroundColor: '#fff',
   },
   statBox: {
+    width: '30%',
     borderWidth:1,
-    padding: 15,
+    padding: 10,
     borderRadius: 10,
+    borderColor: '#BEBEBE80',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   statValue: {
+    alignItems: 'center',
+    width: 40,
+    height: 40,
     fontSize: 20,
     fontWeight: 'bold',
     color: '#000',
   },
   statLabel: {
-    fontSize: 12,
-    color: '#555',
+    fontFamily: 'Montserrat-Regular',
+    fontWeight: 500,
+    fontSize: 10,
+    color: '#000000',
     textAlign: 'center',
   },
   menu: {
+    marginHorizontal: 20,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#BEBEBE80',
     backgroundColor: '#fff',
     paddingHorizontal: 15,
     paddingTop: 10,
@@ -174,10 +198,12 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   menuText: {
-    fontSize: 15,
-    color: '#000',
+    fontFamily: 'Montserrat-Regular',
+    fontSize: 13,
+    color: '#000000',
   },
   badge: {
+    fontFamily:'Montserrat-Regular',
     backgroundColor: '#007aff',
     paddingHorizontal: 8,
     paddingVertical: 2,
@@ -192,13 +218,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderColor: '#f00',
     borderWidth: 1,
-    margin: 20,
+    margin:20,
+    marginBottom: 100,
     borderRadius: 10,
     padding: 20,
     alignItems: 'center',
     gap: 15,
   },
   logoutText: {
+    fontFamily: 'Montserrat-Regular',
     color: '#f00',
     fontWeight: 'bold',
   },

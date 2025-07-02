@@ -10,6 +10,8 @@ import {
   Pressable,
 } from 'react-native';
 import Services from '../Services/Services';
+import HomeScreen from "./HomeScreen";
+import MyHealthScreen from '../PhysioTheraphists/MyHealthScreen';
 
 const Tab = createBottomTabNavigator();
 const screenWidth = Dimensions.get('window').width;
@@ -65,10 +67,10 @@ const BottomTabs = () => {
         },
       })}
     >
-      <Tab.Screen name="Home" component={Services} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Physios" component={Services} />
       <Tab.Screen name="PainSense AI" component={Services} />
-      <Tab.Screen name="My Health" component={Services} />
+      <Tab.Screen name="My Health" component={MyHealthScreen} />
     </Tab.Navigator>
   );
 };
