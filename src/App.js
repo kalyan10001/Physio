@@ -59,6 +59,7 @@ export default function App() {
         <Stack.Screen name="VideoCall" component={VideoCall} options={{ headerShown: false }} /> */}
         <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ headerShown: false }} />
         <Stack.Screen name="BookingFail" component={BookingFailScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="DocProfile" component={DoctorProfileScreen} options={{ headerShown: false }} />
 
         <Stack.Screen name="Intro" component={Intro} options={{ headerShown: false }} />
         <Stack.Screen name="Auth" component={Auth} options={{ headerShown: false }} />        

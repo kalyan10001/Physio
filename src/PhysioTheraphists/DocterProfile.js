@@ -109,7 +109,7 @@ export default function DoctorProfile() {
         <View style={styles.body}>
           <TouchableOpacity
             style={styles.viewProfileBtn}
-            onPress={() => navigation.navigate()}
+            onPress={() => navigation.navigate('DocProfile')}
           >
             <Text style={styles.viewProfileText}>View Profile</Text>
           </TouchableOpacity>
@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
   slotRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 21,
+    gap: 25,
     alignItems: 'center',
     justifyContent:'center'
   },
