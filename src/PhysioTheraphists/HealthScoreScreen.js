@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView, Image ,FlatList} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image ,FlatList} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const MyHealthScoreScreen = ({navigation}) => {
 
