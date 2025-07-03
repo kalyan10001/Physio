@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -6,17 +6,14 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  Animated,
-  FlatList,
   Dimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import LinearGradient from 'react-native-linear-gradient';
 
 const { width } = Dimensions.get('window');
-const ITEM_WIDTH = width * 0.75;
-const SPACING = 10;
 
 const doctor = {
   name: "Dr. Sreemoyee Maitra",
@@ -34,52 +31,19 @@ const doctor = {
   },
   slotNote: "Today 3 slots & Tomorrow 8 slots available",
   about:
-    "Dr. Sreemoyee Maitra is a highly qualified Dermatologist with an MBBS, an MD in Dermatology, DDVL, and a Fellowship in Aesthetic Medicine. She specializes in clinical, pediatric, and aesthetic dermatology, offering expert care for skin, hair, and nail conditions. With a patient-centered approach, she combines her in-depth theoretical knowledge with modern aesthetic techniques like lasers, fillers, and skin rejuvenation treatments to deliver personalized and effective results for all age groups and needs.",
+    "Dr. Sreemoyee Maitra is a highly qualified Dermatologist with an MBBS, an MD in Dermatology, DDVL, and a Fellowship in Aesthetic Medicine. She specializes in clinical, pediatric, and aesthetic dermatology, offering expert care for skin, hair, and nail conditions. With a patient-centered approach, she combines her in-depth theoretical knowledge with modern aesthetic techniques like lasers, fillers, and skin rejuvenation treatments to deliver personalized and effective results for all age groups and needs. Her approach emphasizes both medical expertise and compassionate care, ensuring patients receive holistic and lasting solutions.",
 };
 
 const tabLabels = ["Clinic Visit", "Video Consult", "Home Consult"];
-const categories = ["Skin Disease Treatment", "Psoriasis", "Hair Loss"];
-
-const testimonials = {
-  "Skin Disease Treatment": [
-    {
-      text: "It is a long established fact that a reader will be distracted by the readable content...",
-      author: "Sramantika Sen",
-      date: "Kolkata - 8th March, 2025 - Verified",
-      image: require('../assets/images/services/doc1.png'),
-    },
-    {
-      text: "Doctor helped me recover quickly. Highly recommended.",
-      author: "Rahul Das",
-      date: "Hyderabad - 2nd Feb, 2025 - Verified",
-      image: require('../assets/images/services/doc2.png'),
-    },
-  ],
-  Psoriasis: [
-    {
-      text: "Very good treatment. I had relief in 2 weeks.",
-      author: "Anjali Singh",
-      date: "Delhi - 5th Jan, 2025 - Verified",
-      image: require('../assets/images/services/doc3.png'),
-    },
-  ],
-  "Hair Loss": [
-    {
-      text: "My hair fall reduced after the consultation. Great results!",
-      author: "Rohit Sharma",
-      date: "Mumbai - 14th Feb, 2025 - Verified",
-      image: require('../assets/images/services/doc1.png'),
-    },
-  ],
-};
 
 export default function DoctorProfileScreen() {
   const [activeTab, setActiveTab] = useState("Clinic Visit");
-  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
-  const scrollX = useRef(new Animated.Value(0)).current;
+  const [showFullAbout, setShowFullAbout] = useState(false);
   const navigation = useNavigation();
 
-  const data = testimonials[selectedCategory];
+  const toggleAbout = () => {
+    setShowFullAbout(!showFullAbout);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -100,9 +64,19 @@ export default function DoctorProfileScreen() {
           <Text style={styles.name}>{doctor.name}</Text>
           <Text style={styles.specialties}>{doctor.specialties}</Text>
           <Text style={styles.degrees}>{doctor.degrees}</Text>
+
           <View style={styles.likesRow}>
-            <Text style={styles.likes}>{doctor.likes} Likes</Text>
-            <Text style={styles.likes}>{doctor.stories} Patient Stories</Text>
+            <View style={styles.iconTextRow}>
+              <Ionicons name="heart-outline" size={18} color="#ff4d4f" style={styles.icon} />
+              <Text style={styles.likes}>{doctor.likes} Likes</Text>
+            </View>
+
+            <View style={styles.divider} />
+
+            <View style={styles.iconTextRow}>
+              <Ionicons name="chatbox-ellipses-outline" size={18} color="#007bff" style={styles.icon} />
+              <Text style={styles.likes}>{doctor.stories} Patient Stories</Text>
+            </View>
           </View>
         </View>
 
@@ -148,86 +122,57 @@ export default function DoctorProfileScreen() {
               </View>
             </View>
           </View>
+        </View>
 
-          <Text style={styles.slotNote}>{doctor.slotNote}</Text>
+        <View style={styles.patientStoriesWrapper}>
+  <Text style={styles.sectionTitle}>😊 Patients Stories</Text>
 
-          <Text style={styles.sectionTitle}>Patients Stories</Text>
-          <View style={styles.recommendBox}>
-            <Text style={styles.recommendText}>
-              Out of all patients who were surveyed, 88% of them recommended visiting this doctor.
+  <LinearGradient
+    colors={["#4CAADB", "#0A7BA5"]}
+    start={{ x: 0.1, y: 0 }}
+    end={{ x: 1, y: 1 }}
+    style={styles.storyCard}
+  >
+    <View style={styles.storyContent}>
+      <View style={styles.storyLeft}>
+        <Ionicons name="thumbs-up-outline" size={18} color="#fff" />
+        <Text style={styles.storyLikes}>88% Likes</Text>
+      </View>
+
+      <View style={styles.verticalDivider} />
+
+      <View style={styles.storyRight}>
+        <Text style={styles.storyText}>
+          Out of all patients who were surveyed, 88% of them recommended visiting this doctor.
+        </Text>
+      </View>
+    </View>
+  </LinearGradient>
+</View>
+
+
+        <View style={styles.aboutContainerWrapper}>
+          <LinearGradient
+            colors={["#4CAADB", "#0A7BA5"]}
+            start={{ x: 0.1, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.aboutContainer}
+          >
+            <Text
+              style={styles.aboutText}
+              numberOfLines={showFullAbout ? 0 : 6}
+            >
+              {doctor.about}
             </Text>
-          </View>
+            <TouchableOpacity onPress={toggleAbout}>
+              <Text style={styles.readMoreText}>
+                {showFullAbout ? 'Read Less' : 'Read More'}
+              </Text>
+            </TouchableOpacity>
+          </LinearGradient>
+        </View>
 
-          <View style={styles.chipContainer}>
-            {categories.map((cat, index) => (
-              <TouchableOpacity key={index} onPress={() => setSelectedCategory(cat)}>
-                <Text
-                  style={[styles.chip, selectedCategory === cat && {
-                    backgroundColor: '#007bff',
-                    color: '#ffffff',
-                  }]}
-                >
-                  {cat}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-
-          <Animated.FlatList
-            data={data}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            snapToInterval={ITEM_WIDTH + SPACING * 2}
-            decelerationRate="fast"
-            onScroll={Animated.event(
-              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-              { useNativeDriver: true }
-            )}
-            contentContainerStyle={{
-              paddingHorizontal: (width - ITEM_WIDTH) / 2,
-            }}
-            keyExtractor={(_, index) => `${selectedCategory}-${index}`}
-            renderItem={({ item, index }) => {
-              const inputRange = [
-                (index - 1) * (ITEM_WIDTH + SPACING * 2),
-                index * (ITEM_WIDTH + SPACING * 2),
-                (index + 1) * (ITEM_WIDTH + SPACING * 2),
-              ];
-
-              const scale = scrollX.interpolate({
-                inputRange,
-                outputRange: [0.8, 1, 0.8],
-                extrapolate: 'clamp',
-              });
-
-              const rotateY = scrollX.interpolate({
-                inputRange,
-                outputRange: ['20deg', '0deg', '-20deg'],
-                extrapolate: 'clamp',
-              });
-
-              const opacity = scrollX.interpolate({
-                inputRange,
-                outputRange: [0.4, 1, 0.4],
-                extrapolate: 'clamp',
-              });
-
-              return (
-                <Animated.View
-                  style={[styles.reviewCardSlide, { transform: [{ scale }, { rotateY }], opacity }]}
-                >
-                  <Image source={item.image} style={styles.reviewImage} />
-                  <Text style={styles.reviewSlideText}>{item.text}</Text>
-                  <Text style={styles.reviewSlideAuthor}>{item.author}</Text>
-                  <Text style={styles.reviewSlideDate}>{item.date}</Text>
-                </Animated.View>
-              );
-            }}
-          />
-
-          <Text style={styles.about}>{doctor.about}</Text>
-
+        <View style={styles.whiteContainer}>
           <TouchableOpacity
             style={styles.consultBtn}
             onPress={() => navigation.navigate('Consultation')}
@@ -262,11 +207,11 @@ const styles = StyleSheet.create({
   },
   profileImageContainer: {
     alignItems: 'center',
-    marginTop: -65,
+    marginTop: -75,
   },
   profileImage: {
-    width: 130,
-    height: 130,
+    width: 140,
+    height: 140,
     borderRadius: 100,
     borderWidth: 4,
     borderColor: '#ffffff',
@@ -277,27 +222,44 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   name: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   specialties: {
-    fontSize: 12,
+    fontSize: 13,
     color: 'gray',
     textAlign: 'center',
     marginTop: 2,
   },
   degrees: {
-    fontSize: 12,
+    fontSize: 13,
     color: 'gray',
     textAlign: 'center',
   },
   likesRow: {
     flexDirection: 'row',
-    gap: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 8,
   },
+  iconTextRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  icon: {
+    marginRight: 2,
+  },
+  divider: {
+    width: 1,
+    height: 20,
+    backgroundColor: '#ccc',
+    marginHorizontal: 15,
+    alignSelf: 'center',
+  },
   likes: {
-    fontSize: 14,
+    fontSize: 16,
+    fontWeight: '500',
     color: '#333',
   },
   body: {
@@ -305,9 +267,14 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   viewProfileBtn: {
-    backgroundColor: 'blue',
-    paddingVertical: 12,
+    backgroundColor: 'black',
+    paddingVertical: 10,
     borderRadius: 8,
+    width: 100,
+    flexDirection: 'row',
+    marginLeft: 140,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   viewProfileText: {
     color: '#ffffff',
@@ -325,24 +292,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 14,
-    backgroundColor: '#f3f3f3',
     borderRadius: 8,
+    alignItems: 'center',
+    height: 45,
     overflow: 'hidden',
+    borderRadius:12
   },
   tabBtn: {
     flex: 1,
     paddingVertical: 10,
     alignItems: 'center',
+    backgroundColor:'background: rgba(9, 93, 126, 1);',
   },
   tabText: {
     fontSize: 14,
-    color: '#000',
+    color: '#fff',
   },
   activeTab: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#0A7BA5',
   },
   activeTabText: {
-    color: '#ffffff',
+    color: '#fff',
   },
   feeRow: {
     flexDirection: 'row',
@@ -355,7 +325,7 @@ const styles = StyleSheet.create({
   },
   feesText: {
     fontSize: 16,
-    color: '#007bff',
+    color: 'black',
     fontWeight: 'bold',
   },
   followupText: {
@@ -366,104 +336,101 @@ const styles = StyleSheet.create({
   slotRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 25,
+    gap: 20,
     alignItems: 'center',
-    justifyContent:'center'
+    justifyContent: 'center',
   },
   slot: {
     fontSize: 12,
-    borderWidth: 1,
+    borderWidth: 1.2,
     borderColor: '#cccccc',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    height:50,
-    paddingTop:15,
+    paddingHorizontal: 8,
     borderRadius: 13,
-    justifyContent:'center',
-    alignItems:'center'
+    height: 40,
+    paddingTop: 10,
   },
   viewAll: {
     fontSize: 14,
     color: '#007bff',
     fontWeight: '500',
   },
-  slotNote: {
-    marginTop: 8,
+  patientStoriesWrapper: {
+  marginTop: 20,
+  paddingHorizontal: 16,
+},
+sectionTitle: {
+  fontSize: 16,
+  fontWeight: 'bold',
+  marginBottom: 10,
+  color: '#000',
+},
+storyCard: {
+  borderRadius: 12,
+  padding: 16,
+},
+storyContent: {
+  flexDirection: 'row',
+  alignItems: 'center',
+},
+storyLeft: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: 6,
+  width: '25%',
+  justifyContent: 'center',
+},
+storyLikes: {
+  color: '#fff',
+  fontWeight: '600',
+  fontSize: 16,
+},
+verticalDivider: {
+  width: 2,
+  height: '100%',
+  backgroundColor: '#ffffff50',
+  marginHorizontal: 10,
+},
+storyRight: {
+  flex: 1,
+},
+storyText: {
+  color: '#fff',
+  fontSize: 13,
+  lineHeight: 18,
+},
+  aboutContainerWrapper: {
+    marginTop: 10,
+  },
+  aboutContainer: {
+    padding: 25,
+  },
+  aboutText: {
     fontSize: 12,
-    color: 'green',
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginTop: 20,
-  },
-  recommendBox: {
-    backgroundColor: '#ccf5e7',
-    padding: 10,
-    borderRadius: 8,
-    marginTop: 8,
-  },
-  recommendText: {
-    fontSize: 12,
-    color: '#333333',
-  },
-  chipContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 10,
-    marginTop: 12,
-    alignItems: 'center',
-  },
-  chip: {
-    backgroundColor: '#eeeeee',
-    fontSize: 12,
-    height: 40,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    borderRadius: 20,
-    color: '#000',
-  },
-  reviewCardSlide: {
-    width: ITEM_WIDTH,
-    backgroundColor: '#007bff',
-    borderRadius: 16,
-    padding: 20,
-    marginTop: 20,
-    height: 300,
-    alignItems: 'center',
-  },
-  reviewImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    marginBottom: 12,
-  },
-  reviewSlideText: {
-    fontSize: 14,
-    color: '#fff',
-    textAlign: 'center',
-    marginBottom: 10,
-  },
-  reviewSlideAuthor: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  reviewSlideDate: {
-    fontSize: 12,
-    color: '#e0f0ff',
-  },
-  about: {
-    fontSize: 12,
-    color: '#444',
-    marginTop: 18,
+    color: '#ffffff',
     textAlign: 'justify',
+    lineHeight: 20,
+  },
+  readMoreText: {
+    color: 'black',
+    fontSize: 12,
+    marginTop: 4,
+    fontWeight: '600',
+    textAlign: 'right',
+  },
+  whiteContainer: {
+    backgroundColor: '#fff',
+    paddingVertical: 20,
+    paddingHorizontal: 16,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    marginTop: -23,
+    zIndex: 10,
+    elevation: 5,
   },
   consultBtn: {
     backgroundColor: '#28a745',
-    marginTop: 20,
     paddingVertical: 14,
-    borderRadius: 30,
+    borderRadius: 12,
   },
   consultText: {
     textAlign: 'center',

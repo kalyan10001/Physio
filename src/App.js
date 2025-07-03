@@ -32,7 +32,7 @@ import DocterProfile from './PhysioTheraphists/DocterProfile.js';
 import ConsultationScreen from './PhysioTheraphists/ConsultationScreen.js';
 import BookingConfirmation from './PhysioTheraphists/BookingConfirmation.js';
 import TimeSlots from './PhysioTheraphists/TimeSlots.js';
-import DoctorProfileScreen from './PhysioTheraphists/DocterProfile.js';
+import DoctorProfileScreen from './PhysioTheraphists/DocterProfileScreen.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -40,7 +40,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="BottomTabs">
+      <Stack.Navigator initialRouteName="Intro">
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="MyHealth" component={MyHealthScreen} options={{ headerShown: false }} />
         <Stack.Screen name="HealthScore" component={HealthScoreScreen} options={{ headerShown: false }} />

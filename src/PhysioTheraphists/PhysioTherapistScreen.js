@@ -1,4 +1,3 @@
-// Full Updated Code with 3 buttons: Sort By, Filter By Qualification, Consultation Type
 import React, { useState } from 'react';
 import {
   View,
@@ -15,6 +14,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import Feather from 'react-native-vector-icons/Feather';
 
 const doctorsData = [
   {
@@ -119,6 +119,7 @@ const PhysiotherapistScreen = () => {
   const [consultationModalVisible, setConsultationModalVisible] = useState(false);
   const [selectedQualification, setSelectedQualification] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleConsultationPress = (type) => {
     navigation.navigate('Consultation', { type });
@@ -131,6 +132,11 @@ const PhysiotherapistScreen = () => {
   }
   if (selectedType) {
     filteredDoctors = filteredDoctors.filter((doc) => doc.tags.includes(selectedType));
+  }
+  if (searchTerm) {
+    filteredDoctors = filteredDoctors.filter((doc) =>
+      doc.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   }
   if (sortByRating) {
     filteredDoctors.sort((a, b) => b.rating - a.rating);
@@ -146,10 +152,13 @@ const PhysiotherapistScreen = () => {
           <Ionicons name="arrow-back" size={24} color="#000" />
         </TouchableOpacity>
         <View style={styles.searchBar}>
+          <Feather name="search" size={20} color="#888" style={styles.searchIcon} />
           <TextInput
             placeholder="Search for Physiotherapist"
             placeholderTextColor="#999"
             style={styles.searchInput}
+            value={searchTerm}
+            onChangeText={setSearchTerm}
           />
         </View>
       </View>
@@ -252,6 +261,7 @@ const PhysiotherapistScreen = () => {
 
 export default PhysiotherapistScreen;
 
+
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff' },
   headerImageContainer: {
@@ -262,6 +272,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: '#ddd',
     position: 'relative',
+  },
+  searchIcon: {
+    marginRight: 8,
   },
   headerImage: { width: '100%', height: '100%', resizeMode: 'cover' },
   backButton: {
@@ -298,15 +311,15 @@ const styles = StyleSheet.create({
   filterBtn: {
     flexDirection: 'row',
     backgroundColor: 'white',
-    paddingHorizontal:0,
+    paddingHorizontal: 0,
     paddingVertical: 8,
     borderRadius: 8,
     borderWidth: 0.3,
     alignItems: 'center',
-    justifyContent:'center',
-    width:130,
-    marginRight:2,
-    height:35
+    justifyContent: 'center',
+    width: 130,
+    marginRight: 2,
+    height: 35,
   },
   filterText: { marginLeft: 4, fontSize: 12, color: '#333' },
   card: {

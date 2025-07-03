@@ -10,6 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
@@ -18,7 +19,23 @@ export default function Auth() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Background Illustration */}
+        <View style={styles.imageWrapper}>
+          <Image
+            source={require('../assets/images/services/mpic.png')}
+            style={styles.illustration}
+            resizeMode="cover"
+          />
+          <LinearGradient
+            colors={['transparent', '#ffffff']}
+            style={styles.gradientOverlay}
+          />
+        </View>
+
         {/* Logo */}
         <Image
           source={require('../assets/images/loginscreen/splashScreenLogo.png')}
@@ -33,21 +50,18 @@ export default function Auth() {
           Sign in or join now to begin your recovery.
         </Text>
 
-        {/* Main Illustration */}
-        <Image
-          source={require('../assets/images/loginscreen/SignInLogo.png')}
-          style={styles.illustration}
-          resizeMode="contain"
-        />
-
         {/* Buttons */}
-        <TouchableOpacity style={styles.signInBtnOutline} onPress={()=>navigation.navigate('PhoneOtp')}>
+        <TouchableOpacity
+          style={styles.signInBtnOutline}
+          onPress={() => navigation.navigate('PhoneOtp')}
+        >
           <Text style={styles.signInText}>Sign In</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.signUpBtnFilled}
-          onPress={() => navigation.navigate('SignUp')}>
+          onPress={() => navigation.navigate('SignUp')}
+        >
           <Text style={styles.signUpText}>Sign Up</Text>
         </TouchableOpacity>
 
@@ -71,12 +85,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     alignItems: 'center',
     justifyContent: 'flex-start',
+    paddingBottom: 30,
+  },
+  imageWrapper: {
+    width: width,
+    height: width * 1.25, // adjust height for more visual appeal
+    position: 'relative',
+  },
+  illustration: {
+    width: '100%',
+    height: '100%',
+  },
+  gradientOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 100,
   },
   logo: {
     width: 180,
     height: 180,
     resizeMode: 'contain',
-    marginTop: 0,
+    marginTop: -80,
     marginBottom: -20,
   },
   title: {
@@ -96,11 +126,6 @@ const styles = StyleSheet.create({
     marginTop: 6,
     marginBottom: 30,
   },
-  illustration: {
-    width: 360,
-    height: 360,
-    marginBottom: 50,
-  },
   signInBtnOutline: {
     width: '100%',
     borderColor: '#ccc',
@@ -117,7 +142,7 @@ const styles = StyleSheet.create({
   },
   signUpBtnFilled: {
     width: '100%',
-    backgroundColor: '#007AFF',
+    backgroundColor: 'background: rgba(10, 123, 165, 1);',
     borderRadius: 10,
     paddingVertical: 14,
     marginBottom: 20,
@@ -132,7 +157,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#888',
     textAlign: 'center',
-    paddingBottom: 30,
     paddingHorizontal: 12,
   },
   link: {
