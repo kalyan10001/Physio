@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
   },
   searchBarOverlay: {
     flex: 1,
+    fontFamily: 'Montserrat-Medium',
     fontSize: 16,
     color: '#000',
   },
@@ -188,12 +189,14 @@ const styles = StyleSheet.create({
     color: 'rgba(9, 93, 126, 1)',
   },
   sectionTitle: {
-    fontSize: 20,
+    fontFamily: 'Montserrat-SemiBold',
+    fontSize: 18,
     fontWeight: '600',
     color: 'rgba(9, 93, 126, 1)',
   },
   otherSpecialities: {
-    fontSize: 20,
+     fontFamily: 'Montserrat-SemiBold',
+    fontSize: 18,
     fontWeight: '600',
     color: 'rgba(9, 93, 126, 1)',
   },
@@ -218,6 +221,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   doctorName: {
+    fontFamily: 'Montserrat-Medium',
     fontSize: 13,
     textAlign: 'center',
     maxWidth: 80,
@@ -253,10 +257,12 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   specialityTitle: {
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 16,
     fontWeight: '600',
   },
   specialityDesc: {
+    fontFamily: 'Montserrat-Medium',
     fontSize: 13,
     color: '#666',
     marginTop: 4,

@@ -51,13 +51,22 @@ const ConsultationScreen = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
         {/* Header with Back Button */}
-        <View style={styles.headerRow}>
-          <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={24} color="#000" />
-          </TouchableOpacity>
-          <Text style={styles.header}>Video Consultation</Text>
-        </View>
-
+        <View style={styles.header}>
+              
+                <View style={styles.headerContent}>
+                  <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                    <Image
+                                  source={require('../assets/images/myhealthscreen/arrow-left.png')}
+                                  style={{ width: 24, height: 24 }}
+                                />
+                  </TouchableOpacity>
+              
+                  <Text style={styles.headerText}>Video Consultation</Text>
+              
+                  {/* Spacer to balance layout */}
+                  <View style={{ width: 32 }} />
+                </View>
+              </View>
         {/* Doctor Info */}
         <View style={styles.card}>
           <Image
@@ -118,12 +127,12 @@ const ConsultationScreen = () => {
         {/* Bill Details */}
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Bill Details</Text>
-          <View style={styles.billRow}><Text>Bill Details</Text><Text>₹2,000.00</Text></View>
-          <View style={styles.billRow}><Text>Consultation Fee</Text><Text>₹2,000.00</Text></View>
-          <View style={styles.billRow}><Text>Health Cash</Text><Text style={{ color: 'green' }}>-₹100.00</Text></View>
-          <View style={styles.billRow}><Text>Coupon Code</Text><Text style={{ color: 'green' }}>-₹150.00</Text></View>
-          <View style={styles.billRow}><Text>Service Fee & Tax</Text><Text>₹35.00</Text></View>
-          <View style={styles.billRow}><Text>Platform Fee</Text><Text>₹2.00</Text></View>
+          <View style={styles.billRow}><Text style={styles.billRowText}>Bill Details</Text><Text style={styles.billRowPrice}>₹2,000.00</Text></View>
+          <View style={styles.billRow}><Text style={styles.billRowText}>Consultation Fee</Text><Text style={styles.billRowPrice}>₹2,000.00</Text></View>
+          <View style={styles.billRow}><Text style={styles.billRowText}>Health Cash</Text><Text style={[styles.billRowPrice,{ color: 'green' }]}>-₹100.00</Text></View>
+          <View style={styles.billRow}><Text style={styles.billRowText}>Coupon Code</Text><Text style={[styles.billRowPrice,{ color: 'green' }]}>-₹150.00</Text></View>
+          <View style={styles.billRow}><Text style={styles.billRowText}>Service Fee & Tax</Text><Text style={styles.billRowPrice}>₹35.00</Text></View>
+          <View style={styles.billRow}><Text style={styles.billRowText}>Platform Fee</Text><Text style={styles.billRowPrice}>₹2.00</Text></View>
           <View style={styles.totalRow}>
             <Text style={styles.totalLabel}>Total payable amount</Text>
             <Text style={styles.total}>₹1885.00</Text>
@@ -172,26 +181,36 @@ export default ConsultationScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f5f5f5' },
-  content: { padding: 16, paddingBottom: 32 },
-
-  headerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  backButton: {
-    padding: 6,
-    marginRight: 12,
-    backgroundColor: '#e0e0e0',
-    borderRadius: 20,
-  },
-  header: {
-    fontSize: 20,
-    fontWeight: '600',
-    flex: 1,
-  },
-
+  content: {paddingBottom: 32 },
+     header: {
+  width: '100%',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  position: 'relative',
+  marginBottom: 20,
+},
+  headerContent: {
+  width: '100%',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  paddingHorizontal: 16,
+  paddingTop: 10,
+  zIndex: 10,
+},
+headerText: {
+  fontFamily: 'Montserrat-SemiBold',
+  fontSize: 18,
+  color: '#000',
+  textAlign: 'center',
+},
+backButton: {
+   backgroundColor: '#4C4C4C',
+  borderRadius: '100%',
+  padding: 10,
+},
   card: {
+    marginHorizontal: 10,
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 14,
@@ -213,18 +232,20 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   doctorName: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'Montserrat-SemiBold',
+    fontSize: 19,
     textAlign: 'center',
   },
   designation: {
+    fontFamily: 'Montserrat-Regular',
     fontSize: 13,
     color: '#555',
     textAlign: 'center',
     marginTop: 4,
   },
   degree: {
-    fontSize: 12,
+    fontFamily: 'Montserrat-Regular',
+    fontSize: 13,
     color: '#777',
     textAlign: 'center',
     marginBottom: 6,
@@ -243,7 +264,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
   },
   statText: {
-    fontSize: 16,
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 13,
     fontWeight: '600',
     color: '#333',
   },
@@ -257,6 +279,7 @@ const styles = StyleSheet.create({
   followUpBanner: {
     flexDirection: 'row',
     backgroundColor: 'background: rgba(79, 209, 197, 1);',
+    marginHorizontal: 10,
     padding: 10,
     borderRadius: 10,
     alignItems: 'center',
@@ -270,7 +293,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   followUpText: {
-    fontSize: 13,
+    fontFamily: 'Montserrat-SemiBold',
+    fontSize: 11,
     color: '#064d06',
     flex: 1,
     flexWrap: 'wrap',
@@ -282,6 +306,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'space-evenly',
     paddingVertical: 14,
+    marginHorizontal: 10,
     marginBottom: 16,
     borderWidth: 1,
     borderColor: '#ddd',
@@ -291,13 +316,14 @@ const styles = StyleSheet.create({
     width: 100,
   },
   timeTitle: {
-    fontSize: 14,
-    fontWeight: '600',
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 13,
     color: '#fff',
     marginTop: 4,
   },
   timeSub: {
-    fontSize: 12,
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 13,
     color: '#fff',
   },
   verticalDivider: {
@@ -307,8 +333,9 @@ const styles = StyleSheet.create({
   },
 
   sectionTitle: {
+    width: '100%',
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 15,
-    fontWeight: '600',
     marginBottom: 10,
     color: '#333',
   },
@@ -316,6 +343,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 3,
+  },
+  billRowText: {
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 13,
+    color: '#00000080',
+  },
+  billRowPrice: {
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 13,
+    color: '#000000',
   },
   totalRow: {
     flexDirection: 'row',
@@ -325,9 +362,10 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     paddingTop: 8,
   },
-  totalLabel: { fontWeight: 'bold' },
-  total: { fontWeight: 'bold', color: '#007a00' },
+  totalLabel: { fontFamily: 'Montserrat-Medium', fontSize: 13, color: '#000000' },
+  total: { fontFamily: 'Montserrat-Medium', fontSize: 13, color: '#007212' },
   saved: {
+    fontFamily: 'Montserrat-Medium',
     marginTop: 6,
     color: '#007a00',
     fontSize: 13,
@@ -337,6 +375,7 @@ const styles = StyleSheet.create({
   couponCard: {
     borderRadius: 10,
     overflow: 'hidden',
+    marginHorizontal: 10,
     marginBottom: 16,
     borderWidth: 1,
     borderColor: '#ccc',
@@ -348,12 +387,15 @@ const styles = StyleSheet.create({
   },
 
   termsText: {
-    fontSize: 12,
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 15,
     color: '#444',
     marginBottom: 6,
     lineHeight: 18,
   },
   bold: {
+    fontFamily: 'Montserrat-SemiBold',
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#222',
   },
@@ -363,8 +405,9 @@ const styles = StyleSheet.create({
     padding: 14,
     borderRadius: 10,
     alignItems: 'center',
+    marginHorizontal: 10,
     marginBottom: 20,
     marginTop: 10,
   },
-  payButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
+  payButtonText: { color: '#fff', fontFamily: 'Montserrat-SemiBold',fontSize: 15 },
 });

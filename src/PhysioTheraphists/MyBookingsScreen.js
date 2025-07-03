@@ -37,13 +37,20 @@ const MyBookingsScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Image
-            source={require('../assets/images/myhealthscreen/arrow-left.png')}
-            style={{ width: 24, height: 24 }}
-          />
-        </TouchableOpacity>
-        <Text style={styles.title}>My Bookings</Text>
+      
+        <View style={styles.headerContent}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <Image
+                          source={require('../assets/images/myhealthscreen/arrow-left.png')}
+                          style={{ width: 24, height: 24 }}
+                        />
+          </TouchableOpacity>
+      
+          <Text style={styles.headerText}>My Bookings</Text>
+      
+          {/* Spacer to balance layout */}
+          <View style={{ width: 32 }} />
+        </View>
       </View>
 
       <FlatList
@@ -90,19 +97,34 @@ const styles = StyleSheet.create({
     paddingBottom: 80,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  backButton: {
-    backgroundColor: '#4C4C4C',
-    borderRadius: 30,
-    padding: 10,
-    marginRight: 10,
-  },
+  width: '100%',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  position: 'relative',
+  marginBottom: 20,
+},
+  headerContent: {
+  width: '100%',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  paddingHorizontal: 16,
+  paddingTop: 10,
+  zIndex: 10,
+},
+headerText: {
+  fontFamily: 'Montserrat-SemiBold',
+  fontSize: 18,
+  color: '#000',
+  textAlign: 'center',
+},
+backButton: {
+   backgroundColor: '#4C4C4C',
+  borderRadius: '100%',
+  padding: 10,
+},
   title: {
+    top: 10,
     fontSize: 18,
     fontWeight: '600',
     fontFamily: 'Montserrat-Regular',

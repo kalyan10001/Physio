@@ -48,13 +48,26 @@ export default function DoctorProfileScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <View style={styles.backBtnWrapper}>
-          <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={22} color="#000" />
-          </TouchableOpacity>
-        </View>
-
-        <Image source={require('../assets/images/services/team.jpg')} style={styles.coverImage} />
+       <View style={styles.header}>
+              <Image
+                source={require('../assets/images/services/team.jpg')}
+                style={styles.headerBackground}
+              />
+            
+              <View style={styles.headerContent}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                  <Image
+                                source={require('../assets/images/myhealthscreen/arrow-left.png')}
+                                style={{ width: 24, height: 24 }}
+                              />
+                </TouchableOpacity>
+            
+                <Text style={styles.headerText}>Doctor's Profile</Text>
+            
+                {/* Spacer to balance layout */}
+                <View style={{ width: 32 }} />
+              </View>
+            </View>
 
         <View style={styles.profileImageContainer}>
           <Image source={doctor.profilePic} style={styles.profileImage} />
@@ -125,7 +138,10 @@ export default function DoctorProfileScreen() {
         </View>
 
         <View style={styles.patientStoriesWrapper}>
-  <Text style={styles.sectionTitle}>😊 Patients Stories</Text>
+          <View style={styles.patientStoriesHeader}>
+          <Image source={require('../assets/images/physioprofilescreen/happy_light.png')} style={{ width: 20,height: 20, borderRadius: 12,marginTop: 2 }} />
+  <Text style={styles.sectionTitle}> Patients Stories</Text>
+  </View>
 
   <LinearGradient
     colors={["#4CAADB", "#0A7BA5"]}
@@ -187,21 +203,58 @@ export default function DoctorProfileScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#ffffff' },
-  backBtnWrapper: {
+     header: {
+  width: '100%',
+  height: 220,
+  borderBottomLeftRadius: 30,
+  borderBottomRightRadius: 30,
+  overflow: 'hidden',
+  backgroundColor: '#f0f0f0',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  position: 'relative',
+},
+    headerBackground: {
+    width: '100%',
+    height: '100%',
     position: 'absolute',
-    top: 10,
-    left: 10,
+    resizeMode: 'cover',
+  },
+  headerContent: {
+  width: '100%',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  paddingHorizontal: 16,
+  paddingTop: 10,
+  zIndex: 10,
+},
+headerText: {
+  fontFamily: 'Montserrat-SemiBold',
+  fontSize: 18,
+  color: '#000',
+  textAlign: 'center',
+},
+backButton: {
+   backgroundColor: '#4C4C4C',
+  borderRadius: '100%',
+  padding: 10,
+},
+    profileWrapper: {
+    position: 'absolute',
+    top: 15,
+    left: '30%',
     zIndex: 99,
   },
-  backButton: {
-    backgroundColor: '#ffffff',
-    padding: 8,
-    borderRadius: 20,
-    elevation: 4,
+  profileText: {
+    fontFamily: 'Montserrat-SemiBold',
+    fontSize: 18,
+    color: '#000',
   },
   coverImage: {
     width: '100%',
     height: 200,
+    top: 0,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
   },
@@ -222,16 +275,18 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   name: {
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 18,
-    fontWeight: 'bold',
   },
   specialties: {
+    fontFamily: 'Montserrat-Regular',
     fontSize: 13,
     color: 'gray',
     textAlign: 'center',
     marginTop: 2,
   },
   degrees: {
+    fontFamily: 'Montserrat-Regular',
     fontSize: 13,
     color: 'gray',
     textAlign: 'center',
@@ -258,6 +313,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   likes: {
+    fontFamily: 'Montserrat-Medium',
     fontSize: 16,
     fontWeight: '500',
     color: '#333',
@@ -277,9 +333,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   viewProfileText: {
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 13,
     color: '#ffffff',
     textAlign: 'center',
-    fontWeight: '500',
   },
   consultBox: {
     marginTop: 20,
@@ -305,7 +362,8 @@ const styles = StyleSheet.create({
     backgroundColor:'background: rgba(9, 93, 126, 1);',
   },
   tabText: {
-    fontSize: 14,
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 13,
     color: '#fff',
   },
   activeTab: {
@@ -320,16 +378,18 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   consultationText: {
-    fontSize: 16,
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 15,
     fontWeight: '500',
   },
   feesText: {
-    fontSize: 16,
+    fontFamily: 'Montserrat-SemiBold',
+    fontSize: 15,
     color: 'black',
-    fontWeight: 'bold',
   },
   followupText: {
-    fontSize: 13,
+    fontFamily: 'Montserrat-Regular',
+    fontSize: 10,
     color: 'gray',
     marginBottom: 14,
   },
@@ -341,7 +401,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   slot: {
-    fontSize: 12,
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 10,
     borderWidth: 1.2,
     borderColor: '#cccccc',
     paddingHorizontal: 8,
@@ -350,19 +411,24 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   viewAll: {
-    fontSize: 14,
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 11,
     color: '#007bff',
     fontWeight: '500',
+  },
+  patientStoriesHeader: {
+    flexDirection: 'row',
+    gap: 5,
   },
   patientStoriesWrapper: {
   marginTop: 20,
   paddingHorizontal: 16,
 },
 sectionTitle: {
-  fontSize: 16,
-  fontWeight: 'bold',
+  fontFamily: 'Montserrat-SemiBold',
+  fontSize: 19,
   marginBottom: 10,
-  color: '#000',
+  color: '#095D7E',
 },
 storyCard: {
   borderRadius: 12,
@@ -380,9 +446,9 @@ storyLeft: {
   justifyContent: 'center',
 },
 storyLikes: {
+  fontFamily: 'Montserrat-Regular',
   color: '#fff',
-  fontWeight: '600',
-  fontSize: 16,
+  fontSize: 13,
 },
 verticalDivider: {
   width: 2,
@@ -394,8 +460,9 @@ storyRight: {
   flex: 1,
 },
 storyText: {
+  fontFamily: 'Montserrat-Medium',
   color: '#fff',
-  fontSize: 13,
+  fontSize: 11,
   lineHeight: 18,
 },
   aboutContainerWrapper: {
@@ -405,13 +472,15 @@ storyText: {
     padding: 25,
   },
   aboutText: {
-    fontSize: 12,
+    fontFamily: 'Montserrat-Regular',
+    fontSize: 13,
     color: '#ffffff',
     textAlign: 'justify',
     lineHeight: 20,
   },
   readMoreText: {
-    color: 'black',
+    fontFamily: 'Montserrat-Medium',
+    color: '#fff',
     fontSize: 12,
     marginTop: 4,
     fontWeight: '600',
@@ -428,14 +497,14 @@ storyText: {
     elevation: 5,
   },
   consultBtn: {
-    backgroundColor: '#28a745',
+    backgroundColor: '#0A7BA5',
     paddingVertical: 14,
     borderRadius: 12,
   },
   consultText: {
+    fontFamily: 'Montserrat-SemiBold',
     textAlign: 'center',
     color: '#ffffff',
-    fontWeight: '600',
-    fontSize: 14,
+    fontSize: 15,
   },
 });

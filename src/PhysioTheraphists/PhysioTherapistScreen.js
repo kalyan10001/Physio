@@ -10,6 +10,7 @@ import {
   StatusBar,
   Modal,
 } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -114,6 +115,8 @@ const DoctorCard = ({ doctor, onPress }) => {
 
 const PhysiotherapistScreen = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const feature = route.params?.feature ?? null;
   const [sortByRating, setSortByRating] = useState(false);
   const [qualificationModalVisible, setQualificationModalVisible] = useState(false);
   const [consultationModalVisible, setConsultationModalVisible] = useState(false);
@@ -137,6 +140,10 @@ const PhysiotherapistScreen = () => {
     filteredDoctors = filteredDoctors.filter((doc) =>
       doc.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+  }
+  if (feature) {
+    console.log('Filtering by feature:', feature);
+    filteredDoctors = filteredDoctors.filter((doc) => doc.tags.includes(feature));
   }
   if (sortByRating) {
     filteredDoctors.sort((a, b) => b.rating - a.rating);
@@ -166,15 +173,15 @@ const PhysiotherapistScreen = () => {
       <View style={styles.filters}>
         <TouchableOpacity style={styles.filterBtn} onPress={() => setSortByRating(!sortByRating)}>
           <MaterialIcons name="sort" size={16} color="#000" />
-          <Text style={styles.filterText}>Sort by Rating</Text>
+          <Text style={styles.filterText}>Sort by</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.filterBtn} onPress={() => setQualificationModalVisible(true)}>
-          <Text style={styles.filterText}>Filter by</Text>
+          <Text style={styles.filterText}>Filter by: {selectedQualification}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.filterBtn} onPress={() => setConsultationModalVisible(true)}>
-          <Text style={styles.filterText}>Consultation Type</Text>
+          <Text style={styles.filterText}>Consultation Type {selectedType !== null ? `: ${selectedType}` : ''}</Text>
         </TouchableOpacity>
       </View>
 
@@ -282,9 +289,9 @@ const styles = StyleSheet.create({
     top: 10,
     left: 10,
     zIndex: 10,
-    backgroundColor: '#fff',
-    borderRadius: 20,
-    padding: 6,
+     backgroundColor: '#4C4C4C',
+    borderRadius: '100%',
+    padding: 10,
     elevation: 4,
   },
   searchBar: {
@@ -300,10 +307,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 5,
   },
-  searchInput: { flex: 1, fontSize: 15, color: '#000' },
+  searchInput: { flex: 1, fontFamily:'Montserrat-Medium',fontSize: 15, color: '#000' },
   filters: {
+    width: '100%',
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-around',
+    gap: 8,
     paddingHorizontal: 10,
     paddingTop: 12,
     paddingBottom: 8,
@@ -311,17 +321,15 @@ const styles = StyleSheet.create({
   filterBtn: {
     flexDirection: 'row',
     backgroundColor: 'white',
-    paddingHorizontal: 0,
-    paddingVertical: 8,
+    padding: 10,
     borderRadius: 8,
     borderWidth: 0.3,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 130,
     marginRight: 2,
     height: 35,
   },
-  filterText: { marginLeft: 4, fontSize: 12, color: '#333' },
+  filterText: { marginLeft: 4, fontFamily:'Montserrat-Medium',fontSize: 11, color: '#333' },
   card: {
     margin: 10,
     padding: 12,
@@ -331,10 +339,10 @@ const styles = StyleSheet.create({
   },
   cardHeader: { flexDirection: 'row', alignItems: 'center' },
   profileImage: { width: 60, height: 60, borderRadius: 100, marginRight: 14 },
-  name: { fontSize: 16, fontWeight: 'bold', color: '#222' },
-  pt: { fontSize: 14, fontWeight: '400', color: '#666' },
-  specialty: { fontSize: 14, color: '#666' },
-  experience: { fontSize: 14, fontWeight: '600', color: '#666' },
+  name: { fontSize: 15, fontFamily: 'Montserrat-SemiBold', color: '#222' },
+  pt: { fontSize: 14, fontFamily: 'Montserrat-SemiBold', color: '#666' },
+  specialty: { fontFamily: 'Montserrat-Medium',fontSize: 11, color: '#666' },
+  experience: { fontSize: 13, fontFamily: 'Montserrat-Medium', color: '#666' },
   ratingBox: {
     backgroundColor: '#007B83',
     borderRadius: 12,
@@ -345,20 +353,20 @@ const styles = StyleSheet.create({
   },
   ratingStar: { color: '#fff', fontSize: 13, marginRight: 2 },
   ratingValue: { color: '#fff', fontSize: 13, fontWeight: 'bold' },
-  tagRow: { flexDirection: 'row', justifyContent: 'flex-start', flexWrap: 'wrap', marginTop: 12 },
+  tagRow: { flexDirection: 'row', justifyContent: 'flex-start', marginTop: 12 },
   tagBox: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 6,
     paddingVertical: 6,
-    marginRight: 10,
+    marginRight: 6,
     marginBottom: 6,
   },
-  tagTextTop: { fontSize: 12, fontWeight: '600', color: '#000', lineHeight: 16 },
-  tagTextBottom: { fontSize: 11, color: '#444', lineHeight: 14 },
+  tagTextTop: { fontSize: 11, fontFamily: 'Montserrat-Medium', color: '#000', lineHeight: 16 },
+  tagTextBottom: { fontSize: 11, fontFamily: 'Montserrat-Medium',color: '#444', lineHeight: 14 },
   modalOverlay: {
     flex: 1,
     justifyContent: 'flex-end',

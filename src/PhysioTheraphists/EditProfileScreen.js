@@ -14,6 +14,9 @@ const EditProfileScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [address1,setAddress1] = useState('');
   const [address2,setAddress2] = useState('');
+  const [city,setCity] = useState('');
+  const [state,setState] = useState('');
+  const [pinCode,setPinCode] = useState('');
   const [gender, setGender] = useState('Male');
   const [dob, setDob] = useState(new Date(2005, 9, 10)); // 10th Oct, 2005
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -83,21 +86,40 @@ const EditProfileScreen = ({navigation}) => {
         {/* Address Lane 2 */}
         <Text style={styles.label}>Address Lane 2</Text>
         <View style={styles.rowInput}>
-          <TextInput style={styles.flexInput} placeholder="State,Pincode etc"  onChangeText={(text) => setAddress2(text)}/>
+          <TextInput style={styles.flexInput} placeholder="Landmark..."  onChangeText={(text) => setAddress2(text)}/>
             {address2 && 
           <TouchableOpacity>
             <Text style={styles.changeText}>Change</Text>
           </TouchableOpacity>
           }
         </View>
-        {/* DOB */}
-        {/* <Text style={styles.label}>Date of Birth</Text>
-         <View style={styles.rowInput}>
-            <TextInput style={styles.flexInput} placeholder="DD-MM-YYYY" />
+        <Text style={styles.label}>City</Text>
+        <View style={styles.rowInput}>
+          <TextInput style={styles.flexInput} placeholder="Kolkata,Bangalore etc"  onChangeText={(text) => setCity(text)}/>
+            {address2 && 
           <TouchableOpacity>
-             <Image source={require("../assets/images/myhealthscreen/date-picker.png")} style={{height: 20,width: 20,tintColor:'black'}} />
+            <Text style={styles.changeText}>Change</Text>
           </TouchableOpacity>
-        </View> */}
+          }
+        </View>
+        <Text style={styles.label}>State</Text>
+        <View style={styles.rowInput}>
+          <TextInput style={styles.flexInput} placeholder="West Bengal,Bihar etc"  onChangeText={(text) => setState(text)}/>
+            {address2 && 
+          <TouchableOpacity>
+            <Text style={styles.changeText}>Change</Text>
+          </TouchableOpacity>
+          }
+        </View>
+        <Text style={styles.label}>Pin Code</Text>
+        <View style={styles.rowInput}>
+          <TextInput style={styles.flexInput} placeholder="Enter Your Pin Code"  onChangeText={(text) => setPinCode(text)}/>
+            {address2 && 
+          <TouchableOpacity>
+            <Text style={styles.changeText}>Change</Text>
+          </TouchableOpacity>
+          }
+        </View>
 
         <Text style={styles.label}>Date of Birth</Text>
 <View style={styles.rowInput}>
@@ -158,8 +180,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
    header: {
-    width: '75%',
-    paddingHorizontal: 16,
+    width: '70%',
+    paddingHorizontal: 0,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -169,13 +191,11 @@ const styles = StyleSheet.create({
   backButton: {
     backgroundColor: 'rgba(76, 76, 76, 1)',
     padding: 10,
-    marginRight: 12,
     borderRadius: '100%',
   },
   headerTitle: {
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 19,
-    fontWeight: 600,
     color: '#000',
   },
   profileContainer: {
@@ -197,7 +217,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   label: {
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 14,
     marginTop: 10,
     marginBottom: 4,

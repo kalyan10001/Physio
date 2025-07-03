@@ -73,23 +73,26 @@ const MyReportsScreen = ({ navigation }) => {
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
 
         {/* Header Image & Title */}
-        <View style={styles.headerImageWrapper}>
-          <Image
-            source={require('../assets/images/myhealthscreen/report-icon.png')}
-            style={styles.headerImage}
-          />
-          <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => navigation.goBack()}
-          >
+          <View style={styles.header}>
+        <Image
+          source={require('../assets/images/myhealthscreen/report-icon.png')}
+          style={styles.headerBackground}
+        />
+      
+        <View style={styles.headerContent}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
             <Image
-              source={require('../assets/images/myhealthscreen/arrow-left.png')}
-              style={{ width: 24, height: 24 }}
-            />
+                          source={require('../assets/images/myhealthscreen/arrow-left.png')}
+                          style={{ width: 24, height: 24 }}
+                        />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>My Reports</Text>
+      
+          <Text style={styles.headerText}>My Reports</Text>
+      
+          {/* Spacer to balance layout */}
+          <View style={{ width: 32 }} />
         </View>
-
+      </View>
         {/* Search Box */}
         <View style={styles.searchBox}>
           <Image
@@ -133,32 +136,43 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  headerImageWrapper: {
-    position: 'relative',
+  header: {
+  width: '100%',
+  height: 220,
+  borderBottomLeftRadius: 30,
+  borderBottomRightRadius: 30,
+  overflow: 'hidden',
+  backgroundColor: '#f0f0f0',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  position: 'relative',
+},
+    headerBackground: {
     width: '100%',
-  },
-  headerImage: {
-    width: '100%',
-    height: 200,
+    height: '100%',
+    position: 'absolute',
     resizeMode: 'cover',
   },
-  backBtn: {
-    position: 'absolute',
-    top: 12,
-    left: 16,
-    backgroundColor: '#4C4C4C',
-    borderRadius: 50,
-    padding: 10,
-  },
-  headerTitle: {
-    position: 'absolute',
-    top:15,
-    left: 150,
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#000',
-    fontFamily: 'Montserrat-Regular',
-  },
+  headerContent: {
+  width: '100%',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  paddingHorizontal: 16,
+  paddingTop: 10,
+  zIndex: 10,
+},
+headerText: {
+  fontFamily: 'Montserrat-SemiBold',
+  fontSize: 18,
+  color: '#000',
+  textAlign: 'center',
+},
+backButton: {
+   backgroundColor: '#4C4C4C',
+  borderRadius: '100%',
+  padding: 10,
+},
   searchBox: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -166,7 +180,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     paddingHorizontal: 10,
-    marginTop: -24,
+    paddingVertical: 2,
+    marginTop: -50,
     marginBottom: 16,
     shadowColor: '#000',
     shadowOpacity: 0.08,
@@ -217,7 +232,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 10,
-    tintColor: '#4C4C4C',
+    tintColor: '#4C4C4C'
   },
   dateText: {
     fontSize: 14,
@@ -253,7 +268,7 @@ const styles = StyleSheet.create({
     bottom: 20,
     alignSelf: 'center',
     backgroundColor: '#F0F0F0',
-    borderRadius: 100,
+    borderRadius: 10,
     width: 60,
     height: 60,
     justifyContent: 'center',
