@@ -1,10 +1,11 @@
 // EditProfileScreen.tsx
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Platform } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const EditProfileScreen = ({navigation}) => {

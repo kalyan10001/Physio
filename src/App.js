@@ -32,6 +32,7 @@ import DocterProfile from './PhysioTheraphists/DocterProfile.js';
 import ConsultationScreen from './PhysioTheraphists/ConsultationScreen.js';
 import BookingConfirmation from './PhysioTheraphists/BookingConfirmation.js';
 import TimeSlots from './PhysioTheraphists/TimeSlots.js';
+import DoctorProfileScreen from './PhysioTheraphists/DocterProfileScreen.js';
 
 
 const Stack = createNativeStackNavigator();

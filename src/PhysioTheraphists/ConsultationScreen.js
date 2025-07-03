@@ -13,6 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import RazorpayCheckout from 'react-native-razorpay';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const { width } = Dimensions.get('window');
 
@@ -20,39 +21,39 @@ const ConsultationScreen = () => {
   const navigation = useNavigation();
 
   const handlePayment = () => {
-      const options = {
-        description: 'Video Consultation',
-        image: 'https://your-logo-url.com/logo.png',
-        currency: 'INR',
-        key: 'rzp_live_tKRzM5VWw31iZv', 
-        amount: '100',
-        name: 'GetPhysio',
-        prefill: {
-          email: 'venkatakalyan1000@gmail.com',
-          contact: '8497937244',
-          name: 'Test User'
-        },
-        theme: { color: '#30C3EA' }
-      };
-  
-      RazorpayCheckout.open(options)
-        .then(data => {
-          Alert.alert('Payment Successful', `Payment ID: ${data.razorpay_payment_id}`);
-          navigation.navigate('Booking')
-        })
-        .catch(error => {
-          Alert.alert(`Payment Failed`, `${error.description} | Code: ${error.code}`);
-          navigation.navigate('BookingFail')
-        });
+    const options = {
+      description: 'Video Consultation',
+      image: 'https://your-logo-url.com/logo.png',
+      currency: 'INR',
+      key: 'rzp_live_tKRzM5VWw31iZv',
+      amount: '100',
+      name: 'GetPhysio',
+      prefill: {
+        email: 'venkatakalyan1000@gmail.com',
+        contact: '8497937244',
+        name: 'Test User',
+      },
+      theme: { color: '#30C3EA' },
     };
+
+    RazorpayCheckout.open(options)
+      .then(data => {
+        Alert.alert('Payment Successful', `Payment ID: ${data.razorpay_payment_id}`);
+        navigation.navigate('Booking');
+      })
+      .catch(error => {
+        Alert.alert(`Payment Failed`, `${error.description} | Code: ${error.code}`);
+        navigation.navigate('BookingFail');
+      });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
         {/* Header with Back Button */}
         <View style={styles.headerRow}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-            <Icon name="arrow-left" size={24} color="#000" />
+          <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.header}>Video Consultation</Text>
         </View>
@@ -69,7 +70,6 @@ const ConsultationScreen = () => {
           </Text>
           <Text style={styles.degree}>MD - Dermatology, MBBS, Fellow in Aesthetic Medicine</Text>
 
-          {/* Updated Stats */}
           <View style={styles.stats}>
             <View style={styles.statItem}>
               <Icon name="thumb-up-outline" size={20} color="#007aff" style={{ marginRight: 6 }} />
@@ -97,19 +97,19 @@ const ConsultationScreen = () => {
         {/* Time/Date/Mode */}
         <View style={styles.timeContainer}>
           <View style={styles.timeBox}>
-            <Icon name="clock-outline" size={24} color="#007aff" />
+            <Icon name="clock-outline" size={24} color="#fff" />
             <Text style={styles.timeTitle}>04:00 PM</Text>
             <Text style={styles.timeSub}>Wednesday</Text>
           </View>
           <View style={styles.verticalDivider} />
           <View style={styles.timeBox}>
-            <Icon name="calendar-month-outline" size={24} color="#007aff" />
+            <Icon name="calendar-month-outline" size={24} color="#fff" />
             <Text style={styles.timeTitle}>16th June</Text>
             <Text style={styles.timeSub}>2025</Text>
           </View>
           <View style={styles.verticalDivider} />
           <View style={styles.timeBox}>
-            <Icon name="video-outline" size={24} color="#007aff" />
+            <Icon name="video-outline" size={24} color="#fff" />
             <Text style={styles.timeTitle}>Video</Text>
             <Text style={styles.timeSub}>Consultation</Text>
           </View>
@@ -143,27 +143,20 @@ const ConsultationScreen = () => {
         {/* Terms & Conditions */}
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Terms & Conditions - Appointment Booking</Text>
-          <Text style={styles.termsText}>
-            <Text style={styles.bold}>1. Appointment Timings:</Text> Please arrive at least 10 minutes before your scheduled time.
-          </Text>
-          <Text style={styles.termsText}>
-            <Text style={styles.bold}>2. Rescheduling/Cancellation:</Text> Minimum 24 hours in advance. Late cancellations may incur fees.
-          </Text>
-          <Text style={styles.termsText}>
-            <Text style={styles.bold}>3. Late Arrival:</Text> If you’re more than 15 mins late, your appointment may be rescheduled.
-          </Text>
-          <Text style={styles.termsText}>
-            <Text style={styles.bold}>4. Video Calls:</Text> All info and treatment suggestions will be online. Charges may apply.
-          </Text>
-          <Text style={styles.termsText}>
-            <Text style={styles.bold}>5. Follow-Up Policy:</Text> 7 days free follow-up if needed.
-          </Text>
-          <Text style={styles.termsText}>
-            <Text style={styles.bold}>6. Medical Records:</Text> Carry all relevant previous records or prescriptions.
-          </Text>
-          <Text style={styles.termsText}>
-            <Text style={styles.bold}>7. Emergency Cases:</Text> Visit nearby hospitals or emergency centers directly.
-          </Text>
+          {[
+            '1. Appointment Timings: Please arrive at least 10 minutes before your scheduled time.',
+            '2. Rescheduling/Cancellation: Minimum 24 hours in advance. Late cancellations may incur fees.',
+            '3. Late Arrival: If you’re more than 15 mins late, your appointment may be rescheduled.',
+            '4. Video Calls: All info and treatment suggestions will be online. Charges may apply.',
+            '5. Follow-Up Policy: 7 days free follow-up if needed.',
+            '6. Medical Records: Carry all relevant previous records or prescriptions.',
+            '7. Emergency Cases: Visit nearby hospitals or emergency centers directly.',
+          ].map((item, index) => (
+            <Text key={index} style={styles.termsText}>
+              <Text style={styles.bold}>{item.split(':')[0]}:</Text>
+              {item.split(':')[1]}
+            </Text>
+          ))}
         </View>
 
         {/* Pay Button */}
@@ -187,8 +180,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   backButton: {
-    marginRight: 12,
     padding: 6,
+    marginRight: 12,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 20,
   },
   header: {
     fontSize: 20,
@@ -211,8 +206,8 @@ const styles = StyleSheet.create({
   },
 
   profileImage: {
-    width: 100,
-    height: 100,
+    width: 140,
+    height: 140,
     borderRadius: 50,
     marginBottom: 8,
     alignSelf: 'center',
@@ -248,20 +243,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
   },
   statText: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '600',
     color: '#333',
   },
   verticalDividerLine: {
     height: 20,
-    width: 1.2,
+    width: 1.5,
     backgroundColor: '#ccc',
     marginHorizontal: 10,
   },
 
   followUpBanner: {
     flexDirection: 'row',
-    backgroundColor: '#e2f8e9',
+    backgroundColor: 'background: rgba(79, 209, 197, 1);',
     padding: 10,
     borderRadius: 10,
     alignItems: 'center',
@@ -283,7 +278,7 @@ const styles = StyleSheet.create({
 
   timeContainer: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: 'background: rgba(10, 123, 165, 1);',
     borderRadius: 10,
     justifyContent: 'space-evenly',
     paddingVertical: 14,
@@ -298,12 +293,12 @@ const styles = StyleSheet.create({
   timeTitle: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#000',
+    color: '#fff',
     marginTop: 4,
   },
   timeSub: {
     fontSize: 12,
-    color: '#666',
+    color: '#fff',
   },
   verticalDivider: {
     width: 1,
@@ -364,7 +359,7 @@ const styles = StyleSheet.create({
   },
 
   payButton: {
-    backgroundColor: '#007aff',
+    backgroundColor: 'rgba(10, 123, 165, 1)',
     padding: 14,
     borderRadius: 10,
     alignItems: 'center',
