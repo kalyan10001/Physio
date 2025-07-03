@@ -1,4 +1,5 @@
-import React from 'react';
+// Full Updated Code with 3 buttons: Sort By, Filter By Qualification, Consultation Type
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,66 +9,71 @@ import {
   StyleSheet,
   TouchableOpacity,
   StatusBar,
+  Modal,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
-const doctors = [
+const doctorsData = [
   {
     id: '1',
     name: 'Dr. Sreemoyee Maitra',
     experience: '10 years of Experience as MPT (Neurology), BPT',
     rating: 4.8,
+    type: 'MPT',
     image: require('../assets/images/services/doc1.png'),
     tags: ['Online', 'Home', 'In-Clinic'],
   },
   {
     id: '2',
     name: 'Dr. Aritra Biswas',
-    experience: '10 years of Experience as MPT (Neurology), BPT',
+    experience: '10 years of Experience as BPT',
     rating: 4.5,
+    type: 'BPT',
     image: require('../assets/images/services/doc1.png'),
     tags: ['Online', 'Home'],
   },
   {
     id: '3',
     name: 'Dr. Nandini Verma',
-    experience: '10 years of Experience as MPT (Neurology), BPT',
+    experience: '10 years of Experience as MPT',
     rating: 4.7,
+    type: 'MPT',
     image: require('../assets/images/services/doc1.png'),
     tags: ['In-Clinic', 'Home'],
   },
   {
     id: '4',
     name: 'Dr. Arghya Das',
-    experience: '10 years of Experience as MPT (Neurology), BPT',
+    experience: '10 years of Experience as BPT',
     rating: 4.6,
+    type: 'BPT',
     image: require('../assets/images/services/doc1.png'),
     tags: ['Online', 'In-Clinic'],
   },
   {
     id: '5',
     name: 'Dr. Nilkanta Patel',
-    experience: '10 years of Experience as MPT (Neurology), BPT',
+    experience: '10 years of Experience as MPT',
     rating: 4.9,
+    type: 'MPT',
     image: require('../assets/images/services/doc1.png'),
     tags: ['Online', 'Home', 'In-Clinic'],
   },
   {
     id: '6',
     name: 'Dr. Sibu Das',
-    experience: '10 years of Experience as MPT (Neurology), BPT',
+    experience: '10 years of Experience as BPT',
     rating: 4.4,
+    type: 'BPT',
     image: require('../assets/images/services/doc1.png'),
     tags: ['Home'],
   },
 ];
 
-const DoctorCard = ({ doctor }) => {
-    const navigation = useNavigation();
-
+const DoctorCard = ({ doctor, onPress }) => {
   return (
     <View style={styles.card}>
       <View style={styles.cardHeader}>
@@ -92,7 +98,7 @@ const DoctorCard = ({ doctor }) => {
           else if (tag === 'Home') icon = 'home';
 
           return (
-            <TouchableOpacity key={index} style={styles.tagBox} onPress={()=>navigation.navigate('Consultation')}>
+            <TouchableOpacity key={index} style={styles.tagBox} onPress={() => onPress(tag)}>
               <MaterialIcons name={icon} size={18} color="#007B83" style={{ marginRight: 6 }} />
               <View>
                 <Text style={styles.tagTextTop}>{tag}</Text>
@@ -108,24 +114,37 @@ const DoctorCard = ({ doctor }) => {
 
 const PhysiotherapistScreen = () => {
   const navigation = useNavigation();
+  const [sortByRating, setSortByRating] = useState(false);
+  const [qualificationModalVisible, setQualificationModalVisible] = useState(false);
+  const [consultationModalVisible, setConsultationModalVisible] = useState(false);
+  const [selectedQualification, setSelectedQualification] = useState(null);
+  const [selectedType, setSelectedType] = useState(null);
+
+  const handleConsultationPress = (type) => {
+    navigation.navigate('Consultation', { type });
+  };
+
+  let filteredDoctors = [...doctorsData];
+
+  if (selectedQualification) {
+    filteredDoctors = filteredDoctors.filter((doc) => doc.type === selectedQualification);
+  }
+  if (selectedType) {
+    filteredDoctors = filteredDoctors.filter((doc) => doc.tags.includes(selectedType));
+  }
+  if (sortByRating) {
+    filteredDoctors.sort((a, b) => b.rating - a.rating);
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#fff" barStyle="dark-content" />
-      
-      {/* Header with Image and Back Button */}
+
       <View style={styles.headerImageContainer}>
-        <Image
-          source={require('../assets/images/services/team.jpg')}
-          style={styles.headerImage}
-        />
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
+        <Image source={require('../assets/images/services/team.jpg')} style={styles.headerImage} />
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={24} color="#000" />
         </TouchableOpacity>
-
         <View style={styles.searchBar}>
           <TextInput
             placeholder="Search for Physiotherapist"
@@ -136,27 +155,97 @@ const PhysiotherapistScreen = () => {
       </View>
 
       <View style={styles.filters}>
-        <TouchableOpacity style={styles.filterBtn}>
+        <TouchableOpacity style={styles.filterBtn} onPress={() => setSortByRating(!sortByRating)}>
           <MaterialIcons name="sort" size={16} color="#000" />
-          <Text style={styles.filterText}>Sort by</Text>
+          <Text style={styles.filterText}>Sort by Rating</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.filterBtn}>
-          <MaterialIcons name="filter-list" size={16} color="#000" />
-          <Text style={styles.filterText}>Filter by: BPT</Text>
+
+        <TouchableOpacity style={styles.filterBtn} onPress={() => setQualificationModalVisible(true)}>
+          <Text style={styles.filterText}>Filter by</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.filterBtn}>
-          <Ionicons name="options-outline" size={16} color="#000" />
-          <Text style={styles.filterText}>Consultation Type: Online</Text>
+
+        <TouchableOpacity style={styles.filterBtn} onPress={() => setConsultationModalVisible(true)}>
+          <Text style={styles.filterText}>Consultation Type</Text>
         </TouchableOpacity>
       </View>
 
       <FlatList
-        data={doctors}
+        data={filteredDoctors}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <DoctorCard doctor={item} />}
+        renderItem={({ item }) => (
+          <DoctorCard doctor={item} onPress={handleConsultationPress} />
+        )}
         contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
       />
+
+      {/* Qualification Modal */}
+      <Modal
+        visible={qualificationModalVisible}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setQualificationModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            {['MPT', 'BPT'].map((qual) => (
+              <TouchableOpacity
+                key={qual}
+                style={styles.modalOption}
+                onPress={() => {
+                  setSelectedQualification(qual);
+                  setQualificationModalVisible(false);
+                }}
+              >
+                <Text style={styles.modalOptionText}>{qual}</Text>
+              </TouchableOpacity>
+            ))}
+            <TouchableOpacity
+              style={styles.modalOption}
+              onPress={() => {
+                setSelectedQualification(null);
+                setQualificationModalVisible(false);
+              }}
+            >
+              <Text style={[styles.modalOptionText, { color: 'red' }]}>Clear</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Consultation Modal */}
+      <Modal
+        visible={consultationModalVisible}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setConsultationModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            {['Online', 'Home', 'In-Clinic'].map((type) => (
+              <TouchableOpacity
+                key={type}
+                style={styles.modalOption}
+                onPress={() => {
+                  setSelectedType(type);
+                  setConsultationModalVisible(false);
+                }}
+              >
+                <Text style={styles.modalOptionText}>{type}</Text>
+              </TouchableOpacity>
+            ))}
+            <TouchableOpacity
+              style={styles.modalOption}
+              onPress={() => {
+                setSelectedType(null);
+                setConsultationModalVisible(false);
+              }}
+            >
+              <Text style={[styles.modalOptionText, { color: 'red' }]}>Clear</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -164,10 +253,7 @@ const PhysiotherapistScreen = () => {
 export default PhysiotherapistScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
+  container: { flex: 1, backgroundColor: '#fff' },
   headerImageContainer: {
     width: '100%',
     height: 250,
@@ -177,11 +263,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ddd',
     position: 'relative',
   },
-  headerImage: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
+  headerImage: { width: '100%', height: '100%', resizeMode: 'cover' },
   backButton: {
     position: 'absolute',
     top: 10,
@@ -205,14 +287,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 5,
   },
-  searchInput: {
-    flex: 1,
-    fontSize: 16,
-    color: '#000',
-  },
+  searchInput: { flex: 1, fontSize: 15, color: '#000' },
   filters: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     paddingHorizontal: 10,
     paddingTop: 12,
     paddingBottom: 8,
@@ -220,53 +298,30 @@ const styles = StyleSheet.create({
   filterBtn: {
     flexDirection: 'row',
     backgroundColor: 'white',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingHorizontal:0,
+    paddingVertical: 8,
     borderRadius: 8,
     borderWidth: 0.3,
     alignItems: 'center',
+    justifyContent:'center',
+    width:130,
+    marginRight:2,
+    height:35
   },
-  filterText: {
-    marginLeft: 4,
-    fontSize: 12,
-    color: '#333',
-  },
+  filterText: { marginLeft: 4, fontSize: 12, color: '#333' },
   card: {
     margin: 10,
     padding: 12,
     borderRadius: 10,
     backgroundColor: '#fff',
-    elevation: 3,
+    elevation: 5,
   },
-  cardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  profileImage: {
-    width: 54,
-    height: 54,
-    borderRadius: 27,
-    marginRight: 12,
-  },
-  name: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#222',
-  },
-  pt: {
-    fontSize: 13,
-    fontWeight: '400',
-    color: '#666',
-  },
-  specialty: {
-    fontSize: 13,
-    color: '#666',
-  },
-  experience: {
-    fontSize: 12,
-    fontWeight: '400',
-    color: '#666',
-  },
+  cardHeader: { flexDirection: 'row', alignItems: 'center' },
+  profileImage: { width: 60, height: 60, borderRadius: 100, marginRight: 14 },
+  name: { fontSize: 16, fontWeight: 'bold', color: '#222' },
+  pt: { fontSize: 14, fontWeight: '400', color: '#666' },
+  specialty: { fontSize: 14, color: '#666' },
+  experience: { fontSize: 14, fontWeight: '600', color: '#666' },
   ratingBox: {
     backgroundColor: '#007B83',
     borderRadius: 12,
@@ -275,22 +330,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
   },
-  ratingStar: {
-    color: '#fff',
-    fontSize: 12,
-    marginRight: 2,
-  },
-  ratingValue: {
-    color: '#fff',
-    fontSize: 13,
-    fontWeight: 'bold',
-  },
-  tagRow: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    flexWrap: 'wrap',
-    marginTop: 12,
-  },
+  ratingStar: { color: '#fff', fontSize: 13, marginRight: 2 },
+  ratingValue: { color: '#fff', fontSize: 13, fontWeight: 'bold' },
+  tagRow: { flexDirection: 'row', justifyContent: 'flex-start', flexWrap: 'wrap', marginTop: 12 },
   tagBox: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -302,15 +344,24 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginBottom: 6,
   },
-  tagTextTop: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#000',
-    lineHeight: 16,
+  tagTextTop: { fontSize: 12, fontWeight: '600', color: '#000', lineHeight: 16 },
+  tagTextBottom: { fontSize: 11, color: '#444', lineHeight: 14 },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
-  tagTextBottom: {
-    fontSize: 11,
-    color: '#444',
-    lineHeight: 14,
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  modalOption: {
+    paddingVertical: 12,
+  },
+  modalOptionText: {
+    fontSize: 16,
+    color: '#007B83',
   },
 });

@@ -73,7 +73,7 @@ const testimonials = {
   ],
 };
 
-export default function DoctorProfile() {
+export default function DoctorProfileScreen() {
   const [activeTab, setActiveTab] = useState("Clinic Visit");
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const scrollX = useRef(new Animated.Value(0)).current;

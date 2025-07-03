@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   Dimensions,
+  ImageBackground,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -22,14 +23,21 @@ const BookingConfirmation = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.imageHeaderBox}>
-          <Image
-            source={require('../assets/images/services/doc1.png')}
+          <ImageBackground
+            source={require('../assets/images/services/flowers.png')}
             style={styles.headerImage}
-          />
-          <View style={styles.headerOverlay}>
-            <Text style={styles.greenTick}>✅</Text>
-            <Text style={styles.greenHeaderText}>You have successfully booked your appointment</Text>
-          </View>
+            resizeMode="cover"
+          >
+            <View style={styles.headerOverlay}>
+              <Image
+                source={require('../assets/images/services/tick.png')}
+                style={styles.tickImage}
+              />
+              <Text style={styles.greenHeaderText}>
+                You have booked an appointment with{'\n'}Dr. Sreemoyee Maitra (PT.)
+              </Text>
+            </View>
+          </ImageBackground>
           <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
             <Ionicons name="arrow-back" size={24} color="#fff" />
           </TouchableOpacity>
@@ -82,7 +90,6 @@ const BookingConfirmation = () => {
               Dear <Text style={styles.boldText}>[Patient’s Name]</Text>, your appointment with{' '}
               <Text style={styles.boldText}>Dr. Sreemoyee Maitra</Text> has been successfully booked on{' '}
               <Text style={styles.boldText}>25th March 2025 at 05:30 PM</Text>.
-              {'\n\n'}An OTP will be sent 10 minutes before your scheduled appointment.
               {'\n'}Please arrive <Text style={styles.boldText}>10 minutes early</Text> for smooth check-in.
               {'\n'}Thank you!
             </Text>
@@ -117,33 +124,34 @@ const BookingConfirmation = () => {
 
 export default BookingConfirmation;
 
+// ... imports remain same ...
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f7f9fb' },
   content: { padding: 16, paddingBottom: 32 },
   imageHeaderBox: {
     width: '100%',
-    height: 180,
+    height: 230,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     overflow: 'hidden',
     marginBottom: 20,
-    backgroundColor: '#095d7e',
+    backgroundColor: '#5eef04',
   },
   headerImage: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
+  },
+  tickImage: {
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
   },
   headerOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(9, 93, 126, 0.6)',
+    backgroundColor: 'rgba(57, 138, 61, 0.6)',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 16,
-  },
-  greenTick: {
-    fontSize: 44,
-    color: '#fff',
   },
   greenHeaderText: {
     marginTop: 10,
@@ -151,6 +159,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '600',
     textAlign: 'center',
+    lineHeight: 22,
   },
   backButton: {
     position: 'absolute',
@@ -239,12 +248,15 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
   },
   noteContent: {
-    marginTop: 15,
+    marginTop: 10,
   },
   noteText: {
-    fontSize: 13,
-    color: '#333',
-    lineHeight: 20,
+    fontFamily: 'Montserrat',
+fontWeight: '400',
+fontSize: 13,
+lineHeight: 20,
+letterSpacing: 0,
+
   },
   boldText: {
     fontWeight: '600',
@@ -259,10 +271,13 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
   },
   termsText: {
-    fontSize: 12,
-    color: '#444',
-    marginBottom: 6,
-    lineHeight: 18,
+    fontFamily: 'Montserrat',
+fontWeight: '400',
+fontSize: 13,
+lineHeight: 17, // for 100%
+letterSpacing: 0,
+marginTop:13,
+
   },
   bold: {
     fontWeight: 'bold',
