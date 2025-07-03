@@ -78,23 +78,7 @@ const MyHealthScreen = ({navigation}) => {
           <Text style={styles.logoutText}> Log Out</Text>
         </TouchableOpacity>
       </ScrollView>
-
       {/* Bottom Navigation */}
-      <View style={styles.navBar}>
-        {['Home', 'Physios', 'PainSense AI', 'My Health'].map((label, idx) => (
-          <TouchableOpacity key={idx} style={styles.navItem}>
-            <Text
-              style={[
-                styles.navText,
-                label === 'My Health' && styles.activeNavText,
-              ]}
-            >
-              {label}
-            </Text>
-            {label === 'My Health' && <View style={styles.activeIndicator} />}
-          </TouchableOpacity>
-        ))}
-      </View>
     </SafeAreaView>
   );
 };
