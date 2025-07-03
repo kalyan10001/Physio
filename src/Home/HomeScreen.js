@@ -262,7 +262,7 @@ const testimonials = [
   },
 ];
  const renderProduct = ({ item }) => (
-    <View style={styles.productCard}>
+    <TouchableOpacity style={styles.productCard} onPress={() => navigation.navigate('PhysioTherapist')}>
       <Image source={item.image} style={styles.productImage} />
       <Text style={styles.productLabel}>{item.label.split(" ")[0]}</Text>
       <Text style={styles.productSideLabel}>{item.label.split(" ")[1]}</Text>
@@ -272,7 +272,7 @@ const testimonials = [
             <Image source={require("../assets/images/homescreen/rightArrowOutline.png")} style={{height: 20,width:20}} />
             </TouchableOpacity>
           </View>
-    </View>
+    </TouchableOpacity>
   );
 
   const renderFeaturedProduct = ({ item }) => (
@@ -314,7 +314,7 @@ const testimonials = [
           <Image source={require("../assets/images/homescreen/location.png")} style={{width: 20,height: 20,tintColor:'white'}} resizeMode="contain"/>
           <Text style={styles.location}>{location.city}</Text>
           </View>
-          <Image source={require("../assets/images/homescreen/notification.png")} style={{width:20,height:20}} resizeMode="contain"/>
+          <Image source={require("../assets/images/homescreen/notification.png")} style={{width:25,height:25}} resizeMode="contain"/>
           </View>
            <View style={styles.searchBar}>
             <TouchableOpacity>
@@ -445,7 +445,8 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     alignItems: 'center',
-    padding: 16,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
   },
   aboveHeader: {
     width:'100%',
@@ -463,14 +464,12 @@ const styles = StyleSheet.create({
   locationHeader: {
     flexDirection: 'row',
     backgroundColor: '#095D7E',
-    gap: 10,
+    gap: 5,
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 16,
   },
   location: {
     fontFamily: 'Montserrat-SemiBold',
-    fontWeight: 600,
     color: '#fff',
     fontSize: 17,
   },

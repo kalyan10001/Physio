@@ -396,7 +396,6 @@ backButton: {
   bold: {
     fontFamily: 'Montserrat-SemiBold',
     fontSize: 15,
-    fontWeight: 'bold',
     color: '#222',
   },
 
