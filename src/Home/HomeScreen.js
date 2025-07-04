@@ -92,7 +92,9 @@ const { width } = Dimensions.get('window');
         }
       );
       const { address } = response.data;
+      console.log("Address",address);
       return {
+        city : address.city,
         region: address.state || address.city || address.town || address.village || '', // Prioritize state, fallback to city/town/village
         country: address.country || '',
       };
@@ -260,7 +262,7 @@ const testimonials = [
   },
 ];
  const renderProduct = ({ item }) => (
-    <View style={styles.productCard}>
+    <TouchableOpacity style={styles.productCard} onPress={() => navigation.navigate('PhysioTherapist')}>
       <Image source={item.image} style={styles.productImage} />
       <Text style={styles.productLabel}>{item.label.split(" ")[0]}</Text>
       <Text style={styles.productSideLabel}>{item.label.split(" ")[1]}</Text>
@@ -270,7 +272,7 @@ const testimonials = [
             <Image source={require("../assets/images/homescreen/rightArrowOutline.png")} style={{height: 20,width:20}} />
             </TouchableOpacity>
           </View>
-    </View>
+    </TouchableOpacity>
   );
 
   const renderFeaturedProduct = ({ item }) => (
@@ -310,9 +312,9 @@ const testimonials = [
             </View>
             <View style={styles.locationHeader}>
           <Image source={require("../assets/images/homescreen/location.png")} style={{width: 20,height: 20,tintColor:'white'}} resizeMode="contain"/>
-          <Text style={styles.location}>{location.region}</Text>
+          <Text style={styles.location}>{location.city}</Text>
           </View>
-          <Image source={require("../assets/images/homescreen/notification.png")} style={{width:20,height:20}} resizeMode="contain"/>
+          <Image source={require("../assets/images/homescreen/notification.png")} style={{width:25,height:25}} resizeMode="contain"/>
           </View>
            <View style={styles.searchBar}>
             <TouchableOpacity>
@@ -326,21 +328,21 @@ const testimonials = [
 
         {/* Consultation Options */}
         <View style={styles.consultationSection}>
-          <View style={styles.consultCard}>
+          <TouchableOpacity style={styles.consultCard} onPress={() => navigation.navigate('PhysioTherapist',{feature:'In-Clinic'})}>
             <Image source={require('../assets/images/homescreen/feature1.png')} style={styles.consultImage} />
             <Text style={styles.consultText}>In-Clinic Consultation</Text>
-          </View>
-          <View style={styles.consultCard}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.consultCard} onPress={() => navigation.navigate('PhysioTherapist',{feature:'Online'})}>
             <Image source={require('../assets/images/homescreen/feature2.png')} style={styles.consultImage} />
             <Text style={styles.consultText}>Online Consultation</Text>
-          </View>
+          </TouchableOpacity>
         </View>
 
         {/* At Home Physiotherapist */}
-        <View style={styles.bannerCard}>
+        <TouchableOpacity style={styles.bannerCard} onPress={() => navigation.navigate('PhysioTherapist',{feature:'Home'})}>
           <Image source={require('../assets/images/homescreen/feature3.png')} style={styles.bannerImage} />
           <Text style={styles.bannerText}>Physiotherapist At Home</Text>
-        </View>
+        </TouchableOpacity>
 
         {/* PainSense AI */}
         <View style={styles.aiCard}>
@@ -443,7 +445,8 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     alignItems: 'center',
-    padding: 16,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
   },
   aboveHeader: {
     width:'100%',
@@ -461,14 +464,12 @@ const styles = StyleSheet.create({
   locationHeader: {
     flexDirection: 'row',
     backgroundColor: '#095D7E',
-    gap: 10,
+    gap: 5,
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 16,
   },
   location: {
-    fontFamily: 'Montserrat-Regular',
-    fontWeight: 600,
+    fontFamily: 'Montserrat-SemiBold',
     color: '#fff',
     fontSize: 17,
   },
@@ -482,7 +483,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   searchInput: {
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Montserrat-Medium',
     marginLeft: 8,
     flex: 1,
   },
@@ -508,9 +509,9 @@ const styles = StyleSheet.create({
   consultText: {
     paddingHorizontal: 6,
     paddingVertical : 10,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Montserrat-SemiBold',
     fontWeight: 600,
-    fontSize: 15,
+    fontSize: 12,
     color: 'white',
     textAlign: 'center',
   },
@@ -526,11 +527,11 @@ const styles = StyleSheet.create({
   },
   bannerText:{
     padding: 10,
-    fontFamily : 'Montserrat-Regular',
+    fontFamily : 'Montserrat-SemiBold',
     textAlign: 'center',
     color: '#fff',
     fontWeight: 600,
-    fontSize: 15,
+    fontSize: 12,
   },
   aiCard: {
     flexDirection : 'row',
@@ -545,14 +546,14 @@ const styles = StyleSheet.create({
     flexDirection : 'column',
   },
   aiText: {
-     fontFamily : 'Montserrat-Regular',
+     fontFamily : 'Montserrat-SemiBold',
     color: '#fff',
     fontWeight: 600,
     fontSize: 15,
     color: '#fff',
   },
   aiDesc: {
-     fontFamily : 'Montserrat-Regular',
+     fontFamily : 'Montserrat-Medium',
     color: '#fff',
     fontWeight: 600,
     fontSize: 11,
@@ -576,7 +577,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   sectionTitle : {
-     fontFamily : 'Montserrat-Regular',
+     fontFamily : 'Montserrat-SemiBold',
     color: '#fff',
     fontWeight: 600,
     fontSize: 19,
@@ -587,7 +588,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sectionSee:{
-    fontFamily : 'Montserrat-Regular',
+    fontFamily : 'Montserrat-Medium',
     color: '#fff',
     fontWeight: 600,
     fontSize: 13,
@@ -605,7 +606,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   productTitle : {
-     fontFamily : 'Montserrat-Regular',
+     fontFamily : 'Montserrat-SemiBold',
      color: '#095D7E',
     fontWeight: 600,
     fontSize: 19,
@@ -616,7 +617,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
    productSee:{
-    fontFamily : 'Montserrat-Regular',
+    fontFamily : 'Montserrat-Medium',
     color: 'black',
     fontWeight: 600,
     fontSize: 13,
@@ -646,7 +647,7 @@ const styles = StyleSheet.create({
     productSideLabel: {
     position: 'absolute',
     color: '#fff',
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Montserrat-Medium',
     fontWeight: 500,
     fontSize: 13,
     marginTop: 50,
@@ -688,20 +689,19 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   singleProductHead : {
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Montserrat-SemiBold',
     fontWeight: 600,
     fontSize: 11,
     color: 'black',
   },
   singleProductDesc : {
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Montserrat-Medium',
     fontWeight: 500,
     fontSize: 11, 
     color: 'grey',
   },
   price: {
-    fontFamily: 'Montserrat-Regular',
-    fontWeight: 700,
+    fontFamily: 'Montserrat-Bold',
     color: 'black',
     fontSize: 11,
   },
@@ -727,13 +727,13 @@ const styles = StyleSheet.create({
    padding: 10,
   },
   healthTipHeading:{
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Montserrat-SemiBold',
     fontWeight: 600,
     fontSize: 15,
      color: 'white',
   },
   healthTipDescription:{
-  fontFamily: 'Montserrat-Regular',
+  fontFamily: 'Montserrat-Medium',
     fontWeight: 500,
     fontSize: 13,
      color: '#aaa',
@@ -751,7 +751,7 @@ const styles = StyleSheet.create({
     height: 120
   },
   tipTitle: {
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Montserrat-Medium',
     fontWeight: 500,
     fontSize: 13,
     color: "#fff",

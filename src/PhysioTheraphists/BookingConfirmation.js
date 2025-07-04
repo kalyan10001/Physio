@@ -39,7 +39,7 @@ const BookingConfirmation = () => {
             </View>
           </ImageBackground>
           <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={24} color="#fff" />
+            <Image source={require("../assets/images/myhealthscreen/arrow-left.png")} style={{height:25,width:25}} />
           </TouchableOpacity>
         </View>
 
@@ -51,7 +51,7 @@ const BookingConfirmation = () => {
         >
           <View style={styles.downloadLeft}>
             <Text style={styles.downloadTitle}>Download Appointment Card</Text>
-            <Text style={styles.downloadNote}>This card is needed on appointment day</Text>
+            <Text style={styles.downloadNote}>This card will needed on the schedule day</Text>
           </View>
           <TouchableOpacity style={styles.downloadButton}>
             <Text style={styles.downloadButtonText}>Download</Text>
@@ -74,7 +74,7 @@ const BookingConfirmation = () => {
           ))}
           <View style={styles.separator} />
           <View style={styles.detailRow}>
-            <Text style={styles.label}>Fees</Text>
+            <Text style={[styles.label,{color:'#000000'}]}>Fees</Text>
             <Text style={[styles.value, styles.fees]}>₹700.00</Text>
           </View>
         </View>
@@ -112,6 +112,7 @@ const BookingConfirmation = () => {
               {item.split(':')[1]}
             </Text>
           ))}
+          <Text style={styles.termsText}>By confirming your appointment,you agree to the above terms</Text>
         </View>
 
         <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate('BottomTabs')}>
@@ -154,20 +155,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   greenHeaderText: {
+    fontFamily: 'Montserrat-Medium',
     marginTop: 10,
-    fontSize: 16,
+    fontSize: 15,
     color: '#fff',
-    fontWeight: '600',
     textAlign: 'center',
-    lineHeight: 22,
+    lineHeight: 18,
   },
   backButton: {
     position: 'absolute',
-    top: 12,
-    left: 12,
+    top: 10,
+    left: 10,
     backgroundColor: 'rgba(0,0,0,0.5)',
-    padding: 6,
-    borderRadius: 20,
+    padding: 10,
+    borderRadius: '100%',
   },
   downloadCardBox: {
     flexDirection: 'row',
@@ -180,8 +181,8 @@ const styles = StyleSheet.create({
     borderColor: '#b3e5fc',
   },
   downloadLeft: { flex: 1, paddingRight: 10 },
-  downloadTitle: { fontSize: 15, fontWeight: 'bold', color: '#fff' },
-  downloadNote: { fontSize: 12, color: '#e0f7fa' },
+  downloadTitle: { fontSize: 13, fontFamily:'Montserrat-SemiBold', color: '#fff' },
+  downloadNote: { fontSize: 10,fontFamily:'Montserrat-Medium', color: '#e0f7fa' },
   downloadButton: {
     backgroundColor: 'white',
     paddingHorizontal: 16,
@@ -189,8 +190,8 @@ const styles = StyleSheet.create({
     borderRadius: 11,
   },
   downloadButtonText: {
+    fontFamily: 'Montserrat-SemiBold',
     color: 'black',
-    fontWeight: '600',
     fontSize: 13,
   },
   detailBox: {
@@ -202,8 +203,8 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
   },
   sectionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontFamily: 'Montserrat-SemiBold',
+    fontSize: 15,
     marginBottom: 12,
     color: '#222',
   },
@@ -212,8 +213,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 8,
   },
-  label: { fontSize: 13, color: '#444' },
-  value: { fontSize: 13, fontWeight: '600', color: '#333' },
+  label: { fontFamily:'Montserrat-Medium',fontSize: 13, color: '#00000080' },
+  value: { fontFamily:'Montserrat-Medium',fontSize: 13, color: '#000000' },
   fees: { color: '#007b00' },
   separator: {
     height: 1,
@@ -251,12 +252,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   noteText: {
-    fontFamily: 'Montserrat',
-fontWeight: '400',
+    fontFamily: 'Montserrat-Regular',
 fontSize: 13,
 lineHeight: 20,
 letterSpacing: 0,
-
   },
   boldText: {
     fontWeight: '600',
@@ -271,8 +270,7 @@ letterSpacing: 0,
     borderColor: '#ddd',
   },
   termsText: {
-    fontFamily: 'Montserrat',
-fontWeight: '400',
+    fontFamily: 'Montserrat-Regular',
 fontSize: 13,
 lineHeight: 17, // for 100%
 letterSpacing: 0,
@@ -280,7 +278,7 @@ marginTop:13,
 
   },
   bold: {
-    fontWeight: 'bold',
+    fontFamily: 'Montserrat-SemiBold',
     color: '#222',
   },
   homeButton: {
@@ -292,7 +290,7 @@ marginTop:13,
   },
   homeButtonText: {
     color: '#fff',
-    fontWeight: '600',
-    fontSize: 16,
+    fontFamily: 'Montserrat-SemiBold',
+    fontSize: 15,
   },
 });

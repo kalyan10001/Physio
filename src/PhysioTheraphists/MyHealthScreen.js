@@ -58,7 +58,7 @@ const MyHealthScreen = ({navigation}) => {
             { imageUrl: require("../assets/images/myhealthscreen/call.png") ,label: 'Need Help?' },
             { imageUrl: require("../assets/images/myhealthscreen/File_dock_search_light.png") ,label: 'Policies' },
           ].map((item, idx) => (
-            <TouchableOpacity key={idx} style={styles.menuItem} onPress={() => item.label === 'Health Analysis Report' ? navigation.navigate('MyReport') : navigation.navigate('MyHealth')}>
+            <TouchableOpacity key={idx} style={styles.menuItem} onPress={() => item.label === 'Health Analysis Report' ? navigation.navigate('MyReport') : (item.label === 'My Profile') ? navigation.navigate('MyProfile') : navigation.navigate('MyHealth')}>
               <View style={{ flexDirection: 'row', alignItems: 'center',gap: 10 }}>
                 <Image source={item.imageUrl} style={{height: 10,width: 10}} />
                 <Text style={styles.menuText}>{item.label}</Text>

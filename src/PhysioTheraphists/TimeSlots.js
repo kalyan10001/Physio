@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
+  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -68,11 +69,21 @@ const TimeSlots = () => {
 
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity style={styles.backButton} onPress={()=>navigation.goBack()}>
-            <Ionicons name="arrow-back" size={22} color="#000" />
-          </TouchableOpacity>
-          <Text style={styles.headerText}>Dr Sreemoyee Maitra</Text>
-        </View>
+              
+                <View style={styles.headerContent}>
+                  <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                    <Image
+                                  source={require('../assets/images/myhealthscreen/arrow-left.png')}
+                                  style={{ width: 24, height: 24 }}
+                                />
+                  </TouchableOpacity>
+              
+                  <Text style={styles.headerText}>Dr Sreemoyee Maitra</Text>
+              
+                  {/* Spacer to balance layout */}
+                  <View style={{ width: 32 }} />
+                </View>
+              </View>
 
         {/* Date Tabs */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.dateTabs}>
@@ -141,27 +152,36 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  wrapper: {
-    paddingHorizontal: 16,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 16,
-    marginBottom: 10,
-  },
-  backButton: {
-    marginRight: 12,
-    backgroundColor: '#f0f0f0',
-    padding: 8,
-    borderRadius: 25,
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: '700',
-  },
+   header: {
+  width: '100%',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  position: 'relative',
+  marginBottom: 20,
+},
+  headerContent: {
+  width: '100%',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  paddingHorizontal: 16,
+  paddingTop: 10,
+  zIndex: 10,
+},
+headerText: {
+  fontFamily: 'Montserrat-SemiBold',
+  fontSize: 18,
+  color: '#000',
+  textAlign: 'center',
+},
+backButton: {
+   backgroundColor: '#4C4C4C',
+  borderRadius: '100%',
+  padding: 10,
+},
 
   dateTabs: {
+    paddingHorizontal: 16,
     marginBottom: 20,
   },
   dateBox: {
@@ -174,18 +194,21 @@ const styles = StyleSheet.create({
     width: 90,
   },
   activeDateBox: {
-    backgroundColor: '#007aff',
+    backgroundColor: '#0A7BA5',
   },
   day: {
+    fontFamily: 'Montserrat-Medium',
     fontSize: 13,
     color: '#666',
   },
   date: {
+    fontFamily: 'Montserrat-Medium',
     fontSize: 18,
     fontWeight: '700',
     color: '#222',
   },
   month: {
+    fontFamily: 'Montserrat-Medium',
     fontSize: 13,
     color: '#666',
   },
@@ -204,8 +227,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   periodTitle: {
+    fontFamily: 'Montserrat-Medium',
     fontSize: 15,
-    fontWeight: '700',
     marginBottom: 10,
     color: '#333',
   },
@@ -224,10 +247,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   activeSlot: {
-    backgroundColor: '#007aff',
-    borderColor: '#007aff',
+    backgroundColor: '#0A7BA5',
+    borderColor: '#0A7BA5',
   },
   slotText: {
+    fontFamily: 'Montserrat-Medium',
     fontSize: 13,
     fontWeight: '500',
     color: '#333',
@@ -238,14 +262,17 @@ const styles = StyleSheet.create({
   },
 
   continueBtn: {
-    backgroundColor: '#007aff',
+    margin: 16,
+    backgroundColor: '#0A7BA5',
     padding: 16,
     alignItems: 'center',
     justifyContent: 'center',
     borderTopWidth: 1,
     borderColor: '#eee',
+    borderRadius: 10,
   },
   continueText: {
+    fontFamily: 'Montserrat-SemiBold',
     color: '#fff',
     fontWeight: '600',
     fontSize: 16,

@@ -31,11 +31,21 @@ const MyHealthScoreScreen = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       {/* Back Button */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Image source={require("../assets/images/myhealthscreen/arrow-left.png")} style={{height:25,width:25}} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>My Health Score</Text>
-      </View>
+            
+              <View style={styles.headerContent}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                  <Image
+                                source={require('../assets/images/myhealthscreen/arrow-left.png')}
+                                style={{ width: 24, height: 24 }}
+                              />
+                </TouchableOpacity>
+            
+                <Text style={styles.headerText}>My Health Score</Text>
+            
+                {/* Spacer to balance layout */}
+                <View style={{ width: 32 }} />
+              </View>
+            </View>
 
       {/* Score Section */}
       <View style={styles.scoreCard}>
@@ -91,27 +101,33 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  header: {
-    width: '75%',
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-    marginTop: 8,
-  },
-  backButton: {
-    backgroundColor: 'rgba(76, 76, 76, 1)',
-    padding: 10,
-    marginRight: 12,
-    borderRadius: '100%',
-  },
-  headerTitle: {
-    fontFamily: 'Montserrat-Regular',
-    fontSize: 19,
-    fontWeight: 600,
-    color: '#000',
-  },
+   header: {
+  width: '100%',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  position: 'relative',
+  marginBottom: 20,
+},
+  headerContent: {
+  width: '100%',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  paddingHorizontal: 16,
+  paddingTop: 10,
+  zIndex: 10,
+},
+headerText: {
+  fontFamily: 'Montserrat-SemiBold',
+  fontSize: 18,
+  color: '#000',
+  textAlign: 'center',
+},
+backButton: {
+   backgroundColor: '#4C4C4C',
+  borderRadius: '100%',
+  padding: 10,
+},
   scoreCard: {
     backgroundColor: '#006400',
     marginHorizontal: 16,
@@ -229,7 +245,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   sectionTitle : {
-     fontFamily : 'Montserrat-Regular',
+     fontFamily : 'Montserrat-SemiBold',
     color: '#fff',
     fontWeight: 600,
     fontSize: 19,
@@ -250,7 +266,7 @@ const styles = StyleSheet.create({
    paddingHorizontal: 10,
   },
   healthTipHeading:{
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Montserrat-Medium',
     fontWeight: 600,
     fontSize: 15,
      color: 'white',
