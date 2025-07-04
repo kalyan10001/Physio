@@ -8,30 +8,13 @@ import axios from 'axios';
 
 
 const HomeScreen = ({navigation}) => {
-const { width } = Dimensions.get('window');
-  //   useEffect(() => {
-  //   const backAction = () => {
-  //     Alert.alert("Exit App", "Are you sure you want to exit?", [
-  //       {
-  //         text: "Cancel",
-  //         onPress: () => null,
-  //         style: "cancel"
-  //       },
-  //       { text: "YES", onPress: () => BackHandler.exitApp() }
-  //     ]);
-  //     return true;
-  //   };
+const { width,height } = Dimensions.get('window');
 
-  //   const backHandler = BackHandler.addEventListener(
-  //     "hardwareBackPress",
-  //     backAction
-  //   );
+const [testimonialIndex, setTestimonialIndex] = useState(0);
 
-  //   return () => backHandler.remove();
-  // }, []);
-
-
-
+const handleDotPress = (index) => {
+  setTestimonialIndex(index);
+};
 
   const flatListRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -244,23 +227,24 @@ const testimonials = [
     name: 'Sramantika Sen',
     location: 'Kolkata',
     date: '8th March, 2025',
-    text: 'It is a long established fact that a reader will be distracted by the readable content of a page...',
+    text: "I've been using this service for several months now, and I can confidently say it has transformed the way I manage my daily tasks. From the intuitive interface to the seamless user experience, everything about it speaks of quality and thoughtfulness. I particularly appreciate the way it helps me stay organized without overwhelming me with too many options. The reminders, scheduling tools, and overall layout make it very easy to use. It's rare to find something this well-designed and functional.",
   },
   {
     id: '2',
-    name: 'John Doe',
-    location: 'Mumbai',
-    date: '1st April, 2025',
-    text: 'Many desktop publishing packages and web page editors now use Lorem Ipsum...',
+    name: 'Ravi Kumar',
+    location: 'Hyderabad',
+    date: '12th April, 2025',
+    text: "As someone who juggles multiple roles in both personal and professional life, having a tool like this is nothing short of a blessing. It offers great flexibility while keeping things simple and user-friendly. I love how everything is just a tap away – from managing appointments to tracking progress and staying on top of my commitments. The performance has been rock solid with no lags or bugs. Even customer support is responsive and helpful. The recent updates have only made it better.",
   },
   {
     id: '3',
-    name: 'Jane Smith',
+    name: 'Priya Sharma',
     location: 'Delhi',
-    date: '15th May, 2025',
-    text: 'Content here, content here, making it look like readable English...',
+    date: '22nd May, 2025',
+    text: "This platform has exceeded all my expectations. Initially, I was skeptical because I’ve tried many apps in the past that promised a lot but delivered very little. However, this one stands out from the rest. The UI is clean and attractive, and every feature has been thoughtfully built. I use it every day to plan my activities, write notes, and even track personal goals. The motivational nudges and smart suggestions are subtle but effective. I’ve also recommended it to several of my colleagues",
   },
 ];
+
  const renderProduct = ({ item }) => (
     <TouchableOpacity style={styles.productCard} onPress={() => navigation.navigate('PhysioTherapist')}>
       <Image source={item.image} style={styles.productImage} />
@@ -423,11 +407,143 @@ const testimonials = [
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ padding:10,backgroundColor:'#0A7BA5'}}
         />
-        <View style={styles.footerHighlights}>
-          <Text>Verified Doctors</Text>
-          <Text>Best Treatment</Text>
-          <Text>Secure Payment</Text>
-        </View>
+
+        {/* Testimonials Section */}
+<View style={{ width: 400, height: 437, marginTop: 20, alignSelf: 'center', marginBottom: 20 }}>
+  <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#0A7BA5', marginLeft: 10, marginBottom: 10 }}>
+    Testimonials
+  </Text>
+
+  <View style={{ width: 400, height: 366, position: 'relative', alignItems: 'center', justifyContent: 'center' }}>
+    
+    {/* Left Tilted Card */}
+    <View style={{
+      width: 231.57,
+      height: 295.15,
+      marginLeft:10,
+      position: 'absolute',
+      top: 50.32,
+      left: 20,
+      backgroundColor: 'rgba(24, 150, 197, 1)',
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: '#ccc',
+      opacity: 0.6,
+      transform: [{ rotate: '-11.82deg' }],
+      padding: 12,
+    }}>
+      <Text style={{ fontSize: 12, color: '#333' }}>
+        {testimonials[testimonialIndex].text}
+      </Text>
+    </View>
+
+    {/* Right Tilted Card */}
+    <View style={{
+      width: 231.57,
+      height: 295.15,
+      position: 'absolute',
+      top: 50.32,
+      left: 120,
+      backgroundColor: 'rgba(24, 150, 197, 1)',
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: '#ccc',
+      opacity: 0.6,
+      transform: [{ rotate: '11.82deg' }],
+      padding: 12,
+      marginLeft:20
+    }}>
+      <Text style={{ fontSize: 12, color: '#333' }}>
+        {testimonials[testimonialIndex].text}
+      </Text>
+    </View>
+
+    {/* Main Center Card */}
+    <View style={{
+      width: 253,
+      height: 335,
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: '#ccc',
+      backgroundColor: '#0288D1',
+      padding: 20,
+      zIndex: 2,
+    }}>
+      <Text style={{ fontSize: 13, color: '#fff', marginBottom: 15 }}>
+        {testimonials[testimonialIndex].text}
+      </Text>
+      <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#fff' }}>
+        {testimonials[testimonialIndex].name}
+      </Text>
+      <Text style={{ fontSize: 12, color: '#e0f7fa' }}>
+        {testimonials[testimonialIndex].location} - {testimonials[testimonialIndex].date} - Verified
+      </Text>
+    </View>
+  </View>
+
+  {/* Dots */}
+  <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10, gap: 10 }}>
+    {testimonials.map((_, index) => (
+      <TouchableOpacity key={index} onPress={() => handleDotPress(index)}>
+        <View
+          style={{
+            width: 10,
+            height: 10,
+            borderRadius: 5,
+            backgroundColor: testimonialIndex === index ? '#0288D1' : '#ccc',
+          }}
+        />
+      </TouchableOpacity>
+    ))}
+  </View>
+</View>
+
+         <View
+      style={{
+        width: width,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        marginTop:-30
+      }}
+    >
+      <Image
+        source={require('../assets/images/services/Banner.png')}
+        style={{
+          width: width - 40, // 20px margin on each side
+          height: 170,
+          borderRadius:15,
+        }}
+        resizeMode="contain"
+      />
+    </View>
+
+       
+         <View
+      style={{
+        width: width,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        marginTop:-10,
+        marginBottom:90
+      }}
+    >
+      <Image
+        source={require('../assets/images/services/Footer.png')}
+        style={{
+          width: width - 40, // 20px margin on each side
+          height: 170,
+        }}
+        resizeMode="contain"
+      />
+    </View>
+
+
+
+
 
       </ScrollView>
     </SafeAreaView>
