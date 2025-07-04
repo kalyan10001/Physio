@@ -45,7 +45,7 @@ const BottomTabs = () => {
                   source={icon}
                   style={[
                     styles.icon,
-                    { tintColor: '#FFFFFF', opacity: focused ? 1 : 0.7 },
+                    { tintColor: focused ? '#4FD1C5':'#FFFFFF', opacity: focused ? 1 : 0.7 },
                   ]}
                 />
                 {/* {focused && <View style={styles.activeUnderline} />} */}
@@ -55,7 +55,7 @@ const BottomTabs = () => {
                 style={[
                   styles.tabLabel,
                   {
-                    fontWeight: focused ? '700' : '500',
+                    color: focused ? '#4FD1C5' : '#FFFFFF',
                     opacity: focused ? 1 : 0.7,
                   },
                 ]}
@@ -78,7 +78,7 @@ const BottomTabs = () => {
 const styles = StyleSheet.create({
   tabBar: {
     position: 'absolute',
-    backgroundColor: '#001B5E',
+    backgroundColor: '#095D7E',
     height: 80,
     marginHorizontal: 12,
     marginBottom: 16,
@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   tabLabel: {
-    fontSize: 11.5,
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 13,
     color: '#FFFFFF',
     marginTop: 6,
     textAlign: 'center',

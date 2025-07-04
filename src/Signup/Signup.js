@@ -27,7 +27,7 @@ export default function SignUp() {
 
         {/* Headings */}
         <Text style={styles.title}>
-          Start healing with <Text style={styles.highlight}>GetPhysio</Text>
+          Personalized <Text style={styles.highlight}>Physiotherapy Care</Text>
         </Text>
         <Text style={styles.subtitle}>
           Sign in or join now to begin your recovery.
@@ -80,16 +80,17 @@ const styles = StyleSheet.create({
     marginBottom: -20,
   },
   title: {
-    fontSize: 21,
-    fontWeight: '600',
+    fontFamily: 'Montserrat-SemiBold',
+    fontSize: 22,
     color: '#000000',
     textAlign: 'center',
   },
   highlight: {
-    color: '#007AFF',
-    fontWeight: '700',
+    fontFamily: 'Montserrat-SemiBold',
+    color: 'Primary Color',
   },
   subtitle: {
+    fontFamily: 'Montserrat-Medium',
     fontSize: 14,
     color: '#555',
     textAlign: 'center',
@@ -110,10 +111,10 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   signInText: {
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 16,
     color: '#000',
     textAlign: 'center',
-    fontWeight: '500',
   },
   signUpBtnFilled: {
     width: '100%',
@@ -123,20 +124,22 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   signUpText: {
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 16,
     color: '#fff',
     textAlign: 'center',
     fontWeight: '500',
   },
   footerText: {
-    fontSize: 12,
+    fontFamily: 'Montserrat-Regular',
+    fontSize: 10,
     color: '#888',
     textAlign: 'center',
     paddingBottom: 30,
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
   },
   link: {
-    color: '#007AFF',
+     color: '#00B894',
     textDecorationLine: 'underline',
   },
 });

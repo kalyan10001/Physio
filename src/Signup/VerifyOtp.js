@@ -90,12 +90,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 18,
     color: '#111827',
     marginBottom: 32,
   },
   bold: {
-    fontWeight: 'bold',
+    fontFamily: 'Montserrat-SemiBold',
   },
   otpContainer: {
     flexDirection: 'row',
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   otpInput: {
+    fontFamily: 'Montserrat-Medium',
     width: 56,
     height: 56,
     borderRadius: 8,
@@ -116,10 +118,10 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   resend: {
+    fontFamily: 'Montserrat-Medium',
     marginTop: 12,
     fontSize: 14,
-    color: '#0077A9',
-    textDecorationLine: 'underline',
+    color: '#00000066',
   },
   footer: {
     marginTop: 'auto',
@@ -141,8 +143,8 @@ const styles = StyleSheet.create({
     marginBottom:-25
   },
   buttonText: {
+    fontFamily: 'Montserrat-SemiBold',
     color: '#fff',
-    fontSize: 16,
-    fontWeight: '700',
+    fontSize: 15,
   },
 });

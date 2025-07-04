@@ -1,5 +1,6 @@
 import { BackHandler, Alert } from 'react-native';
-import {useState,useEffect,useRef} from 'react'
+import { useFocusEffect } from '@react-navigation/native';
+import {useState,useEffect,useRef,useCallback} from 'react'
 import {View,Text,Image,TextInput,TouchableOpacity,ScrollView , StyleSheet ,FlatList,Dimensions} from 'react-native';
 import { Platform ,PermissionsAndroid} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,27 +10,31 @@ import axios from 'axios';
 
 const HomeScreen = ({navigation}) => {
 const { width } = Dimensions.get('window');
-  //   useEffect(() => {
-  //   const backAction = () => {
-  //     Alert.alert("Exit App", "Are you sure you want to exit?", [
-  //       {
-  //         text: "Cancel",
-  //         onPress: () => null,
-  //         style: "cancel"
-  //       },
-  //       { text: "YES", onPress: () => BackHandler.exitApp() }
-  //     ]);
-  //     return true;
-  //   };
+   useFocusEffect(
+  React.useCallback(() => {
+    const onBackPress = () => {
+      if (navigation.isFocused()) {
+        Alert.alert("Exit App", "Are you sure you want to exit?", [
+          {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel"
+          },
+          { text: "YES", onPress: () => BackHandler.exitApp() }
+        ]);
+        return true;
+      }
+      return false;
+    };
 
-  //   const backHandler = BackHandler.addEventListener(
-  //     "hardwareBackPress",
-  //     backAction
-  //   );
+    const subscription = BackHandler.addEventListener(
+      "hardwareBackPress",
+      onBackPress
+    );
 
-  //   return () => backHandler.remove();
-  // }, []);
-
+    return () => subscription.remove();
+  }, [navigation])
+);
 
 
 
@@ -264,8 +269,6 @@ const testimonials = [
  const renderProduct = ({ item }) => (
     <TouchableOpacity style={styles.productCard} onPress={() => navigation.navigate('PhysioTherapist')}>
       <Image source={item.image} style={styles.productImage} />
-      <Text style={styles.productLabel}>{item.label.split(" ")[0]}</Text>
-      <Text style={styles.productSideLabel}>{item.label.split(" ")[1]}</Text>
       <View style={styles.renderproductButton}>
             <Text style={styles.renderproductView}>View Doctors</Text>
             <TouchableOpacity style={styles.sectionIcon}>
@@ -307,9 +310,9 @@ const testimonials = [
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.aboveHeader}>
-            <View style={styles.profileHeader}>
+            <TouchableOpacity style={styles.profileHeader} onPress={() => navigation.navigate('MyProfile')}>
               <Image source={require("../assets/images/homescreen/faceicon.jpg")} style={{width: 50,height: 50,borderRadius:50}} resizeMode="contain" />
-            </View>
+            </TouchableOpacity>
             <View style={styles.locationHeader}>
           <Image source={require("../assets/images/homescreen/location.png")} style={{width: 20,height: 20,tintColor:'white'}} resizeMode="contain"/>
           <Text style={styles.location}>{location.city}</Text>
@@ -498,7 +501,12 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     // alignSelf : 'flex-start',
     borderRadius: 20,
-    backgroundColor: '#0A7BA5'
+    backgroundColor: '#0A7BA5',
+     shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 5,
   },
   consultImage: {
     borderTopLeftRadius: 20,
@@ -519,7 +527,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#0A7BA5',
     margin: 16,
     borderRadius: 10,
-    overflow: 'hidden'
+    overflow: 'hidden',
+     shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 5,
   },
   bannerImage: {
     width: '100%',
@@ -541,6 +554,11 @@ const styles = StyleSheet.create({
     margin: 16,
     borderRadius: 10,
     padding: 16,
+     shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 5,
   },
   aiMat : {
     flexDirection : 'column',

@@ -141,12 +141,13 @@ const PhysiotherapistScreen = () => {
       doc.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
+  if (sortByRating) {
+    filteredDoctors.sort((a, b) => b.rating - a.rating);
+  }
+
   if (feature) {
     console.log('Filtering by feature:', feature);
     filteredDoctors = filteredDoctors.filter((doc) => doc.tags.includes(feature));
-  }
-  if (sortByRating) {
-    filteredDoctors.sort((a, b) => b.rating - a.rating);
   }
 
   return (
@@ -329,7 +330,7 @@ const styles = StyleSheet.create({
     marginRight: 2,
     height: 35,
   },
-  filterText: { marginLeft: 4, fontFamily:'Montserrat-Medium',fontSize: 11, color: '#333' },
+  filterText: { marginLeft: 4, fontFamily:'Montserrat-Medium',fontSize: 10, color: '#333' },
   card: {
     margin: 10,
     padding: 12,

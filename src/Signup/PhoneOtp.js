@@ -45,10 +45,10 @@ export default function PhoneOtp() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
           
-          <Text style={styles.title}>Welcome to</Text>
+          <Text style={styles.title}>Welcome to,</Text>
           <Text style={styles.appName}>GetPhysio</Text>
           <Text style={styles.subtitle}>
-            Smarter, safer journeys with real-time tracking — everywhere.
+            Smarter, Safer Journeys with Real-Time Train Tracking Everywhere.
           </Text>
 
           <TextInput
@@ -86,23 +86,25 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
   title: {
+    fontFamily: 'BalooBhai2-Medium',
     fontSize: 20,
     color: '#111827',
-    fontWeight: '500',
   },
   appName: {
-    fontSize: 32,
-    fontWeight: '800',
+    fontFamily: 'BalooBhai2-SemiBold',
+    fontSize: 40,
     color: '#0077A9',
     marginBottom: 12,
   },
   subtitle: {
+    fontFamily: 'BalooBhai2-Medium',
     fontSize: 14,
     color: '#6B7280',
     marginBottom: 40,
     lineHeight: 20,
   },
   input: {
+    fontFamily: 'Montserrat-Medium',
     backgroundColor: '#FFFFFF',
     borderColor: '#E5E7EB',
     borderWidth: 1,
@@ -135,9 +137,9 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   buttonText: {
+    fontFamily: 'Montserrat-SemiBold',
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '700',
     letterSpacing: 0.5,
   },
 });

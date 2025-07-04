@@ -67,7 +67,7 @@ const MyProfileScreen = ({ navigation }) => {
       </View>
 
       {/* Edit Profile Button */}
-      <TouchableOpacity style={styles.editButton}>
+      <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('EditProfile')}>
         <Text style={styles.editButtonText}>Edit Profile</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -166,6 +166,7 @@ backButton: {
     gap: 6,
   },
   infoText: {
+    fontFamily: 'Montserrat-Regular',
     fontSize: 14,
     color: '#000',
   },
