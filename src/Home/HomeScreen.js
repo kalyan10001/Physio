@@ -1,40 +1,23 @@
-import { BackHandler, Alert } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import {useState,useEffect,useRef,useCallback} from 'react'
+import {useState,useRef,useCallback} from 'react'
 import {View,Text,Image,TextInput,TouchableOpacity,ScrollView , StyleSheet ,FlatList,Dimensions} from 'react-native';
 import { Platform ,PermissionsAndroid} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Geolocation from 'react-native-geolocation-service';
-import axios from 'axios';
+import { useRoute } from '@react-navigation/native';
+import axios from 'axios'; 
 
 
 const HomeScreen = ({navigation}) => {
-const { width } = Dimensions.get('window');
-   useFocusEffect(
-  React.useCallback(() => {
-    const onBackPress = () => {
-      if (navigation.isFocused()) {
-        Alert.alert("Exit App", "Are you sure you want to exit?", [
-          {
-            text: "Cancel",
-            onPress: () => null,
-            style: "cancel"
-          },
-          { text: "YES", onPress: () => BackHandler.exitApp() }
-        ]);
-        return true;
-      }
-      return false;
-    };
+     const route = useRoute();
+    const locations = route.params?.location ?? null;
+const { width,height } = Dimensions.get('window');
 
-    const subscription = BackHandler.addEventListener(
-      "hardwareBackPress",
-      onBackPress
-    );
+const [testimonialIndex, setTestimonialIndex] = useState(0);
 
-    return () => subscription.remove();
-  }, [navigation])
-);
+const handleDotPress = (index) => {
+  setTestimonialIndex(index);
+};
 
 
 
@@ -45,16 +28,7 @@ const { width } = Dimensions.get('window');
   const [features,setFeatures] = useState([{imageUrl : "",feature : ""},{imageUrl : "",feature : ""},{imageUrl : "",feature : ""},{imageUrl : "",feature : ""},{imageUrl : "",feature : ""},]);
   const [services,setServices] = useState([{imageUrl : "",service : ""},{imageUrl : "",service : ""},{imageUrl : "",service : ""},{imageUrl : "",service : ""},]);
   const [products,setProducts] = useState([{imageUrl : "",name : "",description: "",price: ""},{imageUrl : "",name : "",description: "",price: ""},{imageUrl : "",name : "",description: "",price: ""},]);
-  const [location,setLocation] = useState(
-    {
-  city: '',
-  region: '',
-  country: '',
-  postalCode: '',
-  street: '',
-  district: '',
-}
-  );
+  const [location,setLocation] = useState('');
   
 
  const requestLocationPermission = async () => {
@@ -98,11 +72,7 @@ const { width } = Dimensions.get('window');
       );
       const { address } = response.data;
       console.log("Address",address);
-      return {
-        city : address.city,
-        region: address.state || address.city || address.town || address.village || '', // Prioritize state, fallback to city/town/village
-        country: address.country || '',
-      };
+      return address.city;
     } catch (error) {
       console.error('Nominatim error:', error.message);
       return { region: '', country: '' };
@@ -120,37 +90,10 @@ const { width } = Dimensions.get('window');
 
   }
 
- useEffect(() => {
-  console.log("Use Effect Loaded");
-//    const fetchFeatures = async () => {
-//     console.log("Fetching features");
-//     try{
-//   const res = await fetch(${process.env.EXPO_PUBLIC_BACKEND_URL}/api/home/features);
-//   const data = await res.json();
-//   console.log("Features" ,data);
-//   setFeatures(data);
-//     } 
-//     catch(error) {
-//       console.log("Error loading features",error);
-//     }
-// };
+useFocusEffect(
+  useCallback(() => {
+    console.log("HomeScreen Focused: Getting Location");
 
-// const fetchServices = async () => {
-//   const res = await fetch(${process.env.EXPO_PUBLIC_BACKEND_URL}/api/home/services);
-//   const data = await res.json();
-//   console.log("Services",data);
-//   setServices(data);
-// };
-
-// const fetchProducts = async () => {
-//   const res = await fetch(${process.env.EXPO_PUBLIC_BACKEND_URL}/api/home/products);
-//   const data = await res.json();
-//   console.log("Products",data);
-//   setProducts(data);
-// };
-  // fetchFeatures();
-  // fetchServices();
-  // fetchProducts();
     const getLocation = async () => {
       const hasPermission = await requestLocationPermission();
       if (!hasPermission) {
@@ -158,26 +101,39 @@ const { width } = Dimensions.get('window');
         setErrorMsg('Location permission denied');
         return;
       }
+
       Geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
           const address = await reverseGeocode(latitude, longitude);
+          console.log("return address",address);
           setLocation(address);
         },
         (error) => {
+          console.log("Location error:", error.message);
           setErrorMsg(`Location error: ${error.message}`);
         },
         {
-          enableHighAccuracy: true, // High accuracy for GPS
-          timeout: 15000,           // 15 seconds timeout
-          maximumAge: 10000,        // Accept cached location up to 10 seconds old
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 10000,
         }
       );
     };
-
+    if(locations === null)
+    {
+      console.log("location is empty");
     getLocation();
-
-   }, []);
+    }
+    else 
+    {
+      console.log("location exist",locations);
+      setLocation(locations);
+    }
+    // No cleanup necessary for geolocation here
+    return () => {};
+  }, [])
+);
 const productData = [
   {
     id: '1',
@@ -249,21 +205,21 @@ const testimonials = [
     name: 'Sramantika Sen',
     location: 'Kolkata',
     date: '8th March, 2025',
-    text: 'It is a long established fact that a reader will be distracted by the readable content of a page...',
+    text: "I've been using this service for several months now, and I can confidently say it has transformed the way I manage my daily tasks. From the intuitive interface to the seamless user experience, everything about it speaks of quality and thoughtfulness. I particularly appreciate the way it helps me stay organized without overwhelming me with too many options. The reminders, scheduling tools, and overall layout make it very easy to use. It's rare to find something this well-designed and functional.",
   },
   {
     id: '2',
-    name: 'John Doe',
-    location: 'Mumbai',
-    date: '1st April, 2025',
-    text: 'Many desktop publishing packages and web page editors now use Lorem Ipsum...',
+    name: 'Ravi Kumar',
+    location: 'Hyderabad',
+    date: '12th April, 2025',
+    text: "As someone who juggles multiple roles in both personal and professional life, having a tool like this is nothing short of a blessing. It offers great flexibility while keeping things simple and user-friendly. I love how everything is just a tap away – from managing appointments to tracking progress and staying on top of my commitments. The performance has been rock solid with no lags or bugs. Even customer support is responsive and helpful. The recent updates have only made it better.",
   },
   {
     id: '3',
-    name: 'Jane Smith',
+    name: 'Priya Sharma',
     location: 'Delhi',
-    date: '15th May, 2025',
-    text: 'Content here, content here, making it look like readable English...',
+    date: '22nd May, 2025',
+    text: "This platform has exceeded all my expectations. Initially, I was skeptical because I’ve tried many apps in the past that promised a lot but delivered very little. However, this one stands out from the rest. The UI is clean and attractive, and every feature has been thoughtfully built. I use it every day to plan my activities, write notes, and even track personal goals. The motivational nudges and smart suggestions are subtle but effective. I’ve also recommended it to several of my colleagues",
   },
 ];
  const renderProduct = ({ item }) => (
@@ -297,12 +253,6 @@ const testimonials = [
     </View>
   );
 
-  const renderItem = ({ item }) => (
-    <View style={styles.testimonialBox}>
-      <Text style={styles.testimonialText}>{item.text}</Text>
-      <Text style={styles.author}>{item.name}</Text>
-    </View>
-  );
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -313,10 +263,10 @@ const testimonials = [
             <TouchableOpacity style={styles.profileHeader} onPress={() => navigation.navigate('MyProfile')}>
               <Image source={require("../assets/images/homescreen/faceicon.jpg")} style={{width: 50,height: 50,borderRadius:50}} resizeMode="contain" />
             </TouchableOpacity>
-            <View style={styles.locationHeader}>
+            <TouchableOpacity style={styles.locationHeader} onPress={() => navigation.navigate("CitySelection",{location: location})}>
           <Image source={require("../assets/images/homescreen/location.png")} style={{width: 20,height: 20,tintColor:'white'}} resizeMode="contain"/>
-          <Text style={styles.location}>{location.city}</Text>
-          </View>
+          <Text style={styles.location}>{location}</Text>
+          </TouchableOpacity>
           <Image source={require("../assets/images/homescreen/notification.png")} style={{width:25,height:25}} resizeMode="contain"/>
           </View>
            <View style={styles.searchBar}>
@@ -426,11 +376,136 @@ const testimonials = [
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ padding:10,backgroundColor:'#0A7BA5'}}
         />
-        <View style={styles.footerHighlights}>
-          <Text>Verified Doctors</Text>
-          <Text>Best Treatment</Text>
-          <Text>Secure Payment</Text>
-        </View>
+        <View style={{ width: 400, height: 437, marginTop: 20,alignSelf: 'center', marginBottom: 20 ,paddingHorizontal: 10}}>
+          <View style={{flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 10,marginBottom: 10 }}>
+          <Image source={require('../assets/images/homescreen/testimonal-icon.png')} style={{ width: 30, height: 30 }} resizeMode="contain" />
+  <Text style={{ fontSize: 19, fontFamily:'Montserrat-SemiBold', color: '#0A7BA5', }}>
+    Testimonials
+  </Text>
+  </View>
+
+  <View style={{ width: 400, height: 366, paddingHorizontal: 10,position: 'relative', alignItems: 'center', justifyContent: 'center' }}>
+    
+    <View style={{
+      width: 231.57,
+      height: 295.15,
+      marginLeft:10,
+      position: 'absolute',
+      top: 50.32,
+      left: 20,
+      backgroundColor: 'rgba(24, 150, 197, 1)',
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: '#ccc',
+      opacity: 0.6,
+      transform: [{ rotate: '-11.82deg' }],
+      padding: 12,
+    }}>
+      <Text style={{ fontSize: 12, fontFamily:'Montserrat-Medium',color: '#333' }}>
+        {testimonials[testimonialIndex].text}
+      </Text>
+    </View>
+
+    <View style={{
+      width: 231.57,
+      height: 295.15,
+      position: 'absolute',
+      top: 50.32,
+      right: 50,
+      backgroundColor: 'rgba(24, 150, 197, 1)',
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: '#ccc',
+      opacity: 0.6,
+      transform: [{ rotate: '11.82deg' }],
+      padding: 12,
+    }}>
+      <Text style={{ fontSize: 12, fontFamily: 'Montserrat-Medium',color: '#333' }}>
+        {testimonials[testimonialIndex].text}
+      </Text>
+    </View>
+
+    <View style={{
+      width: 253,
+      height: 335,
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: '#ccc',
+      backgroundColor: '#0A7BA5',
+      padding: 20,
+      zIndex: 2,
+    }}>
+      <Text style={{ fontSize: 12, fontFamily: 'Montserrat-Medium',color: '#fff', marginBottom: 15 }}>
+        {testimonials[testimonialIndex].text}
+      </Text>
+      <Text style={{ fontSize: 13, fontFamily: "Montserrat-SemiBold", color: '#fff' }}>
+        {testimonials[testimonialIndex].name}
+      </Text>
+      <Text style={{ fontSize: 11, fontFamily: 'Montserrat-Medium',color: '#e0f7fa' }}>
+        {testimonials[testimonialIndex].location} - {testimonials[testimonialIndex].date} - Verified
+      </Text>
+    </View>
+  </View>
+
+  {/* Dots */}
+  <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10, gap: 10 }}>
+    {testimonials.map((_, index) => (
+      <TouchableOpacity key={index} onPress={() => handleDotPress(index)}>
+        <View
+          style={{
+            width: 10,
+            height: 10,
+            borderRadius: 5,
+            backgroundColor: testimonialIndex === index ? '#0A7BA5' : '#ccc',
+          }}
+        />
+      </TouchableOpacity>
+    ))}
+  </View>
+</View>
+
+         <View
+      style={{
+        width: width,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        marginTop:-30
+      }}
+    >
+      <Image
+        source={require('../assets/images/homescreen/Banner.png')}
+        style={{
+          width: width - 40, // 20px margin on each side
+          height: 170,
+          borderRadius:15,
+        }}
+        resizeMode="contain"
+      />
+    </View>
+
+       
+         <View
+      style={{
+        width: width,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        marginTop:-10,
+        marginBottom:90
+      }}
+    >
+      <Image
+        source={require('../assets/images/homescreen/Footer.png')}
+        style={{
+          width: width - 40, // 20px margin on each side
+          height: 170,
+        }}
+        resizeMode="contain"
+      />
+    </View>
 
       </ScrollView>
     </SafeAreaView>
@@ -469,7 +544,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#095D7E',
     gap: 5,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   location: {
     fontFamily: 'Montserrat-SemiBold',

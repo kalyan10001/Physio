@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  FlatList,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -37,13 +38,61 @@ const doctor = {
 const tabLabels = ["Clinic Visit", "Video Consult", "Home Consult"];
 
 export default function DoctorProfileScreen() {
+  const screenWidth = Dimensions.get('window').width;
   const [activeTab, setActiveTab] = useState("Clinic Visit");
   const [showFullAbout, setShowFullAbout] = useState(false);
   const navigation = useNavigation();
+const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const ITEM_WIDTH = screenWidth * 0.5; // Half visible
+
+const handleTabPress = (index) => {
+  setTestimonialIndex(index);
+};
 
   const toggleAbout = () => {
     setShowFullAbout(!showFullAbout);
   };
+
+    const testimonials = [
+  {
+    id: '1',
+    name: 'Sramantika Sen',
+    location: 'Kolkata',
+    date: '8th March, 2025',
+    title:'Heart Issue',
+    text: "I've been using this service for several months now, and I can confidently say it has transformed the way I manage my daily tasks. From the intuitive interface to the seamless user experience, everything about it speaks of quality and thoughtfulness. I particularly appreciate the way it helps me stay organized without overwhelming me with too many options. The reminders, scheduling tools, and overall layout make it very easy to use. It's rare to find something this well-designed and functional.",
+  },
+  {
+    id: '2',
+    name: 'Ravi Kumar',
+    location: 'Hyderabad',
+    date: '12th April, 2025',
+    title:'hair Transplant',
+    text: "As someone who juggles multiple roles in both personal and professional life, having a tool like this is nothing short of a blessing. It offers great flexibility while keeping things simple and user-friendly. I love how everything is just a tap away – from managing appointments to tracking progress and staying on top of my commitments. The performance has been rock solid with no lags or bugs. Even customer support is responsive and helpful. The recent updates have only made it better.",
+  },
+  {
+    id: '3',
+    name: 'Priya Sharma',
+    location: 'Delhi',
+    date: '22nd May, 2025',
+    title:'Lungs cancer',
+    text: "This platform has exceeded all my expectations. Initially, I was skeptical because I’ve tried many apps in the past that promised a lot but delivered very little. However, this one stands out from the rest. The UI is clean and attractive, and every feature has been thoughtfully built. I use it every day to plan my activities, write notes, and even track personal goals. The motivational nudges and smart suggestions are subtle but effective. I’ve also recommended it to several of my colleagues",
+  }, {
+    id: '4',
+    name: 'Priya Sharma',
+    location: 'Delhi',
+    date: '22nd May, 2025',
+    title:'Heart Attack',
+    text: "This platform has exceeded all my expectations. Initially, I was skeptical because I’ve tried many apps in the past that promised a lot but delivered very little. However, this one stands out from the rest. The UI is clean and attractive, and every feature has been thoughtfully built. I use it every day to plan my activities, write notes, and even track personal goals. The motivational nudges and smart suggestions are subtle but effective. I’ve also recommended it to several of my colleagues",
+  }, {
+    id: '5',
+    name: 'Priya Sharma',
+    location: 'Delhi',
+    date: '22nd May, 2025',
+    title:'Legs Issue',
+    text: "This platform has exceeded all my expectations. Initially, I was skeptical because I’ve tried many apps in the past that promised a lot but delivered very little. However, this one stands out from the rest. The UI is clean and attractive, and every feature has been thoughtfully built. I use it every day to plan my activities, write notes, and even track personal goals. The motivational nudges and smart suggestions are subtle but effective. I’ve also recommended it to several of my colleagues",
+  },
+];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -166,7 +215,112 @@ export default function DoctorProfileScreen() {
   </LinearGradient>
 </View>
 
+ <View style={{ width: 400, height: 437, marginTop: 30, alignSelf: 'center',marginBottom: 20 }}>
 
+      {/* Scrollable Tabs */}
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 10, marginBottom: 10 }}
+        snapToInterval={screenWidth * 0.5}
+        decelerationRate="fast"
+        data={testimonials}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity onPress={() => handleTabPress(index)} style={{ marginRight: 15 }}>
+            <View
+              style={{
+                paddingVertical: 8,
+                paddingHorizontal: 12,
+                borderRadius: 10,
+                borderWidth: 0.5,
+                backgroundColor: testimonialIndex === index ? '#0A7BA5' : '#fff',
+                borderColor: testimonialIndex === index ? '#0A7BA5' : '#BEBEBE80',
+                height:35,
+                width:100,
+                alignItems:'center'
+              }}
+            >
+              <Text
+                style={{
+                  color: testimonialIndex === index ? '#fff' : '#000000',
+                  textAlign: 'center',
+                  fontFamily: 'Montserrat-Medium',
+                  fontSize: 13,
+                }}
+              >
+                {item.title}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
+
+      <View style={{ width: 400, height: 366, position: 'relative', alignItems: 'center', justifyContent: 'center',marginTop:0 }}>
+        {/* Left Tilted Card */}
+        <View style={{
+          width: 231.57,
+          height: 295.15,
+          marginLeft: 10,
+          position: 'absolute',
+          top: 50.32,
+          left: 30,
+          backgroundColor: '#1896C5',
+          borderRadius: 10,
+          borderWidth: 1,
+          borderColor: '#ccc',
+          opacity: 0.6,
+          transform: [{ rotate: '-11.82deg' }],
+          padding: 12,
+        }}>
+          <Text style={{ fontSize: 11, fontFamily: 'Montserrat-Medium',color: '#fff' }}>
+            {testimonials[testimonialIndex].text}
+          </Text>
+        </View>
+
+        {/* Right Tilted Card */}
+        <View style={{
+          width: 231.57,
+          height: 295.15,
+          position: 'absolute',
+          top: 50.32,
+          right: 40,
+          backgroundColor: '#1896C5',
+          borderRadius: 10,
+          borderWidth: 1,
+          borderColor: '#ccc',
+          opacity: 0.6,
+          transform: [{ rotate: '11.82deg' }],
+          padding: 12,
+        }}>
+          <Text style={{ fontSize: 11, fontFamily: 'Montserrat-Medium',color: '#fff' }}>
+            {testimonials[testimonialIndex].text}
+          </Text>
+        </View>
+
+        {/* Main Center Card */}
+        <View style={{
+          width: 253,
+          height: 335,
+          borderRadius: 10,
+          borderWidth: 1,
+          borderColor: '#ccc',
+          backgroundColor: '#0A7BA5',
+          padding: 20,
+          zIndex: 2,
+        }}>
+          <Text style={{ fontSize: 12, fontFamily: 'Montserrat-Medium',color: '#fff', marginBottom: 15 }}>
+            {testimonials[testimonialIndex].text}
+          </Text>
+          <Text style={{ fontSize: 11, fontFamily: 'Montserrat-SemiBold', color: '#fff' }}>
+            {testimonials[testimonialIndex].name}
+          </Text>
+          <Text style={{ fontSize: 11, fontFamily: 'Montserrat-Medium',color: '#e0f7fa' }}>
+            {testimonials[testimonialIndex].location} - {testimonials[testimonialIndex].date} - Verified
+          </Text>
+        </View>
+      </View>
+      </View>
         <View style={styles.aboutContainerWrapper}>
           <LinearGradient
             colors={["#4CAADB", "#0A7BA5"]}

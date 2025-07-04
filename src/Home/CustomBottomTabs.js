@@ -9,9 +9,9 @@ import {
   Dimensions,
   Pressable,
 } from 'react-native';
-import Services from '../Services/Services';
+import Services from '../Physio/Physio';
 import HomeScreen from "./HomeScreen";
-import MyHealthScreen from '../PhysioTheraphists/MyHealthScreen';
+import MyHealthScreen from '../MyHealth/MyHealthScreen';
 
 const Tab = createBottomTabNavigator();
 const screenWidth = Dimensions.get('window').width;

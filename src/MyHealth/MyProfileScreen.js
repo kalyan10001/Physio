@@ -4,10 +4,9 @@ import {
   Text,
   Image,
   StyleSheet,
-  SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const MyProfileScreen = ({ navigation }) => {
   return (
@@ -57,11 +56,11 @@ const MyProfileScreen = ({ navigation }) => {
       {/* DOB and Gender */}
       <View style={styles.infoRow}>
         <View style={styles.infoItem}>
-          <Icon name="calendar" size={18} color="#000" />
+          <Image source={require("../assets/images/myhealthscreen/date-picker.png")} style={{ height: 20, width: 20, tintColor: 'black' }} />
           <Text style={styles.infoText}>10-10-2005</Text>
         </View>
-        <View style={styles.infoItem}>
-          <Icon name="gender-male" size={18} color="#000" />
+        <View style={styles.infoItem}> 
+          <Image source={require("../assets/images/homescreen/User_light.png")} style={{ height: 20, width: 20, tintColor: 'black' }} />
           <Text style={styles.infoText}>Male</Text>
         </View>
       </View>

@@ -6,11 +6,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Intro from './Intro/Intro.js';
 import HomeScreen from './Home/HomeScreen.js';
-import MyHealthScreen from './PhysioTheraphists/MyHealthScreen.js';
-import HealthScoreScreen from './PhysioTheraphists/HealthScoreScreen.js';
-import EditProfileScreen from './PhysioTheraphists/EditProfileScreen.js';
-import MyBookingsScreen from './PhysioTheraphists/MyBookingsScreen.js';
-import MyReportsScreen from './PhysioTheraphists/MyReportsScreen.js';
+import MyHealthScreen from './MyHealth/MyHealthScreen.js';
+import HealthScoreScreen from './MyHealth/HealthScoreScreen.js';
+import EditProfileScreen from './MyHealth/EditProfileScreen.js';
+import MyBookingsScreen from './MyHealth/MyBookingsScreen.js';
+import MyReportsScreen from './MyHealth/MyReportsScreen.js';
 import BottomTabs from './Home/CustomBottomTabs.js';
 import BookingFailScreen from './Booking/BookingFailScreen.js';
 import Auth from './Intro/Auth.js';
@@ -18,14 +18,18 @@ import SignUp from './Signup/Signup.js';
 import PhoneOtp from './Signup/PhoneOtp.js';
 import EmailOtp from './Signup/EmailOtp.js';
 import VerifyOtp from './Signup/VerifyOtp.js';
-import Services from './Services/Services.js';
-import PhysiotherapistScreen from './PhysioTheraphists/PhysioTherapistScreen.js';
-import DocterProfile from './PhysioTheraphists/DocterProfile.js';
-import ConsultationScreen from './PhysioTheraphists/ConsultationScreen.js';
-import BookingConfirmation from './PhysioTheraphists/BookingConfirmation.js';
-import TimeSlots from './PhysioTheraphists/TimeSlots.js';
-import DoctorProfileScreen from './PhysioTheraphists/DocterProfileScreen.js';
-import MyProfileScreen from './PhysioTheraphists/MyProfileScreen.js';
+import Services from './Physio/Physio.js';
+import PhysiotherapistScreen from './Physio/PhysioTherapistScreen.js';
+import DocterProfile from './Physio/DocterProfile.js';
+import ConsultationScreen from './Physio/ConsultationScreen.js';
+import BookingConfirmation from './Physio/BookingConfirmation.js';
+import TimeSlots from './Physio/TimeSlots.js';
+import DoctorProfileScreen from './Physio/DocterProfileScreen.js';
+import MyProfileScreen from './MyHealth/MyProfileScreen.js';
+import FAQScreen from './MyHealth/FAQScreen.js';
+import PolicyScreen from './MyHealth/PolicyScreen.js';
+import CallBackScreen from './MyHealth/CallBackScreen.js';
+import CitySelectionScreen from './Home/CitySelectionScreen.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,6 +59,10 @@ export default function App() {
         <Stack.Screen name="MyReport" component={MyReportsScreen} options={{ headerShown: false }} />
         <Stack.Screen name="TimeSlots" component={TimeSlots} options={{ headerShown: false }} />
         <Stack.Screen name="MyProfile" component={MyProfileScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="FAQ" component={FAQScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Policy" component={PolicyScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="CallBack" component={CallBackScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="CitySelection" component={CitySelectionScreen} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

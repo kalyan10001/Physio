@@ -49,7 +49,7 @@ const MyReportsScreen = ({ navigation }) => {
       <View style={styles.reportInfo}>
         {showIcon && (
           <Image
-            source={require('../assets/images/myhealthscreen/report.png')}
+            source={require('../assets/images/myhealthscreen/doc.png')}
             style={styles.reportIcon}
           />
         )}

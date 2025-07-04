@@ -82,7 +82,7 @@ const BookingConfirmation = () => {
         <View style={styles.noteBox}>
           <View style={styles.iconWrapper}>
             <View style={styles.iconCircle}>
-              <Ionicons name="mail" size={22} color="#fff" />
+              <Image source={require("../assets/images/physioscreen/Message_light.png")} style={{height:25,width:25}} />
             </View>
           </View>
           <View style={styles.noteContent}>
