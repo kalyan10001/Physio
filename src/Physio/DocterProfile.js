@@ -258,7 +258,7 @@ const handleTabPress = (index) => {
         )}
       />
 
-      <View style={{ width: 400, height: 366, position: 'relative', alignItems: 'center', justifyContent: 'center',marginTop:0 }}>
+      <View style={{ width: 400, height: 366, position: 'relative', alignItems: 'center', justifyContent: 'center',marginLeft:10,marginRight:10 }}>
         {/* Left Tilted Card */}
         <View style={{
           width: 231.57,

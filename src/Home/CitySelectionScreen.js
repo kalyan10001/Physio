@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   Image,
   TextInput,
   FlatList,
@@ -11,6 +10,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 const cities = [
   { name: 'Kolkata', image: require('../assets/images/homescreen/kolkata.png') },
   { name: 'Bangalore', image: require('../assets/images/homescreen/bangalore.png') },

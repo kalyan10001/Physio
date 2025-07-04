@@ -377,9 +377,9 @@ const testimonials = [
           contentContainerStyle={{ padding:10,backgroundColor:'#0A7BA5'}}
         />
         <View style={{ width: 400, height: 437, marginTop: 20,alignSelf: 'center', marginBottom: 20 ,paddingHorizontal: 10}}>
-          <View style={{flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 10,marginBottom: 10 }}>
+          <View style={{flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 10,marginBottom: 10 ,marginLeft:10}}>
           <Image source={require('../assets/images/homescreen/testimonal-icon.png')} style={{ width: 30, height: 30 }} resizeMode="contain" />
-  <Text style={{ fontSize: 19, fontFamily:'Montserrat-SemiBold', color: '#0A7BA5', }}>
+  <Text style={{ fontSize: 19, fontFamily:'Montserrat-SemiBold', color: '#0A7BA5',marginLeft:0 }}>
     Testimonials
   </Text>
   </View>
