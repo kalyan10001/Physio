@@ -50,8 +50,7 @@ export default function PhoneOtp() {
           <Text style={styles.subtitle}>
             Smarter, Safer Journeys with Real-Time Train Tracking Everywhere.
           </Text>
-
-          <TextInput
+                  <TextInput
             ref={inputRef}
             style={styles.input}
             placeholder="Enter your phone number"
