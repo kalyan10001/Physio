@@ -36,14 +36,17 @@ const doctor = {
 };
 
 const tabLabels = ["Clinic Visit", "Video Consult", "Home Consult"];
+const screenWidth = Dimensions.get('window').width;
 
 export default function DoctorProfileScreen() {
   const screenWidth = Dimensions.get('window').width;
   const [activeTab, setActiveTab] = useState("Clinic Visit");
   const [showFullAbout, setShowFullAbout] = useState(false);
   const navigation = useNavigation();
-const [testimonialIndex, setTestimonialIndex] = useState(0);
+
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
   const ITEM_WIDTH = screenWidth * 0.5; // Half visible
+  const SPACER_WIDTH = (screenWidth - ITEM_WIDTH) / 2;
 
 const handleTabPress = (index) => {
   setTestimonialIndex(index);
@@ -93,7 +96,6 @@ const handleTabPress = (index) => {
     text: "This platform has exceeded all my expectations. Initially, I was skeptical because I’ve tried many apps in the past that promised a lot but delivered very little. However, this one stands out from the rest. The UI is clean and attractive, and every feature has been thoughtfully built. I use it every day to plan my activities, write notes, and even track personal goals. The motivational nudges and smart suggestions are subtle but effective. I’ve also recommended it to several of my colleagues",
   },
 ];
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>

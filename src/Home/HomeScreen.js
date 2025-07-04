@@ -13,13 +13,12 @@ const HomeScreen = ({navigation}) => {
     const locations = route.params?.location ?? null;
 const { width,height } = Dimensions.get('window');
 
+
 const [testimonialIndex, setTestimonialIndex] = useState(0);
 
 const handleDotPress = (index) => {
   setTestimonialIndex(index);
 };
-
-
 
   const flatListRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -222,6 +221,7 @@ const testimonials = [
     text: "This platform has exceeded all my expectations. Initially, I was skeptical because I’ve tried many apps in the past that promised a lot but delivered very little. However, this one stands out from the rest. The UI is clean and attractive, and every feature has been thoughtfully built. I use it every day to plan my activities, write notes, and even track personal goals. The motivational nudges and smart suggestions are subtle but effective. I’ve also recommended it to several of my colleagues",
   },
 ];
+
  const renderProduct = ({ item }) => (
     <TouchableOpacity style={styles.productCard} onPress={() => navigation.navigate('PhysioTherapist')}>
       <Image source={item.image} style={styles.productImage} />

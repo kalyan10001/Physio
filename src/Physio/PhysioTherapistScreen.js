@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StatusBar,
   Modal,
+  ScrollView,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -80,7 +81,7 @@ const DoctorCard = ({ doctor, onPress }) => {
       <View style={styles.cardHeader}>
         <Image source={doctor.image} style={styles.profileImage} />
         <View style={{ flex: 1 }}>
-          <Text style={styles.name}>
+          <Text style={styles.name} numberOfLines={1} ellipsizeMode="tail">
             {doctor.name} <Text style={styles.pt}>(PT)</Text>
           </Text>
           <Text style={styles.specialty}>Neuro Physiotherapist</Text>
@@ -92,6 +93,7 @@ const DoctorCard = ({ doctor, onPress }) => {
         </View>
       </View>
 
+      {/* FIXED TAGS ROW TO BE IN 1 LINE */}
       <View style={styles.tagRow}>
         {doctor.tags.map((tag, index) => {
           let icon = 'location-on';
@@ -153,7 +155,6 @@ const PhysiotherapistScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#fff" barStyle="dark-content" />
-
       <View style={styles.headerImageContainer}>
         <Image source={require('../assets/images/services/team.jpg')} style={styles.headerImage} />
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
@@ -171,7 +172,7 @@ const PhysiotherapistScreen = () => {
         </View>
       </View>
 
-      <View style={styles.filters}>
+      <View style={styles.filtersContainer}>
         <TouchableOpacity style={styles.filterBtn} onPress={() => setSortByRating(!sortByRating)}>
           <MaterialIcons name="sort" size={16} color="#000" />
           <Text style={styles.filterText}>Sort by</Text>
@@ -269,7 +270,6 @@ const PhysiotherapistScreen = () => {
 
 export default PhysiotherapistScreen;
 
-
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff' },
   headerImageContainer: {
@@ -308,13 +308,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 5,
   },
-  searchInput: { flex: 1, fontFamily:'Montserrat-Medium',fontSize: 15, color: '#000' },
-  filters: {
-    width: '100%',
+  searchInput: { flex: 1, fontSize: 15, color: '#000' },
+  filtersContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    gap: 8,
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
     paddingHorizontal: 10,
     paddingTop: 12,
     paddingBottom: 8,
@@ -322,12 +320,14 @@ const styles = StyleSheet.create({
   filterBtn: {
     flexDirection: 'row',
     backgroundColor: 'white',
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
     borderRadius: 8,
     borderWidth: 0.3,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 2,
+    marginHorizontal: 4,
+    marginBottom: 6,
     height: 35,
   },
   filterText: { marginLeft: 4, fontFamily:'Montserrat-Medium',fontSize: 10, color: '#333' },
@@ -354,7 +354,12 @@ const styles = StyleSheet.create({
   },
   ratingStar: { color: '#fff', fontSize: 13, marginRight: 2 },
   ratingValue: { color: '#fff', fontSize: 13, fontWeight: 'bold' },
-  tagRow: { flexDirection: 'row', justifyContent: 'flex-start', marginTop: 12 },
+  tagRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    flexWrap: 'nowrap',
+    marginTop: 12,
+  },
   tagBox: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -364,7 +369,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     paddingVertical: 6,
     marginRight: 6,
-    marginBottom: 6,
+    flex: 1,
+    maxWidth: '31%',
   },
   tagTextTop: { fontSize: 11, fontFamily: 'Montserrat-Medium', color: '#000', lineHeight: 16 },
   tagTextBottom: { fontSize: 11, fontFamily: 'Montserrat-Medium',color: '#444', lineHeight: 14 },
@@ -385,5 +391,6 @@ const styles = StyleSheet.create({
   modalOptionText: {
     fontSize: 16,
     color: '#007B83',
+    flexShrink: 1,
   },
 });
