@@ -1,5 +1,5 @@
 import 'react-native-reanimated';
-
+import store from './webservice/redux/store';
 
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -35,6 +35,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+     <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Intro">
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
@@ -65,5 +66,6 @@ export default function App() {
         <Stack.Screen name="CitySelection" component={CitySelectionScreen} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }

@@ -12,10 +12,12 @@ import {
   Keyboard,
   Alert,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useDispatch , useSelector } from 'react-redux';
+import { sendOtpThunk } from '../webservice/redux/auth/authThunks';
 
 export default function PhoneOtp() {
-  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const inputRef = useRef(null);
   const [phone, setPhone] = useState('');
 
@@ -26,13 +28,19 @@ export default function PhoneOtp() {
     return () => clearTimeout(timer);
   }, []);
 
+
+
   const handlePress = () => {
     const phoneRegex = /^\d{10}$/;
     if (!phoneRegex.test(phone)) {
       Alert.alert('Invalid Phone Number', 'Please enter a valid 10-digit number.');
       return;
     }
-    navigation.navigate('VerifyOtp', { phone });
+    dispatch(sendOtpThunk(phone));
+    if(auth.otpSent) {
+      Alert.alert('OTP Sent', 'An OTP has been sent to your phone number.');
+      navigation.navigate('VerifyOtp', { phone });
+    }
   };
 
   return (
@@ -59,7 +67,7 @@ export default function PhoneOtp() {
             keyboardType="phone-pad"
             maxLength={10}
             value={phone}
-            onChangeText={setPhone}
+            onChangeText={(text) => setPhone(text.replace(/[^0-9]/g, ''))}
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType="done"

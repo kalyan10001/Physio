@@ -7,10 +7,9 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   ScrollView
 } from 'react-native';
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 const policies = [
   'Terms & Condition',
   'Privacy Policy',

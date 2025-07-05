@@ -11,8 +11,15 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
+import { useDispatch ,useSelector} from 'react-redux';
+import { verifyOtpThunk } from '../webservice/redux/auth/authThunks';
 
-export default function VerifyOtp() {
+
+export default function VerifyOtp({ route}) {
+
+  const dispatch = useDispatch();
+  const { phone } = route.params; // Get phone number from route params
+  const auth = useSelector((state) => state.auth);
   const navigation=useNavigation();
   const inputRefs = useRef([]);
   const [otp, setOtp] = useState(['', '', '', '']);
@@ -41,7 +48,10 @@ export default function VerifyOtp() {
     const fullOtp = otp.join('');
     if (fullOtp.length !== 4) return alert('Please enter the full OTP');
     console.log('OTP Submitted:', fullOtp);
+    dispatch(verifyOtpThunk({ phone: phone, otp: '1234' }));
+    if(auth.isAuthenticated){
     navigation.navigate('BottomTabs');
+    }
   };
 
   return (
