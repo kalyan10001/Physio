@@ -1,0 +1,39 @@
+
+[
+  {
+    "_id": "68383232d52f4b9a5e14e9d1",
+    "imageUrl": "https://i.ibb.co/RTD7PSyT/cerebral.png",
+    "speciality": "Cerebral Palsy"
+  },
+  {
+    "_id": "68383232d52f4b9a5e14e9d6",
+    "imageUrl": "https://i.ibb.co/spYVKW28/brainstorming.png",
+    "speciality": "Stroke Rehab"
+  },
+  {
+    "_id": "68383232d52f4b9a5e14e9d7",
+    "imageUrl": "https://media.istockphoto.com/id/1251257241/vector/cardiologist-and-patient-during-stress-test-in-hospital.jpg?s=612x612&w=0&k=20&c=3IjwGa52CWqEYvm7232jnJTEwSWoo4ZmDg6IbWKNDuw=",
+    "speciality": "Cardiac Rehab",
+    "note": "imageUrl is truncated in the provided data"
+  },
+  {
+    "_id": "68383232d52f4b9a5e14e9d3",
+    "imageUrl": "https://i.ibb.co/hFb9dP3v/neck.png",
+    "speciality": "Neck Pain"
+  },
+  {
+    "_id": "68383232d52f4b9a5e14e9d4",
+    "imageUrl": "https://i.ibb.co/Fkt7LGjH/autism.png",
+    "speciality": "Autism"
+  },
+  {
+    "_id": "68383232d52f4b9a5e14e9d2",
+    "imageUrl": "https://i.ibb.co/GvwLw3C0/backpain.png",
+    "speciality": "Low Back Pain"
+  },
+  {
+    "_id": "68383232d52f4b9a5e14e9d5",
+    "imageUrl": "https://i.ibb.co/QFYQTtt4/painful.png",
+    "speciality": "ACL Rehab"
+  }
+]

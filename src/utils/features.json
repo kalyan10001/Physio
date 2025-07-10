@@ -1,0 +1,21 @@
+
+[
+  {
+    "_id": "1",
+    "imageUrl": "https://i.ibb.co/tMqS8RNq/feature1.jpg",
+    "feature": "Home",
+    "__v": 0
+  },
+  {
+    "_id": "2",
+    "imageUrl": "https://i.ibb.co/rKh9SMK1/feature2.jpg",
+    "feature": "In-Clinic",
+    "__v": 0
+  },
+  {
+    "_id": "3",
+    "imageUrl": "https://i.ibb.co/BVmHZ0c7/feature3.jpg",
+    "feature": "Online",
+    "__v": 0
+  }
+]

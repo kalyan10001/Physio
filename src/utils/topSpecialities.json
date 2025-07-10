@@ -1,0 +1,45 @@
+[
+  {
+    "_id": "68383232d52f4b9a5e14e9cd",
+    "imageUrl": "https://i.ibb.co/hJNsyTtB/healthcare.png",
+    "speciality": "Pediatric Therapist",
+    "__v": 0
+  },
+  {
+    "_id": "68383232d52f4b9a5e14e9c9",
+    "imageUrl": "https://i.ibb.co/vxH1LzpK/neuro.png",
+    "speciality": "Neuro Therapist",
+    "__v": 0
+  },
+  {
+    "_id": "68383232d52f4b9a5e14e9ce",
+    "imageUrl": "https://i.ibb.co/kg69tvqv/athlete.png",
+    "speciality": "Sports Therapist",
+    "__v": 0
+  },
+  {
+    "_id": "68383232d52f4b9a5e14e9ca",
+    "imageUrl": "https://i.ibb.co/jk14ZptX/arthritis.png",
+    "speciality": "Ortho Therapist",
+    "__v": 0
+  },
+  {
+    "_id": "68383232d52f4b9a5e14e9cf",
+    "imageUrl": "https://thumbs.dreamstime.com/z/young-family-teenage-boy-office-family-therapist-psychologist-vector-flat-cartoon-illustration-psychotherapy-165822058.jpg",
+    "speciality": "Family Therapist",
+    "__v": 0,
+    "note": "imageUrl is truncated in the provided data"
+  },
+  {
+    "_id": "68383232d52f4b9a5e14e9cc",
+    "imageUrl": "https://i.ibb.co/mCwwX5Qf/hydrotherapy1.png",
+    "speciality": "Aquatic Therapist",
+    "__v": 0
+  },
+  {
+    "_id": "68383232d52f4b9a5e14e9cb",
+    "imageUrl": "https://i.ibb.co/5xzWkVLy/elder.png",
+    "speciality": "Geriatric Therapist",
+    "__v": 0
+  }
+]
